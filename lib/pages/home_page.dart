@@ -29,13 +29,12 @@ class HomePage extends StatelessWidget {
     }
 
     Widget globalDataCard({GlobalData globalData}) => Material(
-      child: ListTile(
-        title: Center(child: Text("Global Outbreak")),
-        subtitle: Center(
-          child: Text(
-              """Cases: ${globalData.cases}\nDeaths: ${globalData
-                  .deaths}\nRecovered: ${globalData.recovered}"""),
-        ),
+          child: ListTile(
+            title: Center(child: Text("Global Outbreak")),
+            subtitle: Center(
+              child: Text(
+                  """Cases: ${globalData.cases}\nDeaths: ${globalData.deaths}\nRecovered: ${globalData.recovered}"""),
+            ),
           ),
         );
 

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/model/global_data.dart';
+import 'package:coronatracker/pages/country_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -40,7 +41,11 @@ class HomePage extends StatelessWidget {
       child: MaterialButton(
         elevation: 10.0,
         onPressed: () {
-          // Todo: Navigate to new page
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CountryPage(),
+              ));
         },
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.green,

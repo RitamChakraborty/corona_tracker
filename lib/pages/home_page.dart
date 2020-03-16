@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       child: Image(
         fit: BoxFit.fill,
         image:
-        NetworkImage("https://www.pngarts.com/files/3/Virus-PNG-Image.png"),
+            NetworkImage("https://www.pngarts.com/files/3/Virus-PNG-Image.png"),
       ),
     );
 
@@ -27,14 +27,12 @@ class HomePage extends StatelessWidget {
           recovered: data['recovered']);
     }
 
-    Widget globalDataCard({GlobalData globalData}) =>
-        Material(
+    Widget globalDataCard({GlobalData globalData}) => Material(
           elevation: 10.0,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Text(
-                """Cases: ${globalData.cases}\nDeaths: ${globalData
-                    .deaths}\nRecovered: ${globalData.recovered}"""),
+                """Cases: ${globalData.cases}\nDeaths: ${globalData.deaths}\nRecovered: ${globalData.recovered}"""),
           ),
         );
 
@@ -67,8 +65,7 @@ class HomePage extends StatelessWidget {
                 coronaImage,
                 FutureBuilder<GlobalData>(
                   future: getGlobalData(),
-                  builder: (context, snapshot) =>
-                  snapshot.hasData
+                  builder: (context, snapshot) => snapshot.hasData
                       ? globalDataCard(globalData: snapshot.data)
                       : CircularProgressIndicator(),
                 ),

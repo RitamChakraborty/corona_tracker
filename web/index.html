@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="Track the outbreak of the corona virus." name="description">
+
+    <!-- iOS meta tags & icons -->
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-status-bar-style">
+    <meta content="coronatracker" name="apple-mobile-web-app-title">
+    <link href="/icons/Icon-192.png" rel="apple-touch-icon">
+
+    <title>coronatracker</title>
+    <link href="/manifest.json" rel="manifest">
+</head>
+<body>
+<!-- This script installs service_worker.js to provide PWA functionality to
+     application. For more information, see:
+     https://developers.google.com/web/fundamentals/primers/service-workers -->
+<script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/flutter_service_worker.js');
+      });
+    }
+
+</script>
+<script src="main.dart.js" type="application/javascript"></script>
+</body>
+</html>

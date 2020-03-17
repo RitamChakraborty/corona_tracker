@@ -124,31 +124,30 @@ Recovered: ${data.recovered}"""),
                 padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: FutureBuilder<List<CountryData>>(
                   future: getCountryData(),
-                  builder: (context, snapshot) =>
-                  snapshot.hasData
+                  builder: (context, snapshot) => snapshot.hasData
                       ? ListView.separated(
-                    itemBuilder: (context, index) {
-                      return filter == ""
-                          ? countryCard(data: snapshot.data[index])
-                          : snapshot.data[index]
-                          .toString()
-                          .toLowerCase()
-                          .contains(filter)
-                          ? countryCard(data: snapshot.data[index])
-                          : Container();
-                    },
-                    separatorBuilder: (context, index) {
-                      return filter == ""
-                          ? Divider()
-                          : snapshot.data[index]
-                          .toString()
-                          .toLowerCase()
-                          .contains(filter)
-                          ? Divider()
-                          : Container();
-                    },
-                    itemCount: snapshot.data.length,
-                  )
+                          itemBuilder: (context, index) {
+                            return filter == ""
+                                ? countryCard(data: snapshot.data[index])
+                                : snapshot.data[index]
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(filter)
+                                    ? countryCard(data: snapshot.data[index])
+                                    : Container();
+                          },
+                          separatorBuilder: (context, index) {
+                            return filter == ""
+                                ? Divider()
+                                : snapshot.data[index]
+                                        .toString()
+                                        .toLowerCase()
+                                        .contains(filter)
+                                    ? Divider()
+                                    : Container();
+                          },
+                          itemCount: snapshot.data.length,
+                        )
                       : CircularProgressIndicator(),
                 ),
               ),

@@ -31,56 +31,79 @@ class HomePage extends StatelessWidget {
     Widget globalDataCard({GlobalData globalData}) => Container(
           color: Colors.transparent,
           padding: EdgeInsets.all(32),
-          child: ListTile(
-            title: Center(child: Text("Global Outbreak")),
-            subtitle: Center(
-              child: Text(
-                  """Cases: ${globalData.cases}\nDeaths: ${globalData.deaths}\nRecovered: ${globalData.recovered}"""),
+          child: Card(
+            color: Colors.grey[50],
+            elevation: 10,
+            child: ListTile(
+              title: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Global Outbreak"),
+              ),
+              trailing: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text("Cases"),
+                    Text("${globalData.cases}")
+                  ],
+                ),
+              ),
+              subtitle: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    """Deaths: ${globalData.deaths}\nRecovered: ${globalData.recovered}"""),
+              ),
             ),
           ),
         );
 
     var button = Container(
-      child: MaterialButton(
-        elevation: 10.0,
-        onPressed: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => CountryPage(),
-              ));
-        },
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        color: Colors.green,
-        child: Text(
-          "Explore Contry Status",
-          style: TextStyle(
-            color: Colors.white,
+        margin: EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
+        child: MaterialButton(
+          elevation: 10.0,
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CountryPage(),
+                ));
+          },
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          color: Colors.green,
+          child: Text(
+            "Explore Contry Status",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
-        ),
-      ),
-    );
+        ));
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Container(
-          alignment: Alignment.center,
-          child: SingleChildScrollView(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  coronaImage,
-                  FutureBuilder<GlobalData>(
-                    future: getGlobalData(),
-                    builder: (context, snapshot) => snapshot.hasData
-                        ? globalDataCard(globalData: snapshot.data)
-                        : CircularProgressIndicator(),
+    return Material(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: SafeArea(
+          child: Container(
+            alignment: Alignment.center,
+            child: Expanded(
+              child: SingleChildScrollView(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      coronaImage,
+                      FutureBuilder<GlobalData>(
+                        future: getGlobalData(),
+                        builder: (context, snapshot) => snapshot.hasData
+                            ? globalDataCard(globalData: snapshot.data)
+                            : CircularProgressIndicator(),
+                      ),
+                      button,
+                    ],
                   ),
-                  button,
-                ],
+                ),
               ),
             ),
           ),

@@ -7,6 +7,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Corona Tracker",
       theme: ThemeData(primaryColor: Colors.white, buttonColor: Colors.green),
       darkTheme: ThemeData.dark(),

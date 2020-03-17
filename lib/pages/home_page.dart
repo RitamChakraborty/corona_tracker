@@ -29,23 +29,22 @@ class HomePage extends StatelessWidget {
     Widget globalDataCard({GlobalData globalData}) => Container(
           color: Colors.transparent,
           padding: EdgeInsets.all(32),
-      child: ListTile(
-        title: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text("Global Outbreak"),
-        ),
-        trailing: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[Text("Cases"), Text("${globalData.cases}")],
-          ),
-        ),
-        subtitle: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-              """Deaths: ${globalData.deaths}\nRecovered: ${globalData
-                  .recovered}"""),
+          child: ListTile(
+            title: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("Global Outbreak"),
+            ),
+            trailing: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[Text("Cases"), Text("${globalData.cases}")],
+              ),
+            ),
+            subtitle: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  """Deaths: ${globalData.deaths}\nRecovered: ${globalData.recovered}"""),
             ),
           ),
         );
@@ -74,9 +73,7 @@ class HomePage extends StatelessWidget {
 
     return Material(
       child: Scaffold(
-        backgroundColor: Theme
-            .of(context)
-            .brightness == Brightness.light
+        backgroundColor: Theme.of(context).brightness == Brightness.light
             ? Colors.white
             : Colors.grey[900],
         body: SafeArea(

@@ -72,8 +72,7 @@ class HomePage extends StatelessWidget {
                   coronaImage,
                   FutureBuilder<GlobalData>(
                     future: getGlobalData(),
-                    builder: (context, snapshot) =>
-                    snapshot.hasData
+                    builder: (context, snapshot) => snapshot.hasData
                         ? globalDataCard(globalData: snapshot.data)
                         : CircularProgressIndicator(),
                   ),

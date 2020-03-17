@@ -62,12 +62,12 @@ Recovered: ${data.recovered}"""),
         },
         onChanged: (string) {
           setState(() {
-            filter = string;
+            filter = string.toLowerCase();
           });
         },
         onSubmitted: (string) {
           setState(() {
-            filter = string;
+            filter = string.toLowerCase();
           });
         },
         decoration: InputDecoration(

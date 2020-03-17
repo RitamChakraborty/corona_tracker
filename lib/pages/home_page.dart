@@ -12,10 +12,8 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var coronaImage = Container(
       margin: EdgeInsets.all(32),
-      child: Image(
-        fit: BoxFit.fill,
-        image: NetworkImage(
-            "https://cdn.dribbble.com/users/175166/screenshots/10733893/media/471b96a919c904f59e16e3c21b1acfe5.jpg"),
+      child: Image.asset(
+        "assets/pictures/image.png",
       ),
     );
 
@@ -31,29 +29,23 @@ class HomePage extends StatelessWidget {
     Widget globalDataCard({GlobalData globalData}) => Container(
           color: Colors.transparent,
           padding: EdgeInsets.all(32),
-          child: Card(
-            color: Colors.grey[50],
-            elevation: 10,
-            child: ListTile(
-              title: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("Global Outbreak"),
-              ),
-              trailing: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Cases"),
-                    Text("${globalData.cases}")
-                  ],
-                ),
-              ),
-              subtitle: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                    """Deaths: ${globalData.deaths}\nRecovered: ${globalData.recovered}"""),
-              ),
+      child: ListTile(
+        title: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text("Global Outbreak"),
+        ),
+        trailing: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[Text("Cases"), Text("${globalData.cases}")],
+          ),
+        ),
+        subtitle: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+              """Deaths: ${globalData.deaths}\nRecovered: ${globalData
+                  .recovered}"""),
             ),
           ),
         );
@@ -82,7 +74,11 @@ class HomePage extends StatelessWidget {
 
     return Material(
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme
+            .of(context)
+            .brightness == Brightness.light
+            ? Colors.white
+            : Colors.grey[900],
         body: SafeArea(
           child: Container(
             alignment: Alignment.center,

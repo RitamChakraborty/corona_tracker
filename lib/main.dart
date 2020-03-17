@@ -8,8 +8,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Corona Tracker",
-      theme: ThemeData(primaryColor: Colors.white),
-//      darkTheme: ThemeData.dark(),
+      theme: ThemeData(primaryColor: Colors.white, buttonColor: Colors.green),
+      darkTheme: ThemeData.dark(),
       home: HomePage(),
     );
   }

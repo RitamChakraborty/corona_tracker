@@ -61,22 +61,25 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: SizedBox.expand(
-          child: Container(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                coronaImage,
-                FutureBuilder<GlobalData>(
-                  future: getGlobalData(),
-                  builder: (context, snapshot) => snapshot.hasData
-                      ? globalDataCard(globalData: snapshot.data)
-                      : CircularProgressIndicator(),
-                ),
-                button,
-              ],
+        child: Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  coronaImage,
+                  FutureBuilder<GlobalData>(
+                    future: getGlobalData(),
+                    builder: (context, snapshot) =>
+                    snapshot.hasData
+                        ? globalDataCard(globalData: snapshot.data)
+                        : CircularProgressIndicator(),
+                  ),
+                  button,
+                ],
+              ),
             ),
           ),
         ),

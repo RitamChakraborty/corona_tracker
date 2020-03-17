@@ -5,7 +5,16 @@ import 'package:coronatracker/model/country_data.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class CountryPage extends StatelessWidget {
+class CountryPage extends StatefulWidget {
+  @override
+  _CountryPageState createState() => _CountryPageState();
+}
+
+class _CountryPageState extends State<CountryPage> {
+  var controller = TextEditingController();
+  var filter = "";
+  var enabled = false;
+
   @override
   Widget build(BuildContext context) {
     Future<List<CountryData>> getCountryData() async {
@@ -28,11 +37,12 @@ class CountryPage extends StatelessWidget {
       return list;
     }
 
-    Widget countryCard({CountryData data}) => Container(
+    Widget countryCard({CountryData data}) =>
+        Container(
           child: ListTile(
             title: Text("${data.country}"),
             subtitle:
-                Text("""Cases: ${data.cases} | Today Cases: ${data.todayCases}
+            Text("""Cases: ${data.cases} | Today Cases: ${data.todayCases}
 Deaths: ${data.deaths} | Today Deaths: ${data.todayDeaths}
 Active: ${data.active} | Critical: ${data.critical}
 Recovered: ${data.recovered}"""),
@@ -42,6 +52,25 @@ Recovered: ${data.recovered}"""),
     var textField = Container(
       padding: EdgeInsets.all(8),
       child: TextField(
+        enabled: enabled,
+        autofocus: enabled,
+        controller: controller,
+        cursorColor: Colors.grey,
+        onTap: () {
+          setState(() {
+            enabled = true;
+          });
+        },
+        onChanged: (string) {
+          setState(() {
+            filter = string;
+          });
+        },
+        onSubmitted: (string) {
+          setState(() {
+            filter = string;
+          });
+        },
         decoration: InputDecoration(
           hoverColor: Colors.transparent,
           fillColor: Colors.transparent,
@@ -59,10 +88,27 @@ Recovered: ${data.recovered}"""),
 
     return Scaffold(
       appBar: AppBar(
-        title: textField,
+        title: enabled ? textField : Text("Country Details"),
+        centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
         leading: backButton,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(enabled ? Icons.cancel : Icons.search),
+            onPressed: () {
+              setState(() {
+                if (enabled) {
+                  enabled = false;
+                  filter = "";
+                  controller.text = "";
+                } else {
+                  enabled = true;
+                }
+              });
+            },
+          )
+        ],
       ),
       body: SafeArea(
         child: Container(
@@ -70,16 +116,31 @@ Recovered: ${data.recovered}"""),
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: FutureBuilder<List<CountryData>>(
             future: getCountryData(),
-            builder: (context, snapshot) => snapshot.hasData
+            builder: (context, snapshot) =>
+            snapshot.hasData
                 ? ListView.separated(
-                    itemBuilder: (context, index) {
-                      return countryCard(data: snapshot.data[index]);
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider();
-                    },
-                    itemCount: snapshot.data.length,
-                  )
+              itemBuilder: (context, index) {
+                return filter == ""
+                    ? countryCard(data: snapshot.data[index])
+                    : snapshot.data[index]
+                    .toString()
+                    .toLowerCase()
+                    .contains(filter)
+                    ? countryCard(data: snapshot.data[index])
+                    : Container();
+              },
+              separatorBuilder: (context, index) {
+                return filter == ""
+                    ? Divider()
+                    : snapshot.data[index]
+                    .toString()
+                    .toLowerCase()
+                    .contains(filter)
+                    ? Divider()
+                    : Container();
+              },
+              itemCount: snapshot.data.length,
+            )
                 : CircularProgressIndicator(),
           ),
         ),

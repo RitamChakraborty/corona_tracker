@@ -14,8 +14,8 @@ class HomePage extends StatelessWidget {
       margin: EdgeInsets.all(32),
       child: Image(
         fit: BoxFit.fill,
-        image:
-            NetworkImage("https://www.pngarts.com/files/3/Virus-PNG-Image.png"),
+        image: NetworkImage(
+            "https://cdn.dribbble.com/users/175166/screenshots/10733893/media/471b96a919c904f59e16e3c21b1acfe5.jpg"),
       ),
     );
 
@@ -28,7 +28,9 @@ class HomePage extends StatelessWidget {
           recovered: data['recovered']);
     }
 
-    Widget globalDataCard({GlobalData globalData}) => Material(
+    Widget globalDataCard({GlobalData globalData}) => Container(
+          color: Colors.transparent,
+          padding: EdgeInsets.all(32),
           child: ListTile(
             title: Center(child: Text("Global Outbreak")),
             subtitle: Center(
@@ -60,6 +62,7 @@ class HomePage extends StatelessWidget {
     );
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,

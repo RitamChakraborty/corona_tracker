@@ -81,9 +81,7 @@ Recovered: ${data.recovered}"""),
       ),
     );
 
-    var backButton = BackButton(
-      color: Colors.grey,
-    );
+    var backButton = BackButton();
 
     return LayoutBuilder(
       builder: (context, constrains) {
@@ -98,7 +96,7 @@ Recovered: ${data.recovered}"""),
             appBar: AppBar(
               title: enabled ? textField : Text("Country Details"),
               centerTitle: true,
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.transparent,
               elevation: 0,
               leading: backButton,
               actions: <Widget>[

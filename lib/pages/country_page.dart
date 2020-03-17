@@ -39,7 +39,31 @@ Recovered: ${data.recovered}"""),
           ),
         );
 
+    var textField = Container(
+      padding: EdgeInsets.all(8),
+      child: TextField(
+        decoration: InputDecoration(
+          hoverColor: Colors.transparent,
+          fillColor: Colors.transparent,
+          focusColor: Colors.transparent,
+          border: InputBorder.none,
+          disabledBorder: InputBorder.none,
+          hintText: "Search country...",
+        ),
+      ),
+    );
+
+    var backButton = BackButton(
+      color: Colors.grey,
+    );
+
     return Scaffold(
+      appBar: AppBar(
+        title: textField,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: backButton,
+      ),
       body: SafeArea(
         child: Container(
           alignment: Alignment.center,
@@ -48,14 +72,14 @@ Recovered: ${data.recovered}"""),
             future: getCountryData(),
             builder: (context, snapshot) => snapshot.hasData
                 ? ListView.separated(
-                    itemBuilder: (context, index) {
-                      return countryCard(data: snapshot.data[index]);
-                    },
-                    separatorBuilder: (context, index) {
-                      return Divider();
-                    },
-                    itemCount: snapshot.data.length,
-                  )
+              itemBuilder: (context, index) {
+                return countryCard(data: snapshot.data[index]);
+              },
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+              itemCount: snapshot.data.length,
+            )
                 : CircularProgressIndicator(),
           ),
         ),

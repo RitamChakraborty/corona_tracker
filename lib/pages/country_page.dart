@@ -72,14 +72,14 @@ Recovered: ${data.recovered}"""),
             future: getCountryData(),
             builder: (context, snapshot) => snapshot.hasData
                 ? ListView.separated(
-              itemBuilder: (context, index) {
-                return countryCard(data: snapshot.data[index]);
-              },
-              separatorBuilder: (context, index) {
-                return Divider();
-              },
-              itemCount: snapshot.data.length,
-            )
+                    itemBuilder: (context, index) {
+                      return countryCard(data: snapshot.data[index]);
+                    },
+                    separatorBuilder: (context, index) {
+                      return Divider();
+                    },
+                    itemCount: snapshot.data.length,
+                  )
                 : CircularProgressIndicator(),
           ),
         ),

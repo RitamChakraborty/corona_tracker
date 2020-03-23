@@ -32,8 +32,7 @@ class _HomePageState extends State<HomePage> {
           recovered: data['recovered']);
     }
 
-    Widget globalDataCard({GlobalData globalData}) =>
-        Container(
+    Widget globalDataCard({GlobalData globalData}) => Container(
           color: Colors.transparent,
           padding: EdgeInsets.all(32),
           child: ListTile(
@@ -51,8 +50,7 @@ class _HomePageState extends State<HomePage> {
             subtitle: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                  """Deaths: ${globalData.deaths}\nRecovered: ${globalData
-                      .recovered}"""),
+                  """Deaths: ${globalData.deaths}\nRecovered: ${globalData.recovered}"""),
             ),
           ),
         );
@@ -82,9 +80,7 @@ class _HomePageState extends State<HomePage> {
 
     return Material(
       child: Scaffold(
-        backgroundColor: Theme
-            .of(context)
-            .brightness == Brightness.light
+        backgroundColor: Theme.of(context).brightness == Brightness.light
             ? Colors.white
             : Colors.grey[900],
         body: SafeArea(
@@ -94,30 +90,28 @@ class _HomePageState extends State<HomePage> {
               child: SingleChildScrollView(
                 child: FutureBuilder<bool>(
                   future: DataConnectionChecker().hasConnection,
-                  builder: (context, snapshot) =>
-                  snapshot.data
+                  builder: (context, snapshot) => snapshot.data
                       ? Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      coronaImage,
-                      FutureBuilder<GlobalData>(
-                        future: getGlobalData(),
-                        builder: (context, snapshot) =>
-                        snapshot.hasData
-                            ? globalDataCard(globalData: snapshot.data)
-                            : CircularProgressIndicator(),
-                      ),
-                      button,
-                    ],
-                  )
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            coronaImage,
+                            FutureBuilder<GlobalData>(
+                              future: getGlobalData(),
+                              builder: (context, snapshot) => snapshot.hasData
+                                  ? globalDataCard(globalData: snapshot.data)
+                                  : CircularProgressIndicator(),
+                            ),
+                            button,
+                          ],
+                        )
                       : MaterialButton(
-                    child: Text("Retry"),
-                    color: Colors.green,
-                    onPressed: () {
-                      setState(() {});
-                    },
-                  ),
+                          child: Text("Retry"),
+                          color: Colors.green,
+                          onPressed: () {
+                            setState(() {});
+                          },
+                        ),
                 ),
               ),
             ),

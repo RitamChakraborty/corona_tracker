@@ -70,7 +70,7 @@ class _HomePageState extends State<HomePage> {
         padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         color: Colors.green,
         child: Text(
-          "Explore Contry Status",
+          "Explore Countries",
           style: TextStyle(
             color: Colors.white,
           ),

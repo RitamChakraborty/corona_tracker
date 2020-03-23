@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: any
+  data_connection_checker: any
 
 dev_dependencies:
   flutter_test:

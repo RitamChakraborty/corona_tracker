@@ -12,7 +12,8 @@ enum SortingType {
   TODAY_DEATHS,
   ACTIVE,
   CRITICAL,
-  RECOVERED
+  RECOVERED,
+  NAME
 }
 
 class CountryPage extends StatefulWidget {
@@ -29,8 +30,6 @@ class _CountryPageState extends State<CountryPage> {
 
   @override
   Widget build(BuildContext context) {
-// This menu button widget updates a _selection field (of type WhyFarther,
-// not shown here).
     var popupMenuButton = PopupMenuButton<SortingType>(
       enabled: !enabled,
       icon: Icon(Icons.sort),
@@ -68,6 +67,10 @@ class _CountryPageState extends State<CountryPage> {
           value: SortingType.RECOVERED,
           child: Text('Recoverd'),
         ),
+        const PopupMenuItem<SortingType>(
+          value: SortingType.NAME,
+          child: Text('Name'),
+        ),
       ],
     );
 
@@ -86,6 +89,33 @@ class _CountryPageState extends State<CountryPage> {
             recovered: data['recovered'],
             active: data['active'],
             critical: data['critical']));
+      }
+
+      switch (_sortingType) {
+        case SortingType.CASES:
+          list.sort((a, b) => b.cases.compareTo(a.cases));
+          break;
+        case SortingType.TODAY_CASES:
+          list.sort((a, b) => b.todayCases.compareTo(a.todayCases));
+          break;
+        case SortingType.DEATHS:
+          list.sort((a, b) => b.deaths.compareTo(a.deaths));
+          break;
+        case SortingType.TODAY_DEATHS:
+          list.sort((a, b) => b.todayDeaths.compareTo(a.todayDeaths));
+          break;
+        case SortingType.ACTIVE:
+          list.sort((a, b) => b.active.compareTo(a.active));
+          break;
+        case SortingType.CRITICAL:
+          list.sort((a, b) => b.critical.compareTo(a.critical));
+          break;
+        case SortingType.RECOVERED:
+          list.sort((a, b) => b.recovered.compareTo(a.recovered));
+          break;
+        case SortingType.NAME:
+          list.sort((a, b) => a.country.compareTo(b.country));
+          break;
       }
 
       return list;

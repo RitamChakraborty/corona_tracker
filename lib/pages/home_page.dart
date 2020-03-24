@@ -87,33 +87,32 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             alignment: Alignment.center,
             child: SingleChildScrollView(
-              child: SingleChildScrollView(
-                child: FutureBuilder<bool>(
-                  future: DataConnectionChecker().hasConnection,
-                  builder: (context, snapshot) => snapshot.data
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            coronaImage,
-                            FutureBuilder<GlobalData>(
-                              future: getGlobalData(),
-                              builder: (context, snapshot) => snapshot.hasData
-                                  ? globalDataCard(globalData: snapshot.data)
-                                  : CircularProgressIndicator(),
-                            ),
-                            button,
-                          ],
-                        )
-                      : MaterialButton(
-                          child: Text("Retry"),
-                          color: Colors.green,
-                          onPressed: () {
-                            setState(() {});
-                          },
-                        ),
-                ),
-              ),
+              child: StreamBuilder<DataConnectionStatus>(
+                  stream: DataConnectionChecker().onStatusChange,
+                  builder: (context, snapshot) => snapshot.hasData
+                      ? snapshot.data == DataConnectionStatus.connected
+                          ? Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                coronaImage,
+                                FutureBuilder<GlobalData>(
+                                  future: getGlobalData(),
+                                  builder: (context, snapshot) =>
+                                      snapshot.hasData
+                                          ? globalDataCard(
+                                              globalData: snapshot.data)
+                                          : CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                      Colors.grey),
+                                            ),
+                                ),
+                                button,
+                              ],
+                            )
+                          : Text("No Internet")
+                      : Container()),
             ),
           ),
         ),

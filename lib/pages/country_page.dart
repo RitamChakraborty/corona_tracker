@@ -88,70 +88,73 @@ Recovered: ${data.recovered}"""),
         var height = constrains.maxHeight;
         var width = constrains.maxWidth;
 
-        return Container(
-          margin: height < width
-              ? EdgeInsets.symmetric(horizontal: (width - height) / 2)
-              : EdgeInsets.all(0),
-          child: Scaffold(
-            appBar: AppBar(
-              title: enabled ? textField : Text("Country Details"),
-              centerTitle: true,
-              backgroundColor: Colors.transparent,
-              elevation: 0,
-              leading: backButton,
-              actions: <Widget>[
-                IconButton(
-                  icon: Icon(enabled ? Icons.cancel : Icons.search),
-                  onPressed: () {
-                    setState(() {
-                      if (enabled) {
-                        enabled = false;
-                        filter = "";
-                        controller.text = "";
-                      } else {
-                        enabled = true;
-                      }
-                    });
-                  },
-                )
-              ],
-            ),
-            body: SafeArea(
-              child: Container(
-                alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: RefreshIndicator(
-                  onRefresh: () async {
-                    await Future.delayed(Duration(seconds: 1));
-                    setState(() {});
-                  },
-                  child: FutureBuilder<List<CountryData>>(
-                    future: getCountryData(),
-                    builder: (context, snapshot) => snapshot.hasData
-                        ? ListView.separated(
-                            itemBuilder: (context, index) {
-                              return filter == ""
-                                  ? countryCard(data: snapshot.data[index])
-                                  : snapshot.data[index]
-                                          .toString()
-                                          .toLowerCase()
-                                          .contains(filter)
-                                      ? countryCard(data: snapshot.data[index])
-                                      : Container();
-                            },
-                            separatorBuilder: (context, index) {
-                              return filter == ""
-                                  ? Divider()
-                                  : snapshot.data[index]
-                                          .toString()
-                                          .toLowerCase()
-                                          .contains(filter)
-                                      ? Divider()
-                                      : Container();
-                            },
-                            itemCount: snapshot.data.length,
-                          )
-                        : CircularProgressIndicator(),
+        return Scaffold(
+          body: Container(
+            margin: height < width
+                ? EdgeInsets.symmetric(horizontal: (width - height) / 2)
+                : EdgeInsets.all(0),
+            child: Scaffold(
+              appBar: AppBar(
+                title: enabled ? textField : Text("Country Details"),
+                centerTitle: true,
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                leading: backButton,
+                actions: <Widget>[
+                  IconButton(
+                    icon: Icon(enabled ? Icons.cancel : Icons.search),
+                    onPressed: () {
+                      setState(() {
+                        if (enabled) {
+                          enabled = false;
+                          filter = "";
+                          controller.text = "";
+                        } else {
+                          enabled = true;
+                        }
+                      });
+                    },
+                  )
+                ],
+              ),
+              body: SafeArea(
+                child: Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await Future.delayed(Duration(seconds: 1));
+                      setState(() {});
+                    },
+                    child: FutureBuilder<List<CountryData>>(
+                      future: getCountryData(),
+                      builder: (context, snapshot) => snapshot.hasData
+                          ? ListView.separated(
+                              itemBuilder: (context, index) {
+                                return filter == ""
+                                    ? countryCard(data: snapshot.data[index])
+                                    : snapshot.data[index]
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(filter)
+                                        ? countryCard(
+                                            data: snapshot.data[index])
+                                        : Container();
+                              },
+                              separatorBuilder: (context, index) {
+                                return filter == ""
+                                    ? Divider()
+                                    : snapshot.data[index]
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(filter)
+                                        ? Divider()
+                                        : Container();
+                              },
+                              itemCount: snapshot.data.length,
+                            )
+                          : CircularProgressIndicator(),
+                    ),
                   ),
                 ),
               ),

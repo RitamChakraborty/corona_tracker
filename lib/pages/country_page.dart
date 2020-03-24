@@ -5,6 +5,16 @@ import 'package:coronatracker/model/country_data.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+enum SortingType {
+  CASES,
+  TODAY_CASES,
+  DEATHS,
+  TODAY_DEATHS,
+  ACTIVE,
+  CRITICAL,
+  RECOVERED
+}
+
 class CountryPage extends StatefulWidget {
   @override
   _CountryPageState createState() => _CountryPageState();
@@ -15,8 +25,52 @@ class _CountryPageState extends State<CountryPage> {
   var filter = "";
   var enabled = false;
 
+  SortingType _sortingType = SortingType.CASES;
+
   @override
   Widget build(BuildContext context) {
+// This menu button widget updates a _selection field (of type WhyFarther,
+// not shown here).
+    var popupMenuButton = PopupMenuButton<SortingType>(
+      enabled: !enabled,
+      icon: Icon(Icons.sort),
+      onSelected: (SortingType result) {
+        setState(() {
+          _sortingType = result;
+        });
+      },
+      itemBuilder: (BuildContext context) => <PopupMenuEntry<SortingType>>[
+        const PopupMenuItem<SortingType>(
+          value: SortingType.CASES,
+          child: Text('Cases'),
+        ),
+        const PopupMenuItem<SortingType>(
+          value: SortingType.TODAY_CASES,
+          child: Text('Today Cases'),
+        ),
+        const PopupMenuItem<SortingType>(
+          value: SortingType.DEATHS,
+          child: Text('Deaths'),
+        ),
+        const PopupMenuItem<SortingType>(
+          value: SortingType.TODAY_DEATHS,
+          child: Text('Today Deaths'),
+        ),
+        const PopupMenuItem<SortingType>(
+          value: SortingType.ACTIVE,
+          child: Text('Active'),
+        ),
+        const PopupMenuItem<SortingType>(
+          value: SortingType.CRITICAL,
+          child: Text('Critical'),
+        ),
+        const PopupMenuItem<SortingType>(
+          value: SortingType.RECOVERED,
+          child: Text('Recoverd'),
+        ),
+      ],
+    );
+
     Future<List<CountryData>> getCountryData() async {
       List<CountryData> list = [];
       var res = await http.get(COUNTRY_DATA_URL);
@@ -47,7 +101,7 @@ class _CountryPageState extends State<CountryPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  (index + 1).toString(),
+                  index != null ? (index + 1).toString() : "",
                   style: TextStyle(fontSize: 24),
                 ),
               ],
@@ -126,7 +180,9 @@ Recovered: ${data.recovered}"""),
                         }
                       });
                     },
-                  )
+                  ),
+//                  !enabled ? popupMenuButton : Container(),
+                  popupMenuButton,
                 ],
               ),
               body: SafeArea(

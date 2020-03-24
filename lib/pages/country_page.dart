@@ -153,7 +153,10 @@ Recovered: ${data.recovered}"""),
                               },
                               itemCount: snapshot.data.length,
                             )
-                          : CircularProgressIndicator(),
+                          : CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.grey),
+                            ),
                     ),
                   ),
                 ),

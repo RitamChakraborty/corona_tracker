@@ -37,9 +37,21 @@ class _CountryPageState extends State<CountryPage> {
       return list;
     }
 
-    Widget countryCard({CountryData data}) => Container(
+    Widget countryCard({CountryData data, int index}) => Container(
           child: ListTile(
-            title: Text("${data.country}"),
+            title: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Text("${data.country}", style: TextStyle(fontSize: 24)),
+            ),
+            leading: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  (index + 1).toString(),
+                  style: TextStyle(fontSize: 24),
+                ),
+              ],
+            ),
             subtitle:
                 Text("""Cases: ${data.cases} | Today Cases: ${data.todayCases}
 Deaths: ${data.deaths} | Today Deaths: ${data.todayDeaths}
@@ -132,7 +144,9 @@ Recovered: ${data.recovered}"""),
                           ? ListView.separated(
                               itemBuilder: (context, index) {
                                 return filter == ""
-                                    ? countryCard(data: snapshot.data[index])
+                                    ? countryCard(
+                                        data: snapshot.data[index],
+                                        index: index)
                                     : snapshot.data[index]
                                             .toString()
                                             .toLowerCase()

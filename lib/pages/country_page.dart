@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/model/country_data.dart';
+import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_details.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -18,6 +19,12 @@ enum SortingType {
 }
 
 class CountryPage extends StatefulWidget {
+  final GlobalData _globalData;
+
+  const CountryPage({@required GlobalData globalData})
+      : this._globalData = globalData,
+        assert(globalData != null);
+
   @override
   _CountryPageState createState() => _CountryPageState();
 }
@@ -147,6 +154,7 @@ Recovered: ${data.recovered}"""),
                 context,
                 MaterialPageRoute(
                   builder: (context) => CountryDetails(
+                    globalData: widget._globalData,
                     country: data,
                   ),
                 ),

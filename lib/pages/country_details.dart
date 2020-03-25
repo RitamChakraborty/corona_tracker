@@ -1,11 +1,15 @@
 import 'package:coronatracker/model/country_data.dart';
+import 'package:coronatracker/model/global_data.dart';
 import 'package:flutter/material.dart';
 
 class CountryDetails extends StatelessWidget {
+  final GlobalData _globalData;
   final CountryData _country;
 
-  const CountryDetails({CountryData country})
-      : this._country = country,
+  const CountryDetails({GlobalData globalData, CountryData country})
+      : this._globalData = globalData,
+        this._country = country,
+        assert(globalData != null),
         assert(country != null);
 
   Widget card({Widget child}) => Container(
@@ -33,6 +37,9 @@ class CountryDetails extends StatelessWidget {
                   ),
                   subtitle: Text(
                     "Today Cases: ${_country.todayCases}",
+                  ),
+                  trailing: Text(
+                    "${(_country.cases * 100 / _globalData.cases).toStringAsFixed(2)}",
                   ),
                 ),
               ),

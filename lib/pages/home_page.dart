@@ -27,9 +27,10 @@ class _HomePageState extends State<HomePage> {
       var res = await http.get(GLOBAL_DATA_URL);
       var data = json.decode(res.body);
       return GlobalData(
-          cases: data['cases'],
-          deaths: data['deaths'],
-          recovered: data['recovered']);
+        cases: data['cases'],
+        deaths: data['deaths'],
+        recovered: data['recovered'],
+      );
     }
 
     Widget globalDataCard({GlobalData globalData}) => Container(
@@ -55,28 +56,31 @@ class _HomePageState extends State<HomePage> {
           ),
         );
 
-    var button = Container(
-      margin: EdgeInsets.all(16),
-      padding: EdgeInsets.all(16),
-      child: MaterialButton(
-        elevation: 10.0,
-        onPressed: () {
-          Navigator.push(
+    Widget button(GlobalData globalData) {
+      return Container(
+        margin: EdgeInsets.all(16),
+        padding: EdgeInsets.all(16),
+        child: MaterialButton(
+          elevation: 10.0,
+          onPressed: () {
+            Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CountryPage(),
-              ));
-        },
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        color: Colors.green,
-        child: Text(
-          "Explore Countries",
-          style: TextStyle(
-            color: Colors.white,
+                builder: (context) => CountryPage(globalData: globalData),
+              ),
+            );
+          },
+          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          color: Colors.green,
+          child: Text(
+            "Explore Countries",
+            style: TextStyle(
+              color: Colors.white,
+            ),
           ),
         ),
-      ),
-    );
+      );
+    }
 
     return Material(
       child: Scaffold(
@@ -86,37 +90,44 @@ class _HomePageState extends State<HomePage> {
         body: SafeArea(
           child: Container(
             alignment: Alignment.center,
-            child: SingleChildScrollView(
-              child: StreamBuilder<DataConnectionStatus>(
-                  stream: DataConnectionChecker().onStatusChange,
-                  builder: (context, snapshot) => snapshot.hasData
-                      ? snapshot.data == DataConnectionStatus.connected
-                          ? Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                coronaImage,
-                                FutureBuilder<GlobalData>(
-                                  future: getGlobalData(),
-                                  builder: (context, snapshot) =>
-                                      snapshot.hasData
-                                          ? globalDataCard(
-                                              globalData: snapshot.data)
-                                          : CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                      Colors.grey),
-                                            ),
-                                ),
-                                button,
-                              ],
-                            )
-                          : Text("No Internet")
-                      : Container()),
-            ),
+            child: StreamBuilder<DataConnectionStatus>(
+                stream: DataConnectionChecker().onStatusChange,
+                builder: (context, snapshot) => snapshot.hasData
+                    ? snapshot.data == DataConnectionStatus.connected
+                        ? FutureBuilder<GlobalData>(
+                            future: getGlobalData(),
+                            builder: (context, snapshot) => snapshot.hasData
+                                ? SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: <Widget>[
+                                        coronaImage,
+                                        globalDataCard(
+                                          globalData: snapshot.data,
+                                        ),
+                                        button(snapshot.data),
+                                      ],
+                                    ),
+                                  )
+                                : CircularProgressIndicator(
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        Colors.grey),
+                                  ),
+                          )
+                        : Text("No Internet")
+                    : Container()),
           ),
         ),
       ),
     );
   }
 }
+
+/*
+
+
+
+ */

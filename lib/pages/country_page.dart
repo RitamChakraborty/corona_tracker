@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/model/country_data.dart';
+import 'package:coronatracker/pages/country_details.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -141,6 +142,16 @@ class _CountryPageState extends State<CountryPage> {
 Deaths: ${data.deaths} | Today Deaths: ${data.todayDeaths}
 Active: ${data.active} | Critical: ${data.critical}
 Recovered: ${data.recovered}"""),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CountryDetails(
+                    country: data,
+                  ),
+                ),
+              );
+            },
           ),
         );
 

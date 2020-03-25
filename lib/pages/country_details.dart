@@ -1,6 +1,7 @@
 import 'package:coronatracker/model/country_data.dart';
 import 'package:coronatracker/model/global_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class CountryDetails extends StatelessWidget {
   final GlobalData _globalData;
@@ -39,7 +40,8 @@ class CountryDetails extends StatelessWidget {
                     "Today Cases: ${_country.todayCases}",
                   ),
                   trailing: Text(
-                    "${(_country.cases * 100 / _globalData.cases).toStringAsFixed(2)}",
+                    "${(_country.cases * 100 / _globalData.cases).toStringAsFixed(2)} %\nof global cases",
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -82,8 +84,9 @@ class CountryDetails extends StatelessWidget {
                   title: Text(
                     "Recovered: ${_country.recovered}",
                   ),
-                  subtitle: Text(
-                    "${(_country.critical * 100 / _country.cases).toStringAsFixed(2)}",
+                  trailing: Text(
+                    "${(_country.recovered * 100 / _country.cases).toStringAsFixed(2)} %\nof total cases",
+                    textAlign: TextAlign.center,
                   ),
                 ),
               )

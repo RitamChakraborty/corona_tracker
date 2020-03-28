@@ -1,5 +1,6 @@
 import 'package:coronatracker/model/country_data.dart';
 import 'package:coronatracker/model/global_data.dart';
+import 'package:coronatracker/widgets/statistics_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -27,6 +28,9 @@ class CountryDetails extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(_country.country),
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          centerTitle: true,
         ),
         body: SafeArea(
           child: ListView(
@@ -52,7 +56,7 @@ class CountryDetails extends StatelessWidget {
                     "Today Deaths: ${_country.todayDeaths}",
                   ),
                   trailing: Text(
-                    "${(_country.deaths * 100 / _country.cases).toStringAsFixed(2)} %\nof total cases",
+                    "${(_country.deathPercentage).toStringAsFixed(2)} %\nof total cases",
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -63,7 +67,7 @@ class CountryDetails extends StatelessWidget {
                     "Active: ${_country.active}",
                   ),
                   trailing: Text(
-                    "${(_country.active * 100 / _country.cases).toStringAsFixed(2)} %\nof total cases",
+                    "${(_country.activePercentage).toStringAsFixed(2)} %\nof total cases",
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -74,7 +78,7 @@ class CountryDetails extends StatelessWidget {
                     "Critical: ${_country.critical}",
                   ),
                   trailing: Text(
-                    "${(_country.critical * 100 / _country.cases).toStringAsFixed(2)} %\nof total cases",
+                    "${(_country.criticalPercentage).toStringAsFixed(2)} %\nof total cases",
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -85,9 +89,15 @@ class CountryDetails extends StatelessWidget {
                     "Recovered: ${_country.recovered}",
                   ),
                   trailing: Text(
-                    "${(_country.recovered * 100 / _country.cases).toStringAsFixed(2)} %\nof total cases",
+                    "${(_country.recoveredPercentage).toStringAsFixed(2)} %\nof total cases",
                     textAlign: TextAlign.center,
                   ),
+                ),
+              ),
+              SizedBox(
+                height: 250,
+                child: StatisticsChart(
+                  _country.seriesList,
                 ),
               )
             ],

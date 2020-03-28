@@ -230,7 +230,6 @@ Recovered: ${data.recovered}"""),
                       });
                     },
                   ),
-//                  !enabled ? popupMenuButton : Container(),
                   popupMenuButton,
                 ],
               ),

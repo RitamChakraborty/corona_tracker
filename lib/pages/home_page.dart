@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_page.dart';
+import 'package:coronatracker/widgets/loading_indicator.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,8 +15,21 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  /// Get the JSON data for global details
+  /// Return data as [GlobalData] as future
+  Future<GlobalData> getGlobalData() async {
+    var res = await http.get(GLOBAL_DATA_URL);
+    var data = json.decode(res.body);
+    return GlobalData(
+      cases: data['cases'],
+      deaths: data['deaths'],
+      recovered: data['recovered'],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    /// Provide the image
     var coronaImage = Container(
       margin: EdgeInsets.all(32),
       child: Image.asset(
@@ -23,16 +37,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    Future<GlobalData> getGlobalData() async {
-      var res = await http.get(GLOBAL_DATA_URL);
-      var data = json.decode(res.body);
-      return GlobalData(
-        cases: data['cases'],
-        deaths: data['deaths'],
-        recovered: data['recovered'],
-      );
-    }
-
+    /// Custom widget to show [GlobalData]
     Widget globalDataCard({GlobalData globalData}) => Container(
           color: Colors.transparent,
           padding: EdgeInsets.all(32),
@@ -56,6 +61,7 @@ class _HomePageState extends State<HomePage> {
           ),
         );
 
+    /// Button to go to next page
     Widget button(GlobalData globalData) {
       return Container(
         margin: EdgeInsets.all(16),
@@ -70,8 +76,8 @@ class _HomePageState extends State<HomePage> {
               ),
             );
           },
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          color: Colors.green,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          color: ACCENT_COLOR,
           child: Text(
             "Explore Countries",
             style: TextStyle(
@@ -98,6 +104,7 @@ class _HomePageState extends State<HomePage> {
                             future: getGlobalData(),
                             builder: (context, snapshot) => snapshot.hasData
                                 ? SingleChildScrollView(
+                                    physics: SCROLL_PHYSICS,
                                     child: Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
@@ -106,18 +113,15 @@ class _HomePageState extends State<HomePage> {
                                       children: <Widget>[
                                         coronaImage,
                                         globalDataCard(
-                                          globalData: snapshot.data,
-                                        ),
+                                            globalData: snapshot.data),
                                         button(snapshot.data),
                                       ],
                                     ),
                                   )
-                                : CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.grey),
-                                  ),
+                                : LoadingIndicator(),
                           )
-                        : Text("No Internet")
+                        : Text("No Internet",
+                            style: TextStyle(color: Colors.red))
                     : Container()),
           ),
         ),
@@ -125,9 +129,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-/*
-
-
-
- */

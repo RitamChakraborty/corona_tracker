@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/model/country_data.dart';
 import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/widgets/statistics_chart.dart';
@@ -14,7 +15,8 @@ class CountryDetails extends StatelessWidget {
         assert(globalData != null),
         assert(country != null);
 
-  Widget card({Widget child}) => Container(
+  /// Custom [Card] widget
+  Widget card({@required Widget child}) => Container(
         padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Card(
           elevation: 0,
@@ -34,6 +36,7 @@ class CountryDetails extends StatelessWidget {
         ),
         body: SafeArea(
           child: ListView(
+            physics: SCROLL_PHYSICS,
             children: <Widget>[
               card(
                 child: ListTile(

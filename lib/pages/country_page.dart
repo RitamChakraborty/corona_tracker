@@ -37,11 +37,10 @@ class _CountryPageState extends State<CountryPage> {
   var enabled = false;
   var sortingType = SortingType.CASES;
   final refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
-  List<CountryData> list = [];
 
   /// Get the list of details of all countries as future
   Future<List<CountryData>> getCountryData() async {
-    list = [];
+    List<CountryData> list = [];
     var res = await http.get(COUNTRY_DATA_URL);
     var map = json.decode(res.body);
 
@@ -57,13 +56,11 @@ class _CountryPageState extends State<CountryPage> {
           critical: data['critical']));
     }
 
-    sortList(sortingType);
-
     return list;
   }
 
   /// Sort the country list accordingly
-  void sortList(SortingType type) {
+  List<CountryData> sortList(List<CountryData> list, SortingType type) {
     switch (type) {
       case SortingType.CASES:
         list.sort((a, b) => b.cases.compareTo(a.cases));
@@ -90,6 +87,8 @@ class _CountryPageState extends State<CountryPage> {
         list.sort((a, b) => a.country.compareTo(b.country));
         break;
     }
+
+    return list;
   }
 
   @override
@@ -101,7 +100,6 @@ class _CountryPageState extends State<CountryPage> {
       onSelected: (SortingType result) {
         setState(() {
           sortingType = result;
-          sortList(result);
         });
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<SortingType>>[
@@ -257,35 +255,39 @@ class _CountryPageState extends State<CountryPage> {
                     },
                     child: FutureBuilder<List<CountryData>>(
                         future: getCountryData(),
-                        builder: (context, snapshot) => snapshot.hasData
-                            ? ListView.separated(
-                                itemCount: snapshot.data.length,
-                                physics: SCROLL_PHYSICS,
-                                itemBuilder: (context, index) {
-                                  return filter == ""
-                                      ? countryCard(
-                                          data: snapshot.data[index],
-                                          index: index)
-                                      : snapshot.data[index]
-                                              .toString()
-                                              .toLowerCase()
-                                              .contains(filter)
-                                          ? countryCard(
-                                              data: snapshot.data[index])
-                                          : Container();
-                                },
-                                separatorBuilder: (context, index) {
-                                  return filter == ""
-                                      ? Divider()
-                                      : snapshot.data[index]
-                                              .toString()
-                                              .toLowerCase()
-                                              .contains(filter)
-                                          ? Divider()
-                                          : Container();
-                                },
-                              )
-                            : LoadingIndicator()),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            List<CountryData> list =
+                                sortList(snapshot.data, sortingType);
+
+                            return ListView.separated(
+                              itemCount: list.length,
+                              physics: SCROLL_PHYSICS,
+                              itemBuilder: (context, index) {
+                                return filter == ""
+                                    ? countryCard(
+                                        data: list[index], index: index)
+                                    : list[index]
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(filter)
+                                        ? countryCard(data: list[index])
+                                        : Container();
+                              },
+                              separatorBuilder: (context, index) {
+                                return filter == ""
+                                    ? Divider()
+                                    : list[index]
+                                            .toString()
+                                            .toLowerCase()
+                                            .contains(filter)
+                                        ? Divider()
+                                        : Container();
+                              },
+                            );
+                          }
+                          return LoadingIndicator();
+                        }),
                   ),
                 ),
               ),

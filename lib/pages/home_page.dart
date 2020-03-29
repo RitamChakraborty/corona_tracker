@@ -31,7 +31,20 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     /// Provide the image
     var coronaImage = Container(
-      margin: EdgeInsets.all(32),
+      margin: EdgeInsets.all(50),
+      width: 300,
+      height: 300,
+      decoration: BoxDecoration(
+        gradient: RadialGradient(
+          center: Alignment.center,
+          colors: [
+            Colors.greenAccent,
+            Theme.of(context).brightness == Brightness.light
+                ? Colors.white
+                : Colors.grey[900]
+          ],
+        ),
+      ),
       child: Image.asset(
         "assets/pictures/image.png",
       ),

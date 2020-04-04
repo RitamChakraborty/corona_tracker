@@ -7,17 +7,17 @@ Track the outbreak of the Corona Virus.
 **Light Theme**
 
 <p align="center">
-    <img src="assets/pictures/Shot1.png" height="480" width="270">
-    <img src="assets/pictures/Shot2.png" height="480" width="270">
-    <img src="assets/pictures/Shot3.png" height="480" width="270">
+    <img src="assets/pictures/Shot1.png" height="480" width="270" hspace="10">
+    <img src="assets/pictures/Shot2.png" height="480" width="270" hspace="10">
+    <img src="assets/pictures/Shot3.png" height="480" width="270" hspace="10">
 </p>
 
 **Dark Theme**
 
 <p align="center">
-    <img src="assets/pictures/Shot4.png" height="480" width="270">
-    <img src="assets/pictures/Shot5.png" height="480" width="270">
-    <img src="assets/pictures/Shot6.png" height="480" width="270">
+    <img src="assets/pictures/Shot4.png" height="480" width="270" hspace="10">
+    <img src="assets/pictures/Shot5.png" height="480" width="270" hspace="10">
+    <img src="assets/pictures/Shot6.png" height="480" width="270" hspace="10">
 </p>
 
 ## Features

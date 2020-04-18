@@ -45,18 +45,23 @@ class _CountryPageState extends State<CountryPage> {
     var map = json.decode(res.body);
 
     for (var data in map) {
-      list.add(CountryData(
-          country: data['country'],
-          cases: data['cases'],
-          todayCases: data['todayCases'],
-          deaths: data['deaths'],
-          todayDeaths: data['todayDeaths'],
-          recovered: data['recovered'],
-          active: data['active'],
-          critical: data['critical']));
+      String country = data['country'];
+
+      if (country != 'Total:') {
+        list.add(CountryData(
+            country: data['country'],
+            cases: data['cases'],
+            todayCases: data['todayCases'],
+            deaths: data['deaths'],
+            todayDeaths: data['todayDeaths'],
+            recovered: data['recovered'],
+            active: data['active'],
+            critical: data['critical']));
+      }
     }
 
-    return list;
+    /// Removing continents
+    return list.sublist(8);
   }
 
   /// Sort the country list accordingly

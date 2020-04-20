@@ -285,46 +285,62 @@ class _CountryPageState extends State<CountryPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: FutureBuilder<List<CountryData>>(
-                      future: getCountryData(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          List<CountryData> list = snapshot.data;
+                    future: getCountryData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        List<CountryData> list = snapshot.data;
 
-                          if (currentPage == 0) {
-                            list = list.sublist(0, 6);
-                          } else if (currentPage == 1) {
-                            list = list.sublist(8);
-                          } else {}
+                        if (currentPage == 0) {
+                          list = list.sublist(0, 6);
+                        } else if (currentPage == 1) {
+                          list = list.sublist(8);
+                        } else {}
 
-                          list = sortList(list, sortingType);
+                        list = sortList(list, sortingType);
 
-                          return ListView.separated(
-                            itemCount: list.length,
-                            physics: SCROLL_PHYSICS,
-                            itemBuilder: (context, index) {
-                              return filter == ""
-                                  ? countryCard(data: list[index], index: index)
-                                  : list[index]
-                                          .toString()
-                                          .toLowerCase()
-                                          .contains(filter)
-                                      ? countryCard(data: list[index])
-                                      : Container();
-                            },
-                            separatorBuilder: (context, index) {
-                              return filter == ""
-                                  ? Divider()
-                                  : list[index]
-                                          .toString()
-                                          .toLowerCase()
-                                          .contains(filter)
-                                      ? Divider()
-                                      : Container();
-                            },
-                          );
-                        }
-                        return LoadingIndicator();
-                      }),
+                        return ListView.separated(
+                          itemCount: list.length,
+                          physics: SCROLL_PHYSICS,
+
+                          /// Return the [countryCard]
+                          itemBuilder: (context, index) {
+                            if (filter == "") {
+                              /// If filter is not enabled
+                              return countryCard(
+                                data: list[index],
+                                index: index,
+                              );
+                            } else if (list[index]
+                                .country
+                                .toLowerCase()
+                                .contains(filter)) {
+                              /// If country name contains a part of filter text
+                              return countryCard(data: list[index]);
+                            } else {
+                              /// Otherwise
+                              return Container();
+                            }
+                          },
+
+                          /// Return the [Divider]
+                          separatorBuilder: (context, index) {
+                            if (filter == "" ||
+                                list[index]
+                                    .country
+                                    .toLowerCase()
+                                    .contains(filter)) {
+                              /// If filter is empty or
+                              /// Country name contains a part of filter
+                              return Divider();
+                            } else {
+                              return Container();
+                            }
+                          },
+                        );
+                      }
+                      return LoadingIndicator();
+                    },
+                  ),
                 ),
               ),
             ),

@@ -32,11 +32,11 @@ class CountryPage extends StatefulWidget {
 }
 
 class _CountryPageState extends State<CountryPage> {
-  final controller = TextEditingController();
-  var filter = "";
-  var enabled = false;
-  var sortingType = SortingType.CASES;
-  final refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+  final TextEditingController controller = TextEditingController();
+  String filter = "";
+  bool enabled = false;
+  SortingType sortingType = SortingType.CASES;
+  int currentPage = 0;
 
   /// Get the list of details of all countries as future
   Future<List<CountryData>> getCountryData() async {
@@ -61,7 +61,7 @@ class _CountryPageState extends State<CountryPage> {
     }
 
     /// Removing continents
-    return list.sublist(8);
+    return list;
   }
 
   /// Sort the country list accordingly
@@ -226,19 +226,51 @@ class _CountryPageState extends State<CountryPage> {
       },
     );
 
+    /// Return the bottom nav bar for the [Scaffold]
+    final Widget bottomNavigationBar = BottomNavigationBar(
+      /// Change the value of the current page index
+      /// When tapped
+      onTap: (int value) {
+        setState(() {
+          currentPage = value;
+        });
+      },
+      elevation: 5,
+      currentIndex: currentPage,
+      iconSize: 0,
+      selectedFontSize: 18,
+      selectedItemColor: Theme.of(context).textTheme.title.color,
+      unselectedFontSize: 16,
+      unselectedItemColor: Theme.of(context).disabledColor,
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.map,
+          ),
+          title: Text("Continents"),
+        ),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.map,
+            ),
+            title: Text("Countries")),
+      ],
+    );
+
     return LayoutBuilder(
       builder: (context, constrains) {
         var height = constrains.maxHeight;
         var width = constrains.maxWidth;
 
         return Scaffold(
+          bottomNavigationBar: bottomNavigationBar,
           body: Container(
             margin: height < width
                 ? EdgeInsets.symmetric(horizontal: (width - height) / 2)
                 : EdgeInsets.all(0),
             child: Scaffold(
               appBar: AppBar(
-                title: enabled ? textField : Text("Country Details"),
+                title: enabled ? textField : Text("Details"),
                 centerTitle: true,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
@@ -256,8 +288,15 @@ class _CountryPageState extends State<CountryPage> {
                       future: getCountryData(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          List<CountryData> list =
-                              sortList(snapshot.data, sortingType);
+                          List<CountryData> list = snapshot.data;
+
+                          if (currentPage == 0) {
+                            list = list.sublist(0, 6);
+                          } else if (currentPage == 1) {
+                            list = list.sublist(8);
+                          } else {}
+
+                          list = sortList(list, sortingType);
 
                           return ListView.separated(
                             itemCount: list.length,

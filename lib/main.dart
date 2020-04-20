@@ -14,8 +14,18 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "Corona Tracker",
-        theme: ThemeData(primaryColor: Colors.white),
-        darkTheme: ThemeData.dark(),
+
+        /// Light theme
+        theme: ThemeData(
+          brightness: Brightness.light,
+          primaryColor: Colors.white,
+          accentColor: Colors.greenAccent,
+        ),
+
+        /// Dark theme
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+        ),
         home: HomePage(),
       ),
     );

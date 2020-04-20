@@ -1,32 +1,15 @@
-import 'dart:convert';
-
 import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_page.dart';
+import 'package:coronatracker/servies/http_services.dart';
 import 'package:coronatracker/widgets/loading_indicator.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  /// Get the JSON data for global details
-  /// Return data as [GlobalData] as future
-  Future<GlobalData> getGlobalData() async {
-    var res = await http.get(GLOBAL_DATA_URL);
-    var data = json.decode(res.body);
-    return GlobalData(
-      cases: data['cases'],
-      deaths: data['deaths'],
-      recovered: data['recovered'],
-    );
-  }
+class HomePage extends StatelessWidget {
+  final HttpServices _httpServices = HttpServices();
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                   if (dataConnectionStatus == DataConnectionStatus.connected) {
                     /// If internet available
                     return FutureBuilder<GlobalData>(
-                      future: getGlobalData(),
+                      future: _httpServices.getGlobalData(),
                       builder: (context, snapshot) => snapshot.hasData
                           ? SingleChildScrollView(
                               physics: SCROLL_PHYSICS,

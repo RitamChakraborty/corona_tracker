@@ -1,24 +1,11 @@
-import 'dart:convert';
-
 import 'package:coronatracker/data/constants.dart';
+import 'package:coronatracker/helper/helper.dart';
 import 'package:coronatracker/model/country_data.dart';
 import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_details.dart';
+import 'package:coronatracker/servies/http_services.dart';
 import 'package:coronatracker/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-/// Store the types of sorting
-enum SortingType {
-  CASES,
-  TODAY_CASES,
-  DEATHS,
-  TODAY_DEATHS,
-  ACTIVE,
-  CRITICAL,
-  RECOVERED,
-  NAME
-}
 
 class CountryPage extends StatefulWidget {
   final GlobalData _globalData;
@@ -32,69 +19,12 @@ class CountryPage extends StatefulWidget {
 }
 
 class _CountryPageState extends State<CountryPage> {
+  final HttpServices httpServices = HttpServices();
   final TextEditingController controller = TextEditingController();
   String filter = "";
   bool enabled = false;
   SortingType sortingType = SortingType.CASES;
   int currentPage = 0;
-
-  /// Get the list of details of all countries as future
-  Future<List<CountryData>> getCountryData() async {
-    List<CountryData> list = [];
-    var res = await http.get(COUNTRY_DATA_URL);
-    var map = json.decode(res.body);
-
-    for (var data in map) {
-      String country = data['country'];
-
-      if (country != 'Total:') {
-        list.add(CountryData(
-            country: data['country'],
-            cases: data['cases'],
-            todayCases: data['todayCases'],
-            deaths: data['deaths'],
-            todayDeaths: data['todayDeaths'],
-            recovered: data['recovered'],
-            active: data['active'],
-            critical: data['critical']));
-      }
-    }
-
-    /// Removing continents
-    return list;
-  }
-
-  /// Sort the country list accordingly
-  List<CountryData> sortList(List<CountryData> list, SortingType type) {
-    switch (type) {
-      case SortingType.CASES:
-        list.sort((a, b) => b.cases.compareTo(a.cases));
-        break;
-      case SortingType.TODAY_CASES:
-        list.sort((a, b) => b.todayCases.compareTo(a.todayCases));
-        break;
-      case SortingType.DEATHS:
-        list.sort((a, b) => b.deaths.compareTo(a.deaths));
-        break;
-      case SortingType.TODAY_DEATHS:
-        list.sort((a, b) => b.todayDeaths.compareTo(a.todayDeaths));
-        break;
-      case SortingType.ACTIVE:
-        list.sort((a, b) => b.active.compareTo(a.active));
-        break;
-      case SortingType.CRITICAL:
-        list.sort((a, b) => b.critical.compareTo(a.critical));
-        break;
-      case SortingType.RECOVERED:
-        list.sort((a, b) => b.recovered.compareTo(a.recovered));
-        break;
-      case SortingType.NAME:
-        list.sort((a, b) => a.country.compareTo(b.country));
-        break;
-    }
-
-    return list;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -285,7 +215,7 @@ class _CountryPageState extends State<CountryPage> {
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: FutureBuilder<List<CountryData>>(
-                    future: getCountryData(),
+                    future: httpServices.getCountryData(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         List<CountryData> list = snapshot.data;

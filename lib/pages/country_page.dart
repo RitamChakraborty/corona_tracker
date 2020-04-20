@@ -252,48 +252,40 @@ class _CountryPageState extends State<CountryPage> {
                 child: Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: RefreshIndicator(
-                    key: refreshIndicatorKey,
-                    onRefresh: () async {
-                      await Future.delayed(Duration(seconds: 1));
-                      setState(() {});
-                    },
-                    child: FutureBuilder<List<CountryData>>(
-                        future: getCountryData(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            List<CountryData> list =
-                                sortList(snapshot.data, sortingType);
+                  child: FutureBuilder<List<CountryData>>(
+                      future: getCountryData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          List<CountryData> list =
+                              sortList(snapshot.data, sortingType);
 
-                            return ListView.separated(
-                              itemCount: list.length,
-                              physics: SCROLL_PHYSICS,
-                              itemBuilder: (context, index) {
-                                return filter == ""
-                                    ? countryCard(
-                                        data: list[index], index: index)
-                                    : list[index]
-                                            .toString()
-                                            .toLowerCase()
-                                            .contains(filter)
-                                        ? countryCard(data: list[index])
-                                        : Container();
-                              },
-                              separatorBuilder: (context, index) {
-                                return filter == ""
-                                    ? Divider()
-                                    : list[index]
-                                            .toString()
-                                            .toLowerCase()
-                                            .contains(filter)
-                                        ? Divider()
-                                        : Container();
-                              },
-                            );
-                          }
-                          return LoadingIndicator();
-                        }),
-                  ),
+                          return ListView.separated(
+                            itemCount: list.length,
+                            physics: SCROLL_PHYSICS,
+                            itemBuilder: (context, index) {
+                              return filter == ""
+                                  ? countryCard(data: list[index], index: index)
+                                  : list[index]
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(filter)
+                                      ? countryCard(data: list[index])
+                                      : Container();
+                            },
+                            separatorBuilder: (context, index) {
+                              return filter == ""
+                                  ? Divider()
+                                  : list[index]
+                                          .toString()
+                                          .toLowerCase()
+                                          .contains(filter)
+                                      ? Divider()
+                                      : Container();
+                            },
+                          );
+                        }
+                        return LoadingIndicator();
+                      }),
                 ),
               ),
             ),

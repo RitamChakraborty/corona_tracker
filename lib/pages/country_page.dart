@@ -91,7 +91,13 @@ class _CountryPageState extends State<CountryPage> {
               ],
             ),
             subtitle: Text(
-                """Cases: ${data.cases} | Today Cases: ${data.todayCases}\nDeaths: ${data.deaths} | Today Deaths: ${data.todayDeaths}\nActive: ${data.active} | Critical: ${data.critical}\nRecovered: ${data.recovered}"""),
+                "Cases: ${data.cases} | Today Cases: ${data.todayCases}"
+                "\nDeaths: ${data.deaths} | Today Deaths: ${data.todayDeaths}"
+                "\nActive: ${data.active} | Critical: ${data.critical}"
+                "\nRecovered: ${data.recovered}"
+                "\nCases per one million: ${data.casesPerOneMillion}"
+                "\nDeaths per one million: ${data.deathsPerOneMillion}"
+                "\nTested: ${data.totalTests} | Tested per one million: ${data.testsPerOneMillion}"),
             onTap: () {
               Navigator.push(
                 context,

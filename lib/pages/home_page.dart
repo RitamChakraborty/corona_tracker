@@ -27,9 +27,7 @@ class HomePage extends StatelessWidget {
           center: Alignment.center,
           colors: [
             Colors.greenAccent,
-            Theme.of(context).brightness == Brightness.light
-                ? Colors.white
-                : Colors.grey[900]
+            Theme.of(context).scaffoldBackgroundColor,
           ],
         ),
       ),
@@ -91,9 +89,7 @@ class HomePage extends StatelessWidget {
 
     return Material(
       child: Scaffold(
-        backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? Colors.white
-            : Colors.grey[900],
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
           child: Container(
               alignment: Alignment.center,

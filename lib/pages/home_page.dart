@@ -8,6 +8,7 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -29,6 +30,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    /// Getting [DataConnectionStatus] from [Provider]
+    final DataConnectionStatus dataConnectionStatus =
+        Provider.of<DataConnectionStatus>(context);
+
     /// Provide the image
     var coronaImage = Container(
       margin: EdgeInsets.all(50),
@@ -108,35 +113,41 @@ class _HomePageState extends State<HomePage> {
             : Colors.grey[900],
         body: SafeArea(
           child: Container(
-            alignment: Alignment.center,
-            child: StreamBuilder<DataConnectionStatus>(
-                stream: DataConnectionChecker().onStatusChange,
-                builder: (context, snapshot) => snapshot.hasData
-                    ? snapshot.data == DataConnectionStatus.connected
-                        ? FutureBuilder<GlobalData>(
-                            future: getGlobalData(),
-                            builder: (context, snapshot) => snapshot.hasData
-                                ? SingleChildScrollView(
-                                    physics: SCROLL_PHYSICS,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        coronaImage,
-                                        globalDataCard(
-                                            globalData: snapshot.data),
-                                        button(snapshot.data),
-                                      ],
-                                    ),
-                                  )
-                                : LoadingIndicator(),
-                          )
-                        : Text("No Internet",
-                            style: TextStyle(color: Colors.red))
-                    : Container()),
-          ),
+              alignment: Alignment.center,
+              child: Builder(
+                builder: (BuildContext context) {
+                  if (dataConnectionStatus == DataConnectionStatus.connected) {
+                    /// If internet available
+                    return FutureBuilder<GlobalData>(
+                      future: getGlobalData(),
+                      builder: (context, snapshot) => snapshot.hasData
+                          ? SingleChildScrollView(
+                              physics: SCROLL_PHYSICS,
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  coronaImage,
+                                  globalDataCard(globalData: snapshot.data),
+                                  button(snapshot.data),
+                                ],
+                              ),
+                            )
+                          : LoadingIndicator(),
+                    );
+                  } else if (dataConnectionStatus ==
+                      DataConnectionStatus.disconnected) {
+                    /// If internet is not available
+                    return Container(
+                      child: Text("NO INTERNET!"),
+                    );
+                  } else {
+                    /// Otherwise
+                    return Container();
+                  }
+                },
+              )),
         ),
       ),
     );

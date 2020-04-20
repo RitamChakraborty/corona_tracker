@@ -11,6 +11,7 @@ dependencies:
   http: any
   data_connection_checker: any
   charts_flutter: any
+  provider: any
 
 dev_dependencies:
   flutter_test:

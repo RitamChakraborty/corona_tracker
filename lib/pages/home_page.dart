@@ -1,6 +1,7 @@
 import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_page.dart';
+import 'package:coronatracker/provider/data_provider.dart';
 import 'package:coronatracker/servies/http_services.dart';
 import 'package:coronatracker/widgets/loading_indicator.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
@@ -16,6 +17,10 @@ class HomePage extends StatelessWidget {
     /// Getting [DataConnectionStatus] from [Provider]
     final DataConnectionStatus dataConnectionStatus =
         Provider.of<DataConnectionStatus>(context);
+
+    /// Getting [GlobalData] from [DataProvider]
+    final DataProvider dataProvider =
+        Provider.of<DataProvider>(context, listen: false);
 
     /// Provide the image
     var coronaImage = Container(
@@ -97,23 +102,28 @@ class HomePage extends StatelessWidget {
                 builder: (BuildContext context) {
                   if (dataConnectionStatus == DataConnectionStatus.connected) {
                     /// If internet available
-                    return FutureBuilder<GlobalData>(
-                      future: _httpServices.getGlobalData(),
-                      builder: (context, snapshot) => snapshot.hasData
-                          ? SingleChildScrollView(
-                              physics: SCROLL_PHYSICS,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  coronaImage,
-                                  globalDataCard(globalData: snapshot.data),
-                                  button(snapshot.data),
-                                ],
-                              ),
-                            )
-                          : LoadingIndicator(),
+                    return Consumer(
+                      builder: (BuildContext context, DataProvider dataProvider,
+                          Widget child) {
+                        GlobalData globalData = dataProvider.globalData;
+
+                        if (globalData == null) {
+                          return LoadingIndicator();
+                        } else {
+                          return SingleChildScrollView(
+                            physics: SCROLL_PHYSICS,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                coronaImage,
+                                globalDataCard(globalData: globalData),
+                                button(globalData),
+                              ],
+                            ),
+                          );
+                        }
+                      },
                     );
                   } else if (dataConnectionStatus ==
                       DataConnectionStatus.disconnected) {

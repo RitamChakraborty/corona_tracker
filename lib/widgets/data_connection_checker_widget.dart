@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 class DataConnectionCheckerWidget extends StatelessWidget {
   final Widget _child;
+
   const DataConnectionCheckerWidget({@required Widget child})
       : this._child = child,
         assert(child != null);
@@ -14,18 +15,24 @@ class DataConnectionCheckerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     DataConnectionStatus dataConnectionStatus =
         Provider.of<DataConnectionStatus>(context, listen: false);
-    return Consumer(
-      builder: (BuildContext context, DataConnectionStatus dataConnectionStatus,
-          Widget child) {
-        switch (dataConnectionStatus) {
-          case DataConnectionStatus.disconnected:
-            return NoInternet();
-          case DataConnectionStatus.connected:
-            return _child;
-          default:
-            return LoadingIndicator();
-        }
-      },
+    return Material(
+      child: Center(
+        child: Consumer(
+          builder: (BuildContext context,
+              DataConnectionStatus dataConnectionStatus, Widget child) {
+            print(dataConnectionStatus);
+
+            switch (dataConnectionStatus) {
+              case DataConnectionStatus.disconnected:
+                return NoInternet();
+              case DataConnectionStatus.connected:
+                return _child;
+              default:
+                return LoadingIndicator();
+            }
+          },
+        ),
+      ),
     );
   }
 }

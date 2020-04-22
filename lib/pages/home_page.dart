@@ -3,6 +3,7 @@ import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_page.dart';
 import 'package:coronatracker/provider/data_provider.dart';
 import 'package:coronatracker/servies/http_services.dart';
+import 'package:coronatracker/widgets/data_connection_checker_widget.dart';
 import 'package:coronatracker/widgets/loading_indicator.dart';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
@@ -97,46 +98,33 @@ class HomePage extends StatelessWidget {
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         body: SafeArea(
           child: Container(
-              alignment: Alignment.center,
-              child: Builder(
-                builder: (BuildContext context) {
-                  if (dataConnectionStatus == DataConnectionStatus.connected) {
-                    /// If internet available
-                    return Consumer(
-                      builder: (BuildContext context, DataProvider dataProvider,
-                          Widget child) {
-                        GlobalData globalData = dataProvider.globalData;
+            alignment: Alignment.center,
+            child: DataConnectionCheckerWidget(
+              child: Consumer(
+                builder: (BuildContext context, DataProvider dataProvider,
+                    Widget child) {
+                  GlobalData globalData = dataProvider.globalData;
 
-                        if (globalData == null) {
-                          return LoadingIndicator();
-                        } else {
-                          return SingleChildScrollView(
-                            physics: SCROLL_PHYSICS,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                coronaImage,
-                                globalDataCard(globalData: globalData),
-                                button(globalData),
-                              ],
-                            ),
-                          );
-                        }
-                      },
-                    );
-                  } else if (dataConnectionStatus ==
-                      DataConnectionStatus.disconnected) {
-                    /// If internet is not available
-                    return Container(
-                      child: Text("NO INTERNET!"),
-                    );
+                  if (globalData == null) {
+                    return LoadingIndicator();
                   } else {
-                    /// Otherwise
-                    return Container();
+                    return SingleChildScrollView(
+                      physics: SCROLL_PHYSICS,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          coronaImage,
+                          globalDataCard(globalData: globalData),
+                          button(globalData),
+                        ],
+                      ),
+                    );
                   }
                 },
-              )),
+              ),
+            ),
+          ),
         ),
       ),
     );

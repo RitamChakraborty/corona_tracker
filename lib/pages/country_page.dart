@@ -30,6 +30,10 @@ class _CountryPageState extends State<CountryPage> {
 
   @override
   Widget build(BuildContext context) {
+    /// Initializing [DataProvider]
+    final DataProvider dataProvider =
+        Provider.of<DataProvider>(context, listen: false);
+
     /// Show the menu button for sorting the list
     var popupMenuButton = PopupMenuButton<SortingType>(
       enabled: !enabled,

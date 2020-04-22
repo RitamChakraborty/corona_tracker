@@ -3,9 +3,11 @@ import 'package:coronatracker/helper/helper.dart';
 import 'package:coronatracker/model/country_data.dart';
 import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_details.dart';
+import 'package:coronatracker/provider/data_provider.dart';
 import 'package:coronatracker/servies/http_services.dart';
 import 'package:coronatracker/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CountryPage extends StatefulWidget {
   final GlobalData _globalData;
@@ -220,12 +222,14 @@ class _CountryPageState extends State<CountryPage> {
                 child: Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: FutureBuilder<List<CountryData>>(
-                    future: httpServices.getCountryData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        List<CountryData> list = snapshot.data;
+                  child: Consumer(
+                    builder: (BuildContext context, DataProvider dataProvider,
+                        Widget child) {
+                      List<CountryData> list = dataProvider.countryDataList;
 
+                      if (list.isEmpty) {
+                        return LoadingIndicator();
+                      } else {
                         if (currentPage == 0) {
                           list = list.sublist(0, 6);
                         } else if (currentPage == 1) {
@@ -274,7 +278,6 @@ class _CountryPageState extends State<CountryPage> {
                           },
                         );
                       }
-                      return LoadingIndicator();
                     },
                   ),
                 ),

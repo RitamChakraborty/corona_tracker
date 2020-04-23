@@ -50,16 +50,8 @@ class _CountryPageState extends State<CountryPage> {
           child: Text('Cases'),
         ),
         const PopupMenuItem<SortingType>(
-          value: SortingType.TODAY_CASES,
-          child: Text('Today Cases'),
-        ),
-        const PopupMenuItem<SortingType>(
           value: SortingType.DEATHS,
           child: Text('Deaths'),
-        ),
-        const PopupMenuItem<SortingType>(
-          value: SortingType.TODAY_DEATHS,
-          child: Text('Today Deaths'),
         ),
         const PopupMenuItem<SortingType>(
           value: SortingType.ACTIVE,
@@ -97,14 +89,11 @@ class _CountryPageState extends State<CountryPage> {
                 ),
               ],
             ),
-            subtitle: Text(
-                "Cases: ${data.cases} | Today Cases: ${data.todayCases}"
-                "\nDeaths: ${data.deaths} | Today Deaths: ${data.todayDeaths}"
-                "\nActive: ${data.active} | Critical: ${data.critical}"
-                "\nRecovered: ${data.recovered}"
-                "\nCases per one million: ${data.casesPerOneMillion}"
-                "\nDeaths per one million: ${data.deathsPerOneMillion}"
-                "\nTested: ${data.totalTests} | Tested per one million: ${data.testsPerOneMillion}"),
+            subtitle: Text("Cases: ${data.cases}"
+                "\nDeaths: ${data.deaths}"
+                "\nActive: ${data.active}"
+                "\nCritical: ${data.critical}"
+                "\nRecovered: ${data.recovered}"),
             onTap: () {
               Navigator.push(
                 context,

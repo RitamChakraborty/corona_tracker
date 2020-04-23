@@ -110,6 +110,22 @@ class _CountryPageState extends State<CountryPage> {
           ),
         );
 
+    /// [BackButton] for the [Scaffold]
+    Widget backButton = Container(
+      child: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          if (enabled) {
+            setState(() {
+              enabled = false;
+            });
+          } else {
+            Navigator.pop(context);
+          }
+        },
+      ),
+    );
+
     /// [TextField] to search for a country
     var textField = Container(
       padding: EdgeInsets.all(8),
@@ -209,7 +225,7 @@ class _CountryPageState extends State<CountryPage> {
                   centerTitle: true,
                   backgroundColor: Colors.transparent,
                   elevation: 0,
-                  leading: BackButton(),
+                  leading: backButton,
                   actions: <Widget>[
                     iconButton,
                     popupMenuButton,

@@ -8,12 +8,16 @@ import 'package:flutter/widgets.dart';
 class CountryDetails extends StatelessWidget {
   final GlobalData _globalData;
   final CountryData _country;
+  final bool _isContinent;
 
-  const CountryDetails({GlobalData globalData, CountryData country})
+  const CountryDetails(
+      {GlobalData globalData, CountryData country, bool isContinent})
       : this._globalData = globalData,
         this._country = country,
+        this._isContinent = isContinent,
         assert(globalData != null),
-        assert(country != null);
+        assert(country != null),
+        assert(isContinent != null);
 
   /// Custom [Card] widget
   Widget card({@required Widget child}) => Container(
@@ -26,6 +30,7 @@ class CountryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(_isContinent);
     return Material(
       child: Scaffold(
         appBar: AppBar(

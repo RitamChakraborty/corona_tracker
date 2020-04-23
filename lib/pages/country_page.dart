@@ -74,7 +74,8 @@ class _CountryPageState extends State<CountryPage> {
 
     /// Widget to show the country details
     /// When pressed, navigate to [CountryDetails] page
-    Widget countryCard({CountryData data, int index}) => Container(
+    Widget countryCard({CountryData data, int index, bool isContinent}) =>
+        Container(
           child: ListTile(
             title: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -101,6 +102,7 @@ class _CountryPageState extends State<CountryPage> {
                   builder: (context) => CountryDetails(
                     globalData: widget._globalData,
                     country: data,
+                    isContinent: isContinent,
                   ),
                 ),
               );
@@ -242,9 +244,9 @@ class _CountryPageState extends State<CountryPage> {
                               if (filter == "") {
                                 /// If filter is not enabled
                                 return countryCard(
-                                  data: list[index],
-                                  index: index,
-                                );
+                                    data: list[index],
+                                    index: index,
+                                    isContinent: list.length < 7);
                               } else if (list[index]
                                   .country
                                   .toLowerCase()

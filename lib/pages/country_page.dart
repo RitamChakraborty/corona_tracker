@@ -208,102 +208,92 @@ class _CountryPageState extends State<CountryPage> {
       ],
     );
 
-    return LayoutBuilder(
-      builder: (context, constrains) {
-        var height = constrains.maxHeight;
-        var width = constrains.maxWidth;
-
-        return DataConnectionCheckerWidget(
+    return DataConnectionCheckerWidget(
+      child: Scaffold(
+        bottomNavigationBar: bottomNavigationBar,
+        body: Container(
           child: Scaffold(
-            bottomNavigationBar: bottomNavigationBar,
-            body: Container(
-              margin: height < width
-                  ? EdgeInsets.symmetric(horizontal: (width - height) / 2)
-                  : EdgeInsets.all(0),
-              child: Scaffold(
-                appBar: AppBar(
-                  title: enabled ? textField : Text("Details"),
-                  centerTitle: true,
-                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-                  elevation: 0.5,
-                  leading: backButton,
-                  actions: <Widget>[
-                    iconButton,
-                    popupMenuButton,
-                  ],
-                ),
-                body: SafeArea(
-                  child: Container(
-                    alignment: Alignment.center,
+            appBar: AppBar(
+              title: enabled ? textField : Text("Details"),
+              centerTitle: true,
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              elevation: 0.5,
+              leading: backButton,
+              actions: <Widget>[
+                iconButton,
+                popupMenuButton,
+              ],
+            ),
+            body: SafeArea(
+              child: Container(
+                alignment: Alignment.center,
 //                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: Consumer(
-                      builder: (BuildContext context, DataProvider dataProvider,
-                          Widget child) {
-                        List<CountryData> list = dataProvider.countryDataList;
+                child: Consumer(
+                  builder: (BuildContext context, DataProvider dataProvider,
+                      Widget child) {
+                    List<CountryData> list = dataProvider.countryDataList;
 
-                        if (list.isEmpty) {
-                          return LoadingIndicator();
-                        } else {
-                          if (currentPage == 0) {
-                            list = list.sublist(0, 6);
-                          } else if (currentPage == 1) {
-                            list = list.sublist(8);
-                          } else {}
+                    if (list.isEmpty) {
+                      return LoadingIndicator();
+                    } else {
+                      if (currentPage == 0) {
+                        list = list.sublist(0, 6);
+                      } else if (currentPage == 1) {
+                        list = list.sublist(8);
+                      } else {}
 
-                          list = sortList(list, sortingType);
+                      list = sortList(list, sortingType);
 
-                          return ListView.separated(
-                            itemCount: list.length,
-                            physics: SCROLL_PHYSICS,
+                      return ListView.separated(
+                        itemCount: list.length,
+                        physics: SCROLL_PHYSICS,
 
-                            /// Return the [countryCard]
-                            itemBuilder: (context, index) {
-                              if (filter == "") {
-                                /// If filter is not enabled
-                                return countryCard(
-                                    data: list[index],
-                                    index: index,
-                                    isContinent: list.length < 7);
-                              } else if (list[index]
+                        /// Return the [countryCard]
+                        itemBuilder: (context, index) {
+                          if (filter == "") {
+                            /// If filter is not enabled
+                            return countryCard(
+                                data: list[index],
+                                index: index,
+                                isContinent: list.length < 7);
+                          } else if (list[index]
+                              .country
+                              .toLowerCase()
+                              .contains(filter)) {
+                            /// If country name contains a part of filter text
+                            return countryCard(data: list[index]);
+                          } else {
+                            /// Otherwise
+                            return Container();
+                          }
+                        },
+
+                        /// Return the [Divider]
+                        separatorBuilder: (context, index) {
+                          if (filter == "" ||
+                              list[index]
                                   .country
                                   .toLowerCase()
                                   .contains(filter)) {
-                                /// If country name contains a part of filter text
-                                return countryCard(data: list[index]);
-                              } else {
-                                /// Otherwise
-                                return Container();
-                              }
-                            },
-
-                            /// Return the [Divider]
-                            separatorBuilder: (context, index) {
-                              if (filter == "" ||
-                                  list[index]
-                                      .country
-                                      .toLowerCase()
-                                      .contains(filter)) {
-                                /// If filter is empty or
-                                /// Country name contains a part of filter
-                                return Divider(
-                                  indent: 16,
-                                  endIndent: 16,
-                                );
-                              } else {
-                                return Container();
-                              }
-                            },
-                          );
-                        }
-                      },
-                    ),
-                  ),
+                            /// If filter is empty or
+                            /// Country name contains a part of filter
+                            return Divider(
+                              indent: 16,
+                              endIndent: 16,
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      );
+                    }
+                  },
                 ),
               ),
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }

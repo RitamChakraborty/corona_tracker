@@ -20,8 +20,6 @@ class DataConnectionCheckerWidget extends StatelessWidget {
         child: Consumer(
           builder: (BuildContext context,
               DataConnectionStatus dataConnectionStatus, Widget child) {
-            print(dataConnectionStatus);
-
             switch (dataConnectionStatus) {
               case DataConnectionStatus.disconnected:
                 return NoInternet();

@@ -11,7 +11,9 @@ class CountryDetails extends StatelessWidget {
   final bool _isContinent;
 
   const CountryDetails(
-      {GlobalData globalData, CountryData country, bool isContinent})
+      {@required GlobalData globalData,
+      @required CountryData country,
+      @required bool isContinent})
       : this._globalData = globalData,
         this._country = country,
         this._isContinent = isContinent,

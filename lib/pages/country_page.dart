@@ -74,7 +74,10 @@ class _CountryPageState extends State<CountryPage> {
 
     /// Widget to show the country details
     /// When pressed, navigate to [CountryDetails] page
-    Widget countryCard({CountryData data, int index, bool isContinent}) =>
+    Widget countryCard(
+            {@required CountryData data,
+            int index,
+            @required bool isContinent}) =>
         Container(
           padding: EdgeInsets.symmetric(horizontal: 16),
           child: ListTile(
@@ -227,7 +230,6 @@ class _CountryPageState extends State<CountryPage> {
             body: SafeArea(
               child: Container(
                 alignment: Alignment.center,
-//                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 child: Consumer(
                   builder: (BuildContext context, DataProvider dataProvider,
                       Widget child) {
@@ -261,7 +263,9 @@ class _CountryPageState extends State<CountryPage> {
                               .toLowerCase()
                               .contains(filter)) {
                             /// If country name contains a part of filter text
-                            return countryCard(data: list[index]);
+                            return countryCard(
+                                data: list[index],
+                                isContinent: list.length < 7);
                           } else {
                             /// Otherwise
                             return Container();

@@ -151,8 +151,8 @@ class CountryDetails extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(_country.country),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          elevation: 0.5,
           centerTitle: true,
         ),
         body: SafeArea(

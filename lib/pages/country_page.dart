@@ -223,8 +223,8 @@ class _CountryPageState extends State<CountryPage> {
                 appBar: AppBar(
                   title: enabled ? textField : Text("Details"),
                   centerTitle: true,
-                  backgroundColor: Colors.transparent,
-                  elevation: 0,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  elevation: 0.5,
                   leading: backButton,
                   actions: <Widget>[
                     iconButton,

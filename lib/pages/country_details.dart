@@ -30,6 +30,122 @@ class CountryDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> children = [
+      card(
+        child: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text(
+              "Cases: ${_country.cases}",
+            ),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "Today Cases: ${_country.todayCases}",
+                ),
+                !_isContinent
+                    ? Text(
+                        "Cases per one million: ${_country.casesPerOneMillion}",
+                      )
+                    : Container(),
+              ],
+            ),
+          ),
+          trailing: Text(
+            "${(_country.cases * 100 / _globalData.cases).toStringAsFixed(2)} %\nof global cases",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      card(
+        child: ListTile(
+          title: Padding(
+            padding: const EdgeInsets.only(top: 8.0),
+            child: Text("Deaths: ${_country.deaths}"),
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Text(
+                  "Today Deaths: ${_country.todayDeaths}",
+                ),
+                !_isContinent
+                    ? Text(
+                        "Deaths per one million: ${_country.deathsPerOneMillion}",
+                      )
+                    : Container(),
+              ],
+            ),
+          ),
+          trailing: Text(
+            "${(_country.deathPercentage).toStringAsFixed(2)} %\nof total cases",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      card(
+        child: ListTile(
+          title: Text(
+            "Active: ${_country.active}",
+          ),
+          trailing: Text(
+            "${(_country.activePercentage).toStringAsFixed(2)} %\nof total cases",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      card(
+        child: ListTile(
+          title: Text(
+            "Critical: ${_country.critical}",
+          ),
+          trailing: Text(
+            "${(_country.criticalPercentage).toStringAsFixed(2)} %\nof total cases",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+      card(
+        child: ListTile(
+          title: Text(
+            "Recovered: ${_country.recovered}",
+          ),
+          trailing: Text(
+            "${(_country.recoveredPercentage).toStringAsFixed(2)} %\nof total cases",
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ),
+    ];
+
+    if (!_isContinent) {
+      children.add(
+        card(
+          child: ListTile(
+            title: Text(
+              "Tests: ${_country.totalTests}",
+            ),
+            subtitle: Text(
+              "Tests per one million: ${_country.testsPerOneMillion}",
+            ),
+          ),
+        ),
+      );
+    }
+
+    children.add(SizedBox(
+      height: 250,
+      child: StatisticsChart(
+        _country.seriesList,
+      ),
+    ));
+
     print(_isContinent);
     return Material(
       child: Scaffold(
@@ -40,76 +156,7 @@ class CountryDetails extends StatelessWidget {
           centerTitle: true,
         ),
         body: SafeArea(
-          child: ListView(
-            physics: SCROLL_PHYSICS,
-            children: <Widget>[
-              card(
-                child: ListTile(
-                  title: Text(
-                    "Cases: ${_country.cases}",
-                  ),
-                  subtitle: Text(
-                    "Today Cases: ${_country.todayCases}",
-                  ),
-                  trailing: Text(
-                    "${(_country.cases * 100 / _globalData.cases).toStringAsFixed(2)} %\nof global cases",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              card(
-                child: ListTile(
-                  title: Text("Deaths: ${_country.deaths}"),
-                  subtitle: Text(
-                    "Today Deaths: ${_country.todayDeaths}",
-                  ),
-                  trailing: Text(
-                    "${(_country.deathPercentage).toStringAsFixed(2)} %\nof total cases",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              card(
-                child: ListTile(
-                  title: Text(
-                    "Active: ${_country.active}",
-                  ),
-                  trailing: Text(
-                    "${(_country.activePercentage).toStringAsFixed(2)} %\nof total cases",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              card(
-                child: ListTile(
-                  title: Text(
-                    "Critical: ${_country.critical}",
-                  ),
-                  trailing: Text(
-                    "${(_country.criticalPercentage).toStringAsFixed(2)} %\nof total cases",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              card(
-                child: ListTile(
-                  title: Text(
-                    "Recovered: ${_country.recovered}",
-                  ),
-                  trailing: Text(
-                    "${(_country.recoveredPercentage).toStringAsFixed(2)} %\nof total cases",
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 250,
-                child: StatisticsChart(
-                  _country.seriesList,
-                ),
-              )
-            ],
-          ),
+          child: ListView(physics: SCROLL_PHYSICS, children: children),
         ),
       ),
     );

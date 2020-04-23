@@ -43,7 +43,7 @@ class HttpServices {
             todayCases: data['todayCases'],
             deaths: data['deaths'],
             todayDeaths: data['todayDeaths'],
-            recovered: data['recovered'],
+            recovered: data['recovered'] == null ? 0 : data['recovered'],
             active: data['active'],
             critical: data['critical'],
             casesPerOneMillion: data['casesPerOneMillion'],

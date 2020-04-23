@@ -76,6 +76,7 @@ class _CountryPageState extends State<CountryPage> {
     /// When pressed, navigate to [CountryDetails] page
     Widget countryCard({CountryData data, int index, bool isContinent}) =>
         Container(
+          padding: EdgeInsets.symmetric(horizontal: 16),
           child: ListTile(
             title: Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -234,7 +235,7 @@ class _CountryPageState extends State<CountryPage> {
                 body: SafeArea(
                   child: Container(
                     alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     child: Consumer(
                       builder: (BuildContext context, DataProvider dataProvider,
                           Widget child) {
@@ -284,7 +285,10 @@ class _CountryPageState extends State<CountryPage> {
                                       .contains(filter)) {
                                 /// If filter is empty or
                                 /// Country name contains a part of filter
-                                return Divider();
+                                return Divider(
+                                  indent: 16,
+                                  endIndent: 16,
+                                );
                               } else {
                                 return Container();
                               }

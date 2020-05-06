@@ -180,40 +180,8 @@ class _CountryPageState extends State<CountryPage> {
       },
     );
 
-    /// Return the bottom nav bar for the [Scaffold]
-    final Widget bottomNavigationBar = BottomNavigationBar(
-      /// Change the value of the current page index
-      /// When tapped
-      onTap: (int value) {
-        setState(() {
-          currentPage = value;
-        });
-      },
-      elevation: 5,
-      currentIndex: currentPage,
-      iconSize: 0,
-      selectedFontSize: 18,
-      selectedItemColor: Theme.of(context).textTheme.title.color,
-      unselectedFontSize: 16,
-      unselectedItemColor: Theme.of(context).disabledColor,
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.map,
-          ),
-          title: Text("Continents"),
-        ),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.map,
-            ),
-            title: Text("Countries")),
-      ],
-    );
-
     return DataConnectionCheckerWidget(
       child: Scaffold(
-        bottomNavigationBar: bottomNavigationBar,
         body: Container(
           child: Scaffold(
             appBar: AppBar(
@@ -238,13 +206,8 @@ class _CountryPageState extends State<CountryPage> {
                     if (list.isEmpty) {
                       return LoadingIndicator();
                     } else {
-                      if (currentPage == 0) {
-                        list = list.sublist(0, 6);
-                      } else if (currentPage == 1) {
-                        list = list.sublist(8);
-                      } else {}
-
                       list = sortList(list, sortingType);
+                      list = list.sublist(1);
 
                       return ListView.separated(
                         itemCount: list.length,

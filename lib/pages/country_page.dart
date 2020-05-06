@@ -5,7 +5,6 @@ import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_details.dart';
 import 'package:coronatracker/provider/data_provider.dart';
 import 'package:coronatracker/servies/http_services.dart';
-import 'package:coronatracker/widgets/data_connection_checker_widget.dart';
 import 'package:coronatracker/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -180,82 +179,79 @@ class _CountryPageState extends State<CountryPage> {
       },
     );
 
-    return DataConnectionCheckerWidget(
-      child: Scaffold(
-        body: Container(
-          child: Scaffold(
-            appBar: AppBar(
-              title: enabled ? textField : Text("Details"),
-              centerTitle: true,
-              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-              elevation: 0.5,
-              leading: backButton,
-              actions: <Widget>[
-                iconButton,
-                popupMenuButton,
-              ],
-            ),
-            body: SafeArea(
-              child: Container(
-                alignment: Alignment.center,
-                child: Consumer(
-                  builder: (BuildContext context, DataProvider dataProvider,
-                      Widget child) {
-                    List<CountryData> list = dataProvider.countryDataList;
+    return Scaffold(
+      body: Container(
+        child: Scaffold(
+          appBar: AppBar(
+            title: enabled ? textField : Text("Details"),
+            centerTitle: true,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            elevation: 0.5,
+            leading: backButton,
+            actions: <Widget>[
+              iconButton,
+              popupMenuButton,
+            ],
+          ),
+          body: SafeArea(
+            child: Container(
+              alignment: Alignment.center,
+              child: Consumer(
+                builder: (BuildContext context, DataProvider dataProvider,
+                    Widget child) {
+                  List<CountryData> list = dataProvider.countryDataList;
 
-                    if (list.isEmpty) {
-                      return LoadingIndicator();
-                    } else {
-                      list = sortList(list, sortingType);
-                      list = list.sublist(1);
+                  if (list.isEmpty) {
+                    return LoadingIndicator();
+                  } else {
+                    list = sortList(list, sortingType);
+                    list = list.sublist(1);
 
-                      return ListView.separated(
-                        itemCount: list.length,
-                        physics: SCROLL_PHYSICS,
+                    return ListView.separated(
+                      itemCount: list.length,
+                      physics: SCROLL_PHYSICS,
 
-                        /// Return the [countryCard]
-                        itemBuilder: (context, index) {
-                          if (filter == "") {
-                            /// If filter is not enabled
-                            return countryCard(
-                                data: list[index],
-                                index: index,
-                                isContinent: list.length < 7);
-                          } else if (list[index]
-                              .country
-                              .toLowerCase()
-                              .contains(filter)) {
-                            /// If country name contains a part of filter text
-                            return countryCard(
-                                data: list[index],
-                                isContinent: list.length < 7);
-                          } else {
-                            /// Otherwise
-                            return Container();
-                          }
-                        },
+                      /// Return the [countryCard]
+                      itemBuilder: (context, index) {
+                        if (filter == "") {
+                          /// If filter is not enabled
+                          return countryCard(
+                              data: list[index],
+                              index: index,
+                              isContinent: list.length < 7);
+                        } else if (list[index]
+                            .country
+                            .toLowerCase()
+                            .contains(filter)) {
+                          /// If country name contains a part of filter text
+                          return countryCard(
+                              data: list[index], isContinent: list.length < 7);
+                        } else {
+                          /// Otherwise
+                          return Container();
+                        }
+                      },
 
-                        /// Return the [Divider]
-                        separatorBuilder: (context, index) {
-                          if (filter == "" ||
-                              list[index]
-                                  .country
-                                  .toLowerCase()
-                                  .contains(filter)) {
-                            /// If filter is empty or
-                            /// Country name contains a part of filter
-                            return Divider(
-                              indent: 16,
-                              endIndent: 16,
-                            );
-                          } else {
-                            return Container();
-                          }
-                        },
-                      );
-                    }
-                  },
-                ),
+                      /// Return the [Divider]
+                      separatorBuilder: (context, index) {
+                        if (filter == "" ||
+                            list[index]
+                                .country
+                                .toLowerCase()
+                                .contains(filter)) {
+                          /// If filter is empty or
+                          /// Country name contains a part of filter
+                          return Divider(
+                            indent: 16,
+                            endIndent: 16,
+                          );
+                        } else {
+                          return Container();
+                        }
+                      },
+                    );
+                  }
+                },
               ),
             ),
           ),

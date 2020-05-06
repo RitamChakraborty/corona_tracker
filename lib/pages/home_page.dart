@@ -3,9 +3,7 @@ import 'package:coronatracker/model/global_data.dart';
 import 'package:coronatracker/pages/country_page.dart';
 import 'package:coronatracker/provider/data_provider.dart';
 import 'package:coronatracker/servies/http_services.dart';
-import 'package:coronatracker/widgets/data_connection_checker_widget.dart';
 import 'package:coronatracker/widgets/loading_indicator.dart';
-import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +13,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /// Getting [DataConnectionStatus] from [Provider]
-    final DataConnectionStatus dataConnectionStatus =
-        Provider.of<DataConnectionStatus>(context);
-
     /// Getting [GlobalData] from [DataProvider]
     final DataProvider dataProvider =
         Provider.of<DataProvider>(context, listen: false);
@@ -99,30 +93,28 @@ class HomePage extends StatelessWidget {
         body: SafeArea(
           child: Container(
             alignment: Alignment.center,
-            child: DataConnectionCheckerWidget(
-              child: Consumer(
-                builder: (BuildContext context, DataProvider dataProvider,
-                    Widget child) {
-                  GlobalData globalData = dataProvider.globalData;
+            child: Consumer(
+              builder: (BuildContext buildContext, DataProvider dataProvider,
+                  Widget child) {
+                GlobalData globalData = dataProvider.globalData;
 
-                  if (globalData == null) {
-                    return LoadingIndicator();
-                  } else {
-                    return SingleChildScrollView(
-                      physics: SCROLL_PHYSICS,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          coronaImage,
-                          globalDataCard(globalData: globalData),
-                          button(globalData),
-                        ],
-                      ),
-                    );
-                  }
-                },
-              ),
+                if (globalData == null) {
+                  return LoadingIndicator();
+                } else {
+                  return SingleChildScrollView(
+                    physics: SCROLL_PHYSICS,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        coronaImage,
+                        globalDataCard(globalData: globalData),
+                        button(globalData),
+                      ],
+                    ),
+                  );
+                }
+              },
             ),
           ),
         ),

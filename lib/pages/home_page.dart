@@ -32,7 +32,7 @@ class HomePage extends StatelessWidget {
         ),
       ),
       child: Image.asset(
-        "assets/pictures/image.png",
+        "assets/images/dress.png",
       ),
     );
 

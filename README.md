@@ -7,17 +7,17 @@ Track the outbreak of the Corona Virus.
 **Light Theme**
 
 <p align="center">
-    <img src="assets/pictures/Shot1.jpg" height="480" width="270" hspace="10">
-    <img src="assets/pictures/Shot2.jpg" height="480" width="270" hspace="10">
-    <img src="assets/pictures/Shot3.jpg" height="480" width="270" hspace="10">
+    <img src="assets/pictures/Shot1.jpg" height="410" width="200" hspace="10" vspace="10">
+    <img src="assets/pictures/Shot2.jpg" height="410" width="200" hspace="10" vspace="10">
+    <img src="assets/pictures/Shot3.jpg" height="410" width="200" hspace="10" vspace="10">
 </p>
 
 **Dark Theme**
 
 <p align="center">
-    <img src="assets/pictures/Shot4.jpg" height="480" width="270" hspace="10">
-    <img src="assets/pictures/Shot5.jpg" height="480" width="270" hspace="10">
-    <img src="assets/pictures/Shot6.jpg" height="480" width="270" hspace="10">
+    <img src="assets/pictures/Shot4.jpg" height="410" width="200" hspace="10" vspace="10">
+    <img src="assets/pictures/Shot5.jpg" height="410" width="200" hspace="10" vspace="10">
+    <img src="assets/pictures/Shot6.jpg" height="410" width="200" hspace="10" vspace="10">
 </p>
 
 ## Features
@@ -37,3 +37,5 @@ Track the outbreak of the Corona Virus.
 - [API](https://github.com/javieraviles/covidAPI) is provided by [Javier
   Aviles](https://github.com/javieraviles)
 - Font page logo by [Burnt Toast](https://dribbble.com/BurntToast)
+- Light theme loading indicator by [Hayk Tsirunyan](https://dribbble.com/tsirunyan) and [Mohamed Abdelkader](https://dribbble.com/mkader)
+- Dark theme loading indicator by [Frances Van Eyck](https://dribbble.com/francesvaneyck)

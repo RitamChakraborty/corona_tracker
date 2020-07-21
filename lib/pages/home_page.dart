@@ -88,20 +88,20 @@ class HomePage extends StatelessWidget {
     }
 
     return Material(
-      child: Scaffold(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: SafeArea(
-          child: Container(
-            alignment: Alignment.center,
-            child: Consumer(
-              builder: (BuildContext buildContext, DataProvider dataProvider,
-                  Widget child) {
-                GlobalData globalData = dataProvider.globalData;
+      child: Consumer(
+        builder: (BuildContext buildContext, DataProvider dataProvider,
+            Widget child) {
+          GlobalData globalData = dataProvider.globalData;
 
-                if (globalData == null) {
-                  return LoadingIndicator(id: 1,);
-                } else {
-                  return SingleChildScrollView(
+          if (globalData == null) {
+            return LoadingIndicator(id: 1);
+          } else {
+            return Scaffold(
+              backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+              body: SafeArea(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: SingleChildScrollView(
                     physics: SCROLL_PHYSICS,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,13 +112,14 @@ class HomePage extends StatelessWidget {
                         button(globalData),
                       ],
                     ),
-                  );
-                }
-              },
-            ),
-          ),
-        ),
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
     );
   }
 }
+

@@ -94,7 +94,7 @@ class HomePage extends StatelessWidget {
           GlobalData globalData = dataProvider.globalData;
 
           if (globalData == null) {
-            return LoadingIndicator(id: 1);
+            return LoadingIndicator(id: 2);
           } else {
             return Scaffold(
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,

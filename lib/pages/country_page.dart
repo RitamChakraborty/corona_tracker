@@ -179,83 +179,90 @@ class _CountryPageState extends State<CountryPage> {
       },
     );
 
-    return Scaffold(
-      body: Container(
-        child: Scaffold(
-          appBar: AppBar(
-            title: enabled ? textField : Text("Details"),
-            centerTitle: true,
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-            elevation: 0.5,
-            leading: backButton,
-            actions: <Widget>[
-              iconButton,
-              popupMenuButton,
-            ],
-          ),
-          body: SafeArea(
-            child: Container(
-              alignment: Alignment.center,
-              child: Consumer(
-                builder: (BuildContext context, DataProvider dataProvider,
-                    Widget child) {
-                  List<CountryData> list = dataProvider.countryDataList;
+    return Material(
+      child: Consumer(
+        builder:
+            (BuildContext context, DataProvider dataProvider, Widget child) {
+          List<CountryData> list = dataProvider.countryDataList;
 
-                  if (list.isEmpty) {
-                    return LoadingIndicator(id: 2);
-                  } else {
-                    list = sortList(list, sortingType);
-                    list = list.sublist(1);
+          if (list.isEmpty) {
+            return LoadingIndicator(id: 1);
+          } else {
+            return Scaffold(
+              body: Container(
+                child: Scaffold(
+                  appBar: AppBar(
+                    title: enabled ? textField : Text("Details"),
+                    centerTitle: true,
+                    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                    elevation: 0.5,
+                    leading: backButton,
+                    actions: <Widget>[
+                      iconButton,
+                      popupMenuButton,
+                    ],
+                  ),
+                  body: SafeArea(
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: Builder(
+                        builder: (BuildContext context) {
+                          list = sortList(list, sortingType);
+                          list = list.sublist(1);
 
-                    return ListView.separated(
-                      itemCount: list.length,
-                      physics: SCROLL_PHYSICS,
+                          return ListView.separated(
+                            itemCount: list.length,
+                            physics: SCROLL_PHYSICS,
 
-                      /// Return the [countryCard]
-                      itemBuilder: (context, index) {
-                        if (filter == "") {
-                          /// If filter is not enabled
-                          return countryCard(
-                              data: list[index],
-                              index: index,
-                              isContinent: list.length < 7);
-                        } else if (list[index]
-                            .country
-                            .toLowerCase()
-                            .contains(filter)) {
-                          /// If country name contains a part of filter text
-                          return countryCard(
-                              data: list[index], isContinent: list.length < 7);
-                        } else {
-                          /// Otherwise
-                          return Container();
-                        }
-                      },
+                            /// Return the [countryCard]
+                            itemBuilder: (context, index) {
+                              if (filter == "") {
+                                /// If filter is not enabled
+                                return countryCard(
+                                    data: list[index],
+                                    index: index,
+                                    isContinent: list.length < 7);
+                              } else if (list[index]
+                                  .country
+                                  .toLowerCase()
+                                  .contains(filter)) {
+                                /// If country name contains a part of filter text
+                                return countryCard(
+                                    data: list[index],
+                                    isContinent: list.length < 7);
+                              } else {
+                                /// Otherwise
+                                return Container();
+                              }
+                            },
 
-                      /// Return the [Divider]
-                      separatorBuilder: (context, index) {
-                        if (filter == "" ||
-                            list[index]
-                                .country
-                                .toLowerCase()
-                                .contains(filter)) {
-                          /// If filter is empty or
-                          /// Country name contains a part of filter
-                          return Divider(
-                            indent: 16,
-                            endIndent: 16,
+                            /// Return the [Divider]
+                            separatorBuilder: (context, index) {
+                              if (filter == "" ||
+                                  list[index]
+                                      .country
+                                      .toLowerCase()
+                                      .contains(filter)) {
+                                /// If filter is empty or
+                                /// Country name contains a part of filter
+                                return Divider(
+                                  indent: 16,
+                                  endIndent: 16,
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
                           );
-                        } else {
-                          return Container();
-                        }
-                      },
-                    );
-                  }
-                },
+                        },
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
+            );
+          }
+        },
       ),
     );
   }

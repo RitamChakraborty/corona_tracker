@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                 GlobalData globalData = dataProvider.globalData;
 
                 if (globalData == null) {
-                  return LoadingIndicator();
+                  return LoadingIndicator(id: 1,);
                 } else {
                   return SingleChildScrollView(
                     physics: SCROLL_PHYSICS,

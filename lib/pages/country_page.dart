@@ -202,7 +202,7 @@ class _CountryPageState extends State<CountryPage> {
                   List<CountryData> list = dataProvider.countryDataList;
 
                   if (list.isEmpty) {
-                    return LoadingIndicator();
+                    return LoadingIndicator(id: 2);
                   } else {
                     list = sortList(list, sortingType);
                     list = list.sublist(1);

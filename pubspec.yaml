@@ -10,8 +10,8 @@ dependencies:
     sdk: flutter
   http: any
   data_connection_checker: any
-  charts_flutter: any
   provider: any
+  charts_flutter: any
 
 dev_dependencies:
   flutter_test:
@@ -20,4 +20,9 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/pictures/image.png
+    - assets/images/dress.png
+    - assets/gifs/home_page.gif
+    - assets/gifs/light_1.gif
+    - assets/gifs/light_2.gif
+    - assets/gifs/dark_1.gif
+    - assets/gifs/dark_2.gif

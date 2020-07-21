@@ -1,4 +1,4 @@
-import 'package:coronatracker/pages/home_page.dart';
+  import 'package:coronatracker/pages/home_page.dart';
 import 'package:coronatracker/provider/data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

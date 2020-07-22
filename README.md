@@ -37,5 +37,6 @@ Track the outbreak of the Corona Virus.
 - [API](https://github.com/javieraviles/covidAPI) is provided by [Javier
   Aviles](https://github.com/javieraviles)
 - Font page logo by [Burnt Toast](https://dribbble.com/BurntToast)
-- Light theme loading indicator by [Hayk Tsirunyan](https://dribbble.com/tsirunyan) and [Mohamed Abdelkader](https://dribbble.com/mkader)
+- Light theme loading indicator by [Hayk Tsirunyan](https://dribbble.com/tsirunyan) and [Mohamed 
+  Abdelkader](https://dribbble.com/mkader)
 - Dark theme loading indicator by [Frances Van Eyck](https://dribbble.com/francesvaneyck)

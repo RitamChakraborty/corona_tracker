@@ -8,10 +8,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http: any
-  data_connection_checker: any
-  provider: any
-  charts_flutter: any
 
 dev_dependencies:
   flutter_test:

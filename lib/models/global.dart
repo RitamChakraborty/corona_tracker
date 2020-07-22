@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
-class GlobalData {
+class Global {
   final int _cases;
   final int _todayCases;
   final int _deaths;
@@ -24,7 +24,7 @@ class GlobalData {
   final double _criticalPerOneMillion;
   final int _affectedCountries;
 
-  const GlobalData({
+  const Global({
     @required int cases,
     @required int todayCases,
     @required int deaths,
@@ -86,8 +86,8 @@ class GlobalData {
         assert(criticalPerOneMillion != null),
         assert(affectedCountries != null);
 
-  factory GlobalData.fromMap({@required Map<String, dynamic> map}) =>
-      GlobalData(
+  factory Global.fromMap({@required Map<String, dynamic> map}) =>
+      Global(
         cases: map['cases'],
         todayCases: map['todayCases'],
         deaths: map['deaths'],
@@ -110,8 +110,8 @@ class GlobalData {
         affectedCountries: map['affectedCountries'],
       );
 
-  factory GlobalData.fromString({@required String string}) =>
-      GlobalData.fromMap(map: jsonDecode(string));
+  factory Global.fromString({@required String string}) =>
+      Global.fromMap(map: jsonDecode(string));
 
   int get affectedCountries => _affectedCountries;
 

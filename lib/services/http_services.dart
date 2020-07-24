@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/models/continent.dart';
+import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/models/global.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,6 +26,17 @@ class HttpService {
           .map((dynamic map) => Continent.fromMap(map: map)).toList();
     } else {
       throw Exception('Failed to fetch continent data');
+    }
+  }
+
+  Future<List<Country>> fetchCountryData() async {
+    http.Response response = await http.get(COUNTRY_API);
+
+    if (response.statusCode == 200) {
+      List<dynamic> list =jsonDecode(response.body);
+      return list.map((dynamic map) => Country.fromMap(map: map)).toList();
+    } else {
+      throw Exception('Failed to fetch country data');
     }
   }
 }

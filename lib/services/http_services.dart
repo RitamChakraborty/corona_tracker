@@ -22,8 +22,7 @@ class HttpService {
 
     if (response.statusCode == 200) {
       List<dynamic> list = jsonDecode(response.body);
-      return list
-          .map((dynamic map) => Continent.fromMap(map: map)).toList();
+      return list.map((dynamic map) => Continent.fromMap(map: map)).toList();
     } else {
       throw Exception('Failed to fetch continent data');
     }
@@ -33,7 +32,7 @@ class HttpService {
     http.Response response = await http.get(COUNTRY_API);
 
     if (response.statusCode == 200) {
-      List<dynamic> list =jsonDecode(response.body);
+      List<dynamic> list = jsonDecode(response.body);
       return list.map((dynamic map) => Country.fromMap(map: map)).toList();
     } else {
       throw Exception('Failed to fetch country data');

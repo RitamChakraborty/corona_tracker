@@ -33,11 +33,11 @@ class CountryInfo {
 
   factory CountryInfo.fromMap({@required Map<String, dynamic> map}) =>
       CountryInfo(
-        id: map['_id'],
-        iso2: map['iso2'],
-        iso3: map['iso3'],
-        lat: map['lat'] * 1.0,
-        long: map['long'] * 1.0,
+        id: map['_id'] ?? 0,
+        iso2: map['iso2'] ?? '',
+        iso3: map['iso3'] ?? '',
+        lat: (map['lat'] ?? 0 )* 1.0,
+        long: (map['long'] ?? 0)* 1.0,
         flag: map['flag'],
       );
 

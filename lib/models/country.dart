@@ -105,7 +105,7 @@ class Country {
         casesPerOneMillion: map['casesPerOneMillion'] * 1.0,
         deathsPerOneMillion: map['deathsPerOneMillion'] * 1.0,
         tests: map['tests'],
-        testsPerOneMillion: map['tests'],
+        testsPerOneMillion: map['tests'] * 1.0,
         population: map['population'],
         continent: map['continent'],
         oneCasePerPeople: map['oneCasePerPeople'],

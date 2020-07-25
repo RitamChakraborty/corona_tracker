@@ -9,6 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: any
+  flutter_svg: any
 
 dev_dependencies:
   flutter_test:
@@ -17,6 +18,18 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/svgs/background_art_1.svg
+    - assets/svgs/background_art_2.svg
+    - assets/svgs/doctor_1.svg
+    - assets/svgs/map.svg
+    - assets/images/caugh.png
+    - assets/images/fever.png
+    - assets/images/headache.png
+    - assets/images/map.png
+    - assets/images/own_test.png
+    - assets/images/virus.png
+    - assets/images/wash_hands.png
+    - assets/wear_mask.png
     - assets/images/dress.png
     - assets/gifs/home_page.gif
     - assets/gifs/light_1.gif

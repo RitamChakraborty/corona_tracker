@@ -15,8 +15,7 @@ class HomePage extends StatelessWidget {
       child: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
-            pinned: false,
-            floating: false,
+            floating: true,
             delegate: Header(
               maxExtent: size.height / 3,
               minExtent: size.height / 4,

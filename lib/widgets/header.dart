@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:coronatracker/widgets/bezier_clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
@@ -18,52 +20,52 @@ class Header implements SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return ClipPath(
-      clipper: BezierClipper(),
-      child: Container(
-        padding: const EdgeInsets.all(8.0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Colors.deepPurple, Colors.purple[200]]),
-          image: DecorationImage(
-            image: Image.asset('assets/images/virus.png').image,
-            alignment: Alignment.center,
-            fit: BoxFit.fill,
+    return Opacity(
+      opacity: _getOpacity(shrinkOffset),
+      child: ClipPath(
+        clipper: BezierClipper(),
+        child: Container(
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.deepPurple, Colors.purple[200]]),
+            image: DecorationImage(
+              image: Image.asset('assets/images/virus.png').image,
+              alignment: Alignment.center,
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SafeArea(
-              child: Opacity(
-                opacity: _getOpacity(shrinkOffset),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SafeArea(
                 child: SvgPicture.asset(
                   'assets/svgs/doctor_2.svg',
                   alignment: Alignment.topLeft,
                   fit: BoxFit.cover,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 56.0),
-              child: Text(
-                "Say Home,\nSay Safe !",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    shadows: [
-                      Shadow(
-                          color: Colors.deepPurple,
-                          offset: Offset(5, 5),
-                          blurRadius: 3
-                      )
-                    ]
+              Padding(
+                padding: EdgeInsets.only(bottom: shrinkOffset),
+                child: Text(
+                  "Say Home,\nSay Safe !",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 24,
+                      shadows: [
+                        Shadow(
+                            color: Colors.deepPurple,
+                            offset: Offset(5, 5),
+                            blurRadius: 3
+                        )
+                      ]
+                  ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

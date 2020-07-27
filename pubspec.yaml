@@ -21,6 +21,7 @@ flutter:
     - assets/svgs/background_art_1.svg
     - assets/svgs/background_art_2.svg
     - assets/svgs/doctor_1.svg
+    - assets/svgs/doctor_2.svg
     - assets/svgs/map.svg
     - assets/images/caugh.png
     - assets/images/fever.png

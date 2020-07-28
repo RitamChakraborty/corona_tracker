@@ -30,10 +30,13 @@ flutter:
     - assets/images/own_test.png
     - assets/images/virus.png
     - assets/images/wash_hands.png
-    - assets/wear_mask.png
+    - assets/images/wear_mask.png
     - assets/images/dress.png
+    - assets/do_dont.png
     - assets/gifs/home_page.gif
     - assets/gifs/light_1.gif
     - assets/gifs/light_2.gif
     - assets/gifs/dark_1.gif
     - assets/gifs/dark_2.gif
+    - assets/gifs/loading_light.gif
+    - assets/gifs/loading_dark.gif

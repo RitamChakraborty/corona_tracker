@@ -1,4 +1,5 @@
 import 'package:coronatracker/pages/home_page.dart';
+import 'package:coronatracker/splash_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: true,
       title: "Corona Tracker",
-      home: HomePage(),
+//      darkTheme: ThemeData.dark(),
+      home: SplashScreen(),
     );
   }
 }

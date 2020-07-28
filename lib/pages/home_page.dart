@@ -10,7 +10,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  Widget arrowIcon = Icon(Icons.expand_more);
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -21,7 +28,6 @@ class HomePage extends StatelessWidget {
       child: CustomScrollView(
         slivers: <Widget>[
           SliverPersistentHeader(
-            floating: true,
             delegate: Header(
               maxExtent: size.height / 3,
               minExtent: size.height / 4,
@@ -69,6 +75,59 @@ class HomePage extends StatelessWidget {
                   ],
                 ),
               ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      dividerColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                    ),
+                    child: ExpansionTile(
+                      onExpansionChanged: (bool value) {
+                        setState(() {
+                          if (value) {
+                            arrowIcon = Icon(
+                              Icons.expand_less,
+                              color: Colors.purpleAccent,
+                            );
+                          } else {
+                            arrowIcon = Icon(Icons.expand_more);
+                          }
+                        });
+                      },
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Show More",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          SizedBox(width: 8.0),
+                          AnimatedSwitcher(
+                            duration: Duration(seconds: 2),
+                            child: arrowIcon,
+                          )
+                        ],
+                      ),
+                      trailing: Container(
+                        width: 10.0,
+                      ),
+                      children: <Widget>[
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                        ListTile(title: Text("Test")),
+                      ],
+                    ),
+                  ))
             ]),
           )
         ],

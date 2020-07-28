@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
   http: any
   flutter_svg: any
+  provider: any
 
 dev_dependencies:
   flutter_test:

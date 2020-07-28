@@ -7,10 +7,14 @@ class ServiceProvider extends ChangeNotifier {
   Global _global;
 
   Global get global {
-    _httpService.fetchGlobalData().then((Global global) {
-      _global = global;
-    }).whenComplete(() {
-      notifyListeners();
-    });
+    if (_global == null) {
+      _httpService.fetchGlobalData().then((Global global) {
+        _global = global;
+      }).whenComplete(() {
+        notifyListeners();
+      });
+    }
+
+    return _global;
   }
 }

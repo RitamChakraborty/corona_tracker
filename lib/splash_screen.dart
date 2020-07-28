@@ -1,3 +1,4 @@
+import 'package:coronatracker/pages/home_page.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,10 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
+
+    if (serviceProvider.global != null) {
+      return HomePage();
+    }
 
     return Material(
       color: Theme.of(context).brightness == Brightness.light

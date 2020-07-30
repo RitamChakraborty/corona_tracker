@@ -135,52 +135,52 @@ class _HomePageState extends State<HomePage> {
                           value: global.todayCases.toString()),
                       tile(
                           label: "Cases per one million",
-                          value: global.casesPerOneMillion.toString()),
+                          value: global.casesPerOneMillion.toStringAsFixed(2)),
                       tile(
                           label: "Percentage of cases among total population",
-                          value: global.totalAffectedPercentage.toString()),
+                          value: global.totalAffectedPercentage.toStringAsFixed(2) + "%"),
                       tile(
                           label: "Today Deaths",
                           value: global.todayDeaths.toString()),
                       tile(
                           label: "Deaths per One Million",
-                          value: global.deathsPerOneMillion.toString()),
+                          value: global.deathsPerOneMillion.toStringAsFixed(2)),
                       tile(
                           label: "Percentage of deaths among total cases",
-                          value: global.deathsPercentage.toString()),
+                          value: global.deathsPercentage.toStringAsFixed(2) + "%"),
                       tile(
                           label: "Today Recovered",
                           value: global.todayRecovered.toString()),
                       tile(
                           label: "Recovered per one million",
-                          value: global.recoveredPerOneMillion.toString()),
+                          value: global.recoveredPerOneMillion.toStringAsFixed(2)),
                       tile(
                           label:
                               "Percentage of recovered people among total cases",
-                          value: global.recoveryPercentage.toString()),
+                          value: global.recoveryPercentage.toStringAsFixed(2) + "%"),
                       tile(
                           label: "Active cases per one million",
-                          value: global.activePerOneMillion.toString()),
+                          value: global.activePerOneMillion.toStringAsFixed(2)),
                       tile(
                           label: "Percentage of active cases among total cases",
-                          value: global.activeCasesPercentage.toString()),
+                          value: global.activeCasesPercentage.toStringAsFixed(2) + "%"),
                       tile(
                           label: "Critical cases per one million",
-                          value: global.criticalPerOneMillion.toString()),
+                          value: global.criticalPerOneMillion.toStringAsFixed(2)),
                       tile(
                           label:
                               "Percentage of critical cases among total active cases",
-                          value: global.criticalCasesPercentage.toString()),
+                          value: global.criticalCasesPercentage.toStringAsFixed(2) + "%"),
                       tile(
                           label: "Total tests done",
                           value: global.tests.toString()),
                       tile(
                           label: "Test per one million",
-                          value: global.testsPerOneMillion.toString()),
+                          value: global.testsPerOneMillion.toStringAsFixed(2)),
                       tile(
                           label:
                               "Percentage of people tested among total population",
-                          value: global.testsPercentage.toString()),
+                          value: global.testsPercentage.toStringAsFixed(2) + "%"),
                       tile(
                           label: "Total affected countries",
                           value: global.affectedCountries.toString()),

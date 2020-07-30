@@ -1,4 +1,3 @@
-import 'package:coronatracker/pages/home_page.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/splash_screen.dart';
 import 'package:flutter/material.dart';

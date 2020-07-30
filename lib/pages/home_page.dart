@@ -1,13 +1,9 @@
-import 'dart:wasm';
-
 import 'package:coronatracker/models/global.dart';
 import 'package:coronatracker/providers/service_provider.dart';
-import 'package:coronatracker/widgets/bezier_clipper.dart';
 import 'package:coronatracker/widgets/data_card.dart';
 import 'package:coronatracker/widgets/header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -23,6 +19,26 @@ class _HomePageState extends State<HomePage> {
     final Size size = MediaQuery.of(context).size;
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     Global global = serviceProvider.global;
+
+    Widget tile({@required String label, @required String value}) => Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Card(
+            elevation: 10.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            color: Theme.of(context).brightness == Brightness.light
+            ? Colors.grey[50]
+            : Colors.grey[800],
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ListTile(
+                title: Text("$label"),
+                trailing: Text("$value"),
+              ),
+            ),
+          ),
+        );
 
     return Material(
       child: CustomScrollView(
@@ -76,58 +92,102 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Theme(
-                    data: Theme.of(context).copyWith(
-                      dividerColor: Colors.transparent,
-                      splashColor: Colors.transparent,
-                    ),
-                    child: ExpansionTile(
-                      onExpansionChanged: (bool value) {
-                        setState(() {
-                          if (value) {
-                            arrowIcon = Icon(
-                              Icons.expand_less,
-                              color: Colors.purpleAccent,
-                            );
-                          } else {
-                            arrowIcon = Icon(Icons.expand_more);
-                          }
-                        });
-                      },
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Show More",
-                            style: TextStyle(
-                              fontSize: 20,
-                            ),
-                          ),
-                          SizedBox(width: 8.0),
-                          AnimatedSwitcher(
-                            duration: Duration(seconds: 2),
-                            child: arrowIcon,
-                          )
-                        ],
-                      ),
-                      trailing: Container(
-                        width: 10.0,
-                      ),
+                padding: const EdgeInsets.all(8.0),
+                child: Theme(
+                  data: Theme.of(context).copyWith(
+                    dividerColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                  ),
+                  child: ExpansionTile(
+                    onExpansionChanged: (bool value) {
+                      setState(() {
+                        if (value) {
+                          arrowIcon = Icon(
+                            Icons.expand_less,
+                          );
+                        } else {
+                          arrowIcon = Icon(Icons.expand_more);
+                        }
+                      });
+                    },
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
-                        ListTile(title: Text("Test")),
+                        Text(
+                          "Show More",
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                        SizedBox(width: 8.0),
+                        AnimatedSwitcher(
+                          duration: Duration(seconds: 2),
+                          child: arrowIcon,
+                        )
                       ],
                     ),
-                  ))
+                    trailing: Container(
+                      width: 10.0,
+                    ),
+                    children: <Widget>[
+                      tile(
+                          label: "Today Cases",
+                          value: global.todayCases.toString()),
+                      tile(
+                          label: "Cases per one million",
+                          value: global.casesPerOneMillion.toString()),
+                      tile(
+                          label: "Percentage of cases among total population",
+                          value: global.totalAffectedPercentage.toString()),
+                      tile(
+                          label: "Today Deaths",
+                          value: global.todayDeaths.toString()),
+                      tile(
+                          label: "Deaths per One Million",
+                          value: global.deathsPerOneMillion.toString()),
+                      tile(
+                          label: "Percentage of deaths among total cases",
+                          value: global.deathsPercentage.toString()),
+                      tile(
+                          label: "Today Recovered",
+                          value: global.todayRecovered.toString()),
+                      tile(
+                          label: "Recovered per one million",
+                          value: global.recoveredPerOneMillion.toString()),
+                      tile(
+                          label:
+                              "Percentage of recovered people among total cases",
+                          value: global.recoveryPercentage.toString()),
+                      tile(
+                          label: "Active cases per one million",
+                          value: global.activePerOneMillion.toString()),
+                      tile(
+                          label: "Percentage of active cases among total cases",
+                          value: global.activeCasesPercentage.toString()),
+                      tile(
+                          label: "Critical cases per one million",
+                          value: global.criticalPerOneMillion.toString()),
+                      tile(
+                          label:
+                              "Percentage of critical cases among total active cases",
+                          value: global.criticalCasesPercentage.toString()),
+                      tile(
+                          label: "Total tests done",
+                          value: global.tests.toString()),
+                      tile(
+                          label: "Test per one million",
+                          value: global.testsPerOneMillion.toString()),
+                      tile(
+                          label:
+                              "Percentage of people tested among total population",
+                          value: global.testsPercentage.toString()),
+                      tile(
+                          label: "Total affected countries",
+                          value: global.affectedCountries.toString()),
+                    ],
+                  ),
+                ),
+              ),
             ]),
           )
         ],

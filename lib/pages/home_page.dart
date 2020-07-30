@@ -20,158 +20,193 @@ class _HomePageState extends State<HomePage> {
     final Size size = MediaQuery.of(context).size;
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     Global global = serviceProvider.global;
-    
+
     return Material(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverPersistentHeader(
-            delegate: Header(
-              maxExtent: size.height / 3,
-              minExtent: size.height / 4,
+      child: Scaffold(
+        bottomNavigationBar: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.public),
+              title: Text("Global"),
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    DataCard(
-                        label: "Total Cases",
-                        value: global.cases.toString(),
-                        color: Colors.purple),
-                    DataCard(
-                      label: "Deaths",
-                      value: global.deaths.toString(),
-                      color: Colors.pink,
-                    ),
-                  ],
-                ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.map),
+              title: Text("Continents"),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.outlined_flag),
+              title: Text("Countries"),
+            ),
+          ],
+        ),
+        body: CustomScrollView(
+          slivers: <Widget>[
+            SliverPersistentHeader(
+              delegate: Header(
+                maxExtent: size.height / 3,
+                minExtent: size.height / 4,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    DataCard(
-                      label: "Active",
-                      value: global.active.toString(),
-                      color: Colors.deepOrangeAccent,
-                    ),
-                    DataCard(
-                      label: "Critical",
-                      value: global.critical.toString(),
-                      color: Colors.grey,
-                    ),
-                    DataCard(
-                      label: "Recovered",
-                      value: global.recovered.toString(),
-                      color: Colors.green,
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Theme(
-                  data: Theme.of(context).copyWith(
-                    dividerColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                  ),
-                  child: ExpansionTile(
-                    onExpansionChanged: (bool value) {
-                      setState(() {
-                        if (value) {
-                          arrowIcon = Icon(
-                            Icons.expand_less,
-                          );
-                        } else {
-                          arrowIcon = Icon(Icons.expand_more);
-                        }
-                      });
-                    },
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Show More",
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
-                        ),
-                        SizedBox(width: 8.0),
-                        AnimatedSwitcher(
-                          duration: Duration(seconds: 2),
-                          child: arrowIcon,
-                        )
-                      ],
-                    ),
-                    trailing: Container(
-                      width: 10.0,
-                    ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                      DataTile(
-                          label: "Today Cases",
-                          value: global.todayCases.toString()),
-                      DataTile(
-                          label: "Cases per one million",
-                          value: global.casesPerOneMillion.toStringAsFixed(2)),
-                      DataTile(
-                          label: "Percentage of cases among total population",
-                          value: global.totalAffectedPercentage.toStringAsFixed(2) + "%"),
-                      DataTile(
-                          label: "Today Deaths",
-                          value: global.todayDeaths.toString()),
-                      DataTile(
-                          label: "Deaths per One Million",
-                          value: global.deathsPerOneMillion.toStringAsFixed(2)),
-                      DataTile(
-                          label: "Percentage of deaths among total cases",
-                          value: global.deathsPercentage.toStringAsFixed(2) + "%"),
-                      DataTile(
-                          label: "Today Recovered",
-                          value: global.todayRecovered.toString()),
-                      DataTile(
-                          label: "Recovered per one million",
-                          value: global.recoveredPerOneMillion.toStringAsFixed(2)),
-                      DataTile(
-                          label:
-                              "Percentage of recovered people among total cases",
-                          value: global.recoveryPercentage.toStringAsFixed(2) + "%"),
-                      DataTile(
-                          label: "Active cases per one million",
-                          value: global.activePerOneMillion.toStringAsFixed(2)),
-                      DataTile(
-                          label: "Percentage of active cases among total cases",
-                          value: global.activeCasesPercentage.toStringAsFixed(2) + "%"),
-                      DataTile(
-                          label: "Critical cases per one million",
-                          value: global.criticalPerOneMillion.toStringAsFixed(2)),
-                      DataTile(
-                          label:
-                              "Percentage of critical cases among total active cases",
-                          value: global.criticalCasesPercentage.toStringAsFixed(2) + "%"),
-                      DataTile(
-                          label: "Total tests done",
-                          value: global.tests.toString()),
-                      DataTile(
-                          label: "Test per one million",
-                          value: global.testsPerOneMillion.toStringAsFixed(2)),
-                      DataTile(
-                          label:
-                              "Percentage of people tested among total population",
-                          value: global.testsPercentage.toStringAsFixed(2) + "%"),
-                      DataTile(
-                          label: "Total affected countries",
-                          value: global.affectedCountries.toString()),
+                      DataCard(
+                          label: "Total Cases",
+                          value: global.cases.toString(),
+                          color: Colors.purple),
+                      DataCard(
+                        label: "Deaths",
+                        value: global.deaths.toString(),
+                        color: Colors.pink,
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ]),
-          )
-        ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      DataCard(
+                        label: "Active",
+                        value: global.active.toString(),
+                        color: Colors.deepOrangeAccent,
+                      ),
+                      DataCard(
+                        label: "Critical",
+                        value: global.critical.toString(),
+                        color: Colors.grey,
+                      ),
+                      DataCard(
+                        label: "Recovered",
+                        value: global.recovered.toString(),
+                        color: Colors.green,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Theme(
+                    data: Theme.of(context).copyWith(
+                      dividerColor: Colors.transparent,
+                      splashColor: Colors.transparent,
+                    ),
+                    child: ExpansionTile(
+                      onExpansionChanged: (bool value) {
+                        setState(() {
+                          if (value) {
+                            arrowIcon = Icon(
+                              Icons.expand_less,
+                            );
+                          } else {
+                            arrowIcon = Icon(Icons.expand_more);
+                          }
+                        });
+                      },
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Show More",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                          SizedBox(width: 8.0),
+                          AnimatedSwitcher(
+                            duration: Duration(seconds: 2),
+                            child: arrowIcon,
+                          )
+                        ],
+                      ),
+                      trailing: Container(
+                        width: 10.0,
+                      ),
+                      children: <Widget>[
+                        DataTile(
+                            label: "Today Cases",
+                            value: global.todayCases.toString()),
+                        DataTile(
+                            label: "Cases per one million",
+                            value:
+                                global.casesPerOneMillion.toStringAsFixed(2)),
+                        DataTile(
+                            label: "Percentage of cases among total population",
+                            value: global.totalAffectedPercentage
+                                    .toStringAsFixed(2) +
+                                "%"),
+                        DataTile(
+                            label: "Today Deaths",
+                            value: global.todayDeaths.toString()),
+                        DataTile(
+                            label: "Deaths per One Million",
+                            value:
+                                global.deathsPerOneMillion.toStringAsFixed(2)),
+                        DataTile(
+                            label: "Percentage of deaths among total cases",
+                            value: global.deathsPercentage.toStringAsFixed(2) +
+                                "%"),
+                        DataTile(
+                            label: "Today Recovered",
+                            value: global.todayRecovered.toString()),
+                        DataTile(
+                            label: "Recovered per one million",
+                            value: global.recoveredPerOneMillion
+                                .toStringAsFixed(2)),
+                        DataTile(
+                            label:
+                                "Percentage of recovered people among total cases",
+                            value:
+                                global.recoveryPercentage.toStringAsFixed(2) +
+                                    "%"),
+                        DataTile(
+                            label: "Active cases per one million",
+                            value:
+                                global.activePerOneMillion.toStringAsFixed(2)),
+                        DataTile(
+                            label:
+                                "Percentage of active cases among total cases",
+                            value: global.activeCasesPercentage
+                                    .toStringAsFixed(2) +
+                                "%"),
+                        DataTile(
+                            label: "Critical cases per one million",
+                            value: global.criticalPerOneMillion
+                                .toStringAsFixed(2)),
+                        DataTile(
+                            label:
+                                "Percentage of critical cases among total active cases",
+                            value: global.criticalCasesPercentage
+                                    .toStringAsFixed(2) +
+                                "%"),
+                        DataTile(
+                            label: "Total tests done",
+                            value: global.tests.toString()),
+                        DataTile(
+                            label: "Test per one million",
+                            value:
+                                global.testsPerOneMillion.toStringAsFixed(2)),
+                        DataTile(
+                            label:
+                                "Percentage of people tested among total population",
+                            value: global.testsPercentage.toStringAsFixed(2) +
+                                "%"),
+                        DataTile(
+                            label: "Total affected countries",
+                            value: global.affectedCountries.toString()),
+                      ],
+                    ),
+                  ),
+                ),
+              ]),
+            )
+          ],
+        ),
       ),
     );
   }

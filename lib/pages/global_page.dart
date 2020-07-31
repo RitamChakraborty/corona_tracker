@@ -11,7 +11,7 @@ class GlobalPage extends StatefulWidget {
   _GlobalPageState createState() => _GlobalPageState();
 }
 
-class _GlobalPageState extends State<GlobalPage> {
+class _GlobalPageState extends State<GlobalPage>  with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
@@ -188,4 +188,8 @@ class _GlobalPageState extends State<GlobalPage> {
       ],
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

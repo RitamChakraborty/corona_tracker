@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
-class CountriesPage extends StatelessWidget {
+class CountriesPage extends StatefulWidget {
+  @override
+  _CountriesPageState createState() => _CountriesPageState();
+}
+
+class _CountriesPageState extends State<CountriesPage>  with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,4 +15,8 @@ class CountriesPage extends StatelessWidget {
       body: Container(),
     );
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => throw UnimplementedError();
 }

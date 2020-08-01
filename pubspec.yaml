@@ -12,6 +12,7 @@ dependencies:
   flutter_svg: any
   provider: any
   intl: any
+  google_nav_bar: any
 
 dev_dependencies:
   flutter_test:

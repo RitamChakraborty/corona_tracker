@@ -13,11 +13,10 @@ class _ContinentsPageState extends State<ContinentsPage>
       appBar: AppBar(
         title: Text("Continents"),
       ),
-      body: ContinentsPage(),
+      body: Container(),
     );
   }
 
   @override
-  // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }

@@ -4,15 +4,18 @@ import 'package:coronatracker/pages/global_page.dart';
 import 'package:coronatracker/pages/safety_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   int currentIndex = 0;
   final PageController pageController = PageController();
+  TabController tabController;
   final List<Widget> pages = [
     GlobalPage(),
     ContinentsPage(),
@@ -21,43 +24,74 @@ class _HomePageState extends State<HomePage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    tabController = TabController(vsync: this, length: pages.length);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    Widget gNav = Container(
+      alignment: Alignment.bottomRight,
+      margin: const EdgeInsets.only(left: 32.0),
+      child: Material(
+        color: Theme.of(context).brightness == Brightness.light
+            ? Colors.white
+            : Colors.blueGrey,
+        elevation: 10.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100.0),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: GNav(
+              gap: 4,
+              activeColor: Colors.grey[800],
+              iconSize: 24,
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+              duration: Duration(milliseconds: 500),
+              tabBackgroundColor: Colors.grey[100],
+              color: Colors.grey,
+              tabs: [
+                GButton(
+                  icon: Icons.public,
+                  text: "Global",
+                ),
+                GButton(
+                  icon: Icons.map,
+                  text: "Continents",
+                ),
+                GButton(
+                  icon: Icons.flag,
+                  text: "Countries",
+                ),
+                GButton(
+                  icon: Icons.security,
+                  text: "Safety",
+                )
+              ],
+              selectedIndex: currentIndex,
+              onTabChange: (int index) {
+                setState(() {
+                  currentIndex = index;
+                  tabController.index = index;
+                });
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+
     return Material(
       child: Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: currentIndex,
-          type: BottomNavigationBarType.fixed,
-          onTap: (int index) {
-            setState(() {
-              pageController.jumpToPage(index);
-            });
-          },
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.public),
-              title: Text("Global"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              title: Text("Continents"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.outlined_flag),
-              title: Text("Countries"),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.security),
-              title: Text("Safety"),
-            ),
-          ],
-        ),
-        body: PageView(
+        floatingActionButton: gNav,
+        body: TabBarView(
+          controller: tabController,
           children: pages,
-          controller: pageController,
           physics: NeverScrollableScrollPhysics(),
-          onPageChanged: (int index) {
-            currentIndex = index;
-          },
         ),
       ),
     );

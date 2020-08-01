@@ -18,6 +18,5 @@ class _SafetyPageState extends State<SafetyPage>
   }
 
   @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => throw UnimplementedError();
+  bool get wantKeepAlive => true;
 }

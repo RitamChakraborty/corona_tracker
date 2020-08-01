@@ -17,6 +17,5 @@ class _CountriesPageState extends State<CountriesPage>  with AutomaticKeepAliveC
   }
 
   @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => throw UnimplementedError();
+  bool get wantKeepAlive => true;
 }

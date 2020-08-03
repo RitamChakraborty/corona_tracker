@@ -1,3 +1,4 @@
+import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/models/global.dart';
 import 'package:coronatracker/services/http_services.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 class ServiceProvider extends ChangeNotifier {
   HttpService _httpService = HttpService();
   Global _global;
+  List<Continent> _continents;
 
   Global get global {
     // Demo data
@@ -40,5 +42,17 @@ class ServiceProvider extends ChangeNotifier {
     }
 
     return _global;
+  }
+
+  List<Continent> get continents {
+    if (_continents == null) {
+      _httpService.fetchContinentData().then((List<Continent> continents) {
+        _continents = continents;
+      }).whenComplete(() {
+        notifyListeners();
+      });
+    }
+
+    return _continents;
   }
 }

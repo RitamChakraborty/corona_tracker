@@ -1,5 +1,6 @@
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/pages/country_page.dart';
+import 'package:coronatracker/widgets/hero_flag.dart';
 import 'package:flutter/material.dart';
 
 class CountryTile extends StatelessWidget {
@@ -14,13 +15,6 @@ class CountryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget image = Image(
-      fit: BoxFit.cover,
-      image: NetworkImage(
-        _country.countryInfo.flag,
-      ),
-    );
-
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       child: Card(
@@ -43,7 +37,9 @@ class CountryTile extends StatelessWidget {
               width: 50,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(50),
-                child: image,
+                child: HeroFlag(
+                  country: _country,
+                ),
               ),
             ),
             title: Text(

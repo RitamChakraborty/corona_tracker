@@ -21,12 +21,13 @@ class CountryPage extends StatelessWidget {
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            pinned: true,
+            floating: true,
             backgroundColor: Colors.transparent,
             expandedHeight: size.height / 4,
             flexibleSpace: ClipPath(
               clipper: BezierClipper(),
               child: FlexibleSpaceBar(
+                centerTitle: true,
                 background: Stack(
                   fit: StackFit.expand,
                   children: <Widget>[
@@ -35,13 +36,13 @@ class CountryPage extends StatelessWidget {
                     ),
                     SizedBox.expand(
                       child: Container(
-                        color: Colors.black38,
+                        color: Colors.black54,
                       ),
                     ),
                   ],
                 ),
                 title: Padding(
-                  padding: const EdgeInsets.only(bottom: 32.0),
+                  padding: const EdgeInsets.only(bottom: 64.0),
                   child: Text("${_country.country}"),
                 ),
               ),

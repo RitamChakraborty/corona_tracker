@@ -13,6 +13,13 @@ class CountryTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget image = Image(
+      fit: BoxFit.cover,
+      image: NetworkImage(
+        _country.countryInfo.flag,
+      ),
+    );
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       child: Card(
@@ -20,20 +27,14 @@ class CountryTile extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: ListTile(
-            leading: Container(
-              width: 50,
-              height: 50,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(50.0),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    _country.countryInfo.flag,
-                  ),
-                ),
-              ),
+          leading: SizedBox(
+            height: 50,
+            width: 50,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(50),
+              child: image,
             ),
+          ),
             title: Text(
               _country.country,
               style: TextStyle(fontSize: 20.0),

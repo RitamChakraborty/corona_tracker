@@ -1,4 +1,5 @@
 import 'package:coronatracker/models/country.dart';
+import 'package:coronatracker/pages/country_page.dart';
 import 'package:flutter/material.dart';
 
 class CountryTile extends StatelessWidget {
@@ -24,17 +25,27 @@ class CountryTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4.0),
       child: Card(
         elevation: 10.0,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
+        child: MaterialButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => CountryPage(
+                  country: _country,
+                  index: _index,
+                ),
+              ),
+            );
+          },
           child: ListTile(
-          leading: SizedBox(
-            height: 50,
-            width: 50,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: image,
+            leading: SizedBox(
+              height: 50,
+              width: 50,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: image,
+              ),
             ),
-          ),
             title: Text(
               _country.country,
               style: TextStyle(fontSize: 20.0),
@@ -52,7 +63,10 @@ class CountryTile extends StatelessWidget {
                 )
               ],
             ),
-            trailing: Text("$_index", style: TextStyle(fontSize: 24.0),),
+            trailing: Text(
+              "$_index",
+              style: TextStyle(fontSize: 24.0),
+            ),
           ),
         ),
       ),

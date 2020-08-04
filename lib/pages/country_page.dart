@@ -1,10 +1,11 @@
+import 'package:coronatracker/models/country.dart';
 import 'package:flutter/material.dart';
 
-class Country extends StatelessWidget {
+class CountryPage extends StatelessWidget {
   final Country _country;
   final int _index;
 
-  const Country({@required Country country, @required int index})
+  const CountryPage({@required Country country, @required int index})
       : this._country = country,
         this._index = index,
         assert(country != null),
@@ -12,6 +13,15 @@ class Country extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    Size size = MediaQuery.of(context).size;
+
+    return CustomScrollView(
+      slivers: <Widget>[
+        SliverAppBar(
+          expandedHeight: size.height / 4,
+          title: Text("${_country.country}"),
+        )
+      ],
+    );
   }
 }

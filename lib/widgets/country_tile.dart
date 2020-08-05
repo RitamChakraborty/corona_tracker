@@ -16,7 +16,7 @@ class CountryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4.0),
+      margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: Card(
         elevation: 10.0,
         child: MaterialButton(

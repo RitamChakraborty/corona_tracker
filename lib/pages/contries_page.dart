@@ -1,6 +1,7 @@
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
+import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,23 +17,29 @@ class _CountriesPageState extends State<CountriesPage>
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Country> countries = serviceProvider.countries;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Countries"),
+    return Material(
+      child: SafeArea(
+        child: countries == null
+            ? Center(
+                child: CircularProgressIndicator(),
+              )
+            : FloatingSearchBar.builder(
+                leading: Icon(Icons.search),
+                trailing: IconButton(
+                  icon: Icon(Icons.sort),
+                  onPressed: null,
+                ),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                decoration:
+                    InputDecoration.collapsed(hintText: "Search country"),
+                itemCount: countries.length,
+                itemBuilder: (BuildContext context, int index) {
+                  Country country = countries[index];
+                  return CountryTile(country: country, index: index);
+                },
+              ),
       ),
-      body: countries == null
-          ? Center(
-              child: CircularProgressIndicator(),
-            )
-          : ListView.builder(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              addAutomaticKeepAlives: true,
-              itemCount: countries.length,
-              itemBuilder: (BuildContext context, int index) {
-                Country country = countries[index];
-                return CountryTile(country: country, index: index);
-              },
-            ),
     );
   }
 

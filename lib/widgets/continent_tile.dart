@@ -17,6 +17,9 @@ class ContinentTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: Card(
         elevation: 10.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: MaterialButton(
           onPressed: () {
             

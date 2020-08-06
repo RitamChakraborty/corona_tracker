@@ -38,7 +38,7 @@ class _ContinentsPageState extends State<ContinentsPage>
                   Continent continent = continents[index];
                   return ContinentTile(
                     continent: continent,
-                    index: index,
+                    index: index + 1,
                   );
                 },
               ),

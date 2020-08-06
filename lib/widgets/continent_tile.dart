@@ -1,4 +1,5 @@
 import 'package:coronatracker/models/continent.dart';
+import 'package:coronatracker/pages/continent_page.dart';
 import 'package:flutter/material.dart';
 
 class ContinentTile extends StatelessWidget {
@@ -22,7 +23,15 @@ class ContinentTile extends StatelessWidget {
         ),
         child: MaterialButton(
           onPressed: () {
-            
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => ContinentPage(
+                  continent: _continent,
+                  index: _index,
+                ),
+              ),
+            );
           },
           child: ListTile(
             title: Text(

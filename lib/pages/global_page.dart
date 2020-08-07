@@ -137,6 +137,8 @@ class _GlobalPageState extends State<GlobalPage>
           delegate: Header(
             maxExtent: size.height / 3,
             minExtent: size.height / 4,
+            imagePath: "assets/svgs/doctor_2.svg",
+            headerMessage: "Stay Home,\nStay Safe!",
           ),
         ),
         SliverList(

@@ -19,6 +19,8 @@ class _SafetyPageState extends State<SafetyPage>
             delegate: Header(
               maxExtent: size.height / 3,
               minExtent: size.height / 4,
+              imagePath: "assets/svgs/doctor_1.svg",
+              headerMessage: "If you feel sick,\nGet yourself tested!",
             ),
           ),
           SliverFillRemaining(

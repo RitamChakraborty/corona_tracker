@@ -6,10 +6,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Header implements SliverPersistentHeaderDelegate {
   final double _maxExtent;
   final double _minExtent;
+  final String _imagePath;
+  final String _headerMessage;
 
-  const Header({@required double maxExtent, @required double minExtent})
-      : this._maxExtent = maxExtent,
+  const Header({
+    @required double maxExtent,
+    @required double minExtent,
+    @required String imagePath,
+    @required String headerMessage,
+  })  : this._maxExtent = maxExtent,
         this._minExtent = minExtent,
+        this._imagePath = imagePath,
+        this._headerMessage = headerMessage,
         assert(maxExtent != null),
         assert(minExtent != null);
 
@@ -26,8 +34,8 @@ class Header implements SliverPersistentHeaderDelegate {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+                begin: Alignment.bottomLeft,
+                end: Alignment.topRight,
                 colors: [Colors.deepPurple, Colors.purple[200]]),
             image: DecorationImage(
               image: Image.asset('assets/images/virus.png').image,
@@ -40,7 +48,7 @@ class Header implements SliverPersistentHeaderDelegate {
             children: <Widget>[
               SafeArea(
                 child: SvgPicture.asset(
-                  'assets/svgs/doctor_2.svg',
+                  '$_imagePath',
                   alignment: Alignment.topLeft,
                   fit: BoxFit.cover,
                 ),
@@ -48,18 +56,13 @@ class Header implements SliverPersistentHeaderDelegate {
               Padding(
                 padding: EdgeInsets.only(bottom: shrinkOffset),
                 child: Text(
-                  "Say Home,\nSay Safe !",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 24,
-                      shadows: [
-                        Shadow(
-                            color: Colors.deepPurple,
-                            offset: Offset(5, 5),
-                            blurRadius: 3
-                        )
-                      ]
-                  ),
+                  "$_headerMessage",
+                  style: TextStyle(color: Colors.white, fontSize: 24, shadows: [
+                    Shadow(
+                        color: Colors.deepPurple,
+                        offset: Offset(5, 5),
+                        blurRadius: 3)
+                  ]),
                 ),
               )
             ],

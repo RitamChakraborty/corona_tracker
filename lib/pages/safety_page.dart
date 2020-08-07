@@ -1,5 +1,6 @@
 import 'package:coronatracker/services/symptoms_card.dart';
 import 'package:coronatracker/widgets/header.dart';
+import 'package:coronatracker/widgets/prevention_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -53,7 +54,29 @@ class _SafetyPageState extends State<SafetyPage>
             ),
           ],
         ),
-      )
+      ),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 8.0),
+        child: Text(
+          "Preventions",
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      PreventionCard(
+        imagePath: "assets/images/wash_hands.png",
+        headerText: "Wash Your Hands",
+        text: "Wash your hands as many times as possible. " +
+            "Always use hand wash or soap or alcohol based hand sanitiser.",
+      ),
+      PreventionCard(
+        imagePath: "assets/images/wear_mask.png",
+        headerText: "Wear Face Mask",
+        text: "Face masks prevent the spread of the virus. " +
+            "Make sure you ware the mask correctly and it totally covers your face.",
+      ),
     ];
 
     return Material(

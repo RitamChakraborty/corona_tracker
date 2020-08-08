@@ -17,11 +17,6 @@ class _GlobalPageState extends State<GlobalPage>
   ScrollController scrollController = ScrollController();
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
@@ -36,8 +31,6 @@ class _GlobalPageState extends State<GlobalPage>
       }
     });
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
-//    ValueNotifier<bool> scrollingDown = Provider.of<ValueNotifier<bool>>(
-//        context);
     Global global = serviceProvider.global;
     Widget arrowIcon = Icon(Icons.expand_more);
     List<Widget> children = [

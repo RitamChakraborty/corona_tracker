@@ -34,62 +34,67 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
 
-    Widget gNav = provider.value
-        ? Container()
-        : Container(
-            alignment: Alignment.bottomRight,
-            margin: const EdgeInsets.only(left: 32.0),
-            child: Material(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.white
-                  : Colors.blueGrey,
-              elevation: 10.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(100.0),
-              ),
-              child: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  child: GNav(
-                    gap: 4,
-                    activeColor: Colors.grey[800],
-                    iconSize: 24,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                    duration: Duration(milliseconds: 500),
-                    tabBackgroundColor: Colors.grey[100],
-                    color: Colors.grey,
-                    tabs: [
-                      GButton(
-                        icon: Icons.public,
-                        text: "Global",
-                      ),
-                      GButton(
-                        icon: Icons.map,
-                        text: "Continents",
-                      ),
-                      GButton(
-                        icon: Icons.flag,
-                        text: "Countries",
-                      ),
-                      GButton(
-                        icon: Icons.security,
-                        text: "Safety",
-                      )
-                    ],
-                    selectedIndex: currentIndex,
-                    onTabChange: (int index) {
-                      setState(() {
-                        currentIndex = index;
-                        tabController.index = index;
-                      });
-                    },
+    Widget gNav = AnimatedSwitcher(
+      duration: Duration(milliseconds: 200),
+      switchInCurve: Curves.easeInOut,
+      switchOutCurve: Curves.easeInOut,
+      child: provider.value
+          ? Container()
+          : Container(
+        alignment: Alignment.bottomRight,
+        margin: const EdgeInsets.only(left: 32.0),
+        child: Material(
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.white
+              : Colors.blueGrey,
+          elevation: 10.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100.0),
+          ),
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0, vertical: 8.0),
+              child: GNav(
+                gap: 4,
+                activeColor: Colors.grey[800],
+                iconSize: 24,
+                padding:
+                EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                duration: Duration(milliseconds: 500),
+                tabBackgroundColor: Colors.grey[100],
+                color: Colors.grey,
+                tabs: [
+                  GButton(
+                    icon: Icons.public,
+                    text: "Global",
                   ),
-                ),
+                  GButton(
+                    icon: Icons.map,
+                    text: "Continents",
+                  ),
+                  GButton(
+                    icon: Icons.flag,
+                    text: "Countries",
+                  ),
+                  GButton(
+                    icon: Icons.security,
+                    text: "Safety",
+                  )
+                ],
+                selectedIndex: currentIndex,
+                onTabChange: (int index) {
+                  setState(() {
+                    currentIndex = index;
+                    tabController.index = index;
+                  });
+                },
               ),
             ),
-          );
+          ),
+        ),
+      ),
+    );
 
     return Material(
       child: Scaffold(

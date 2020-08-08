@@ -12,6 +12,8 @@ class ContinentsPage extends StatefulWidget {
 
 class _ContinentsPageState extends State<ContinentsPage>
     with AutomaticKeepAliveClientMixin {
+  ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);

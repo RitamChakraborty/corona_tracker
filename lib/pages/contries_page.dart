@@ -2,7 +2,9 @@ import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class CountriesPage extends StatefulWidget {
@@ -16,31 +18,66 @@ class _CountriesPageState extends State<CountriesPage>
 
   @override
   Widget build(BuildContext context) {
+    ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        provider.value = false;
+      }
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        provider.value = true;
+      }
+    });
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Country> countries = serviceProvider.countries;
 
-    return Material(
-      child: SafeArea(
-        child: countries == null
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : FloatingSearchBar.builder(
-                leading: Icon(Icons.search),
-                trailing: IconButton(
-                  icon: Icon(Icons.sort),
-                  onPressed: null,
-                ),
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            SliverPadding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                decoration:
-                    InputDecoration.collapsed(hintText: "Search country"),
-                itemCount: countries.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Country country = countries[index];
-                  return CountryTile(country: country, index: index);
-                },
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              sliver: SliverAppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                  floating: true,
+                pinned: true,
+                flexibleSpace: Card(
+                  elevation: 10.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    height: 75.0,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                    ),
+                    child: TextField(
+                      decoration:
+                          InputDecoration.collapsed(hintText: "Search country"),
+                    ),
+                  ),
+                ),
               ),
+            ),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  Country country = countries[index];
+                  return CountryTile(
+                    country: country,
+                    index: index,
+                  );
+                },
+                childCount: countries.length,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

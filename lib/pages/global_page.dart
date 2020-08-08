@@ -4,6 +4,7 @@ import 'package:coronatracker/widgets/data_card.dart';
 import 'package:coronatracker/widgets/data_tile.dart';
 import 'package:coronatracker/widgets/header.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class GlobalPage extends StatefulWidget {
@@ -13,10 +14,30 @@ class GlobalPage extends StatefulWidget {
 
 class _GlobalPageState extends State<GlobalPage>
     with AutomaticKeepAliveClientMixin {
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        provider.value = false;
+      }
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        provider.value = true;
+      }
+    });
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
+//    ValueNotifier<bool> scrollingDown = Provider.of<ValueNotifier<bool>>(
+//        context);
     Global global = serviceProvider.global;
     Widget arrowIcon = Icon(Icons.expand_more);
     List<Widget> children = [
@@ -132,6 +153,7 @@ class _GlobalPageState extends State<GlobalPage>
     ];
 
     return CustomScrollView(
+      controller: scrollController,
       slivers: <Widget>[
         SliverPersistentHeader(
           delegate: Header(
@@ -141,11 +163,7 @@ class _GlobalPageState extends State<GlobalPage>
             headerMessage: "Stay Home,\nStay Safe!",
           ),
         ),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            children
-          )
-        )
+        SliverList(delegate: SliverChildListDelegate(children))
       ],
     );
   }

@@ -8,8 +8,15 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ServiceProvider>.value(
-      value: ServiceProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ServiceProvider>.value(
+          value: ServiceProvider(),
+        ),
+        ChangeNotifierProvider<ValueNotifier<bool>>.value(
+          value: ValueNotifier<bool>(false),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: true,
         title: "Corona Tracker",

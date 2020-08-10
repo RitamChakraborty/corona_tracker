@@ -151,33 +151,35 @@ class ContinentPage extends StatelessWidget {
         ),
       )
     ];
-    return Material(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            title: Text(
-              "${_continent.continent}",
-              style: TextStyle(
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            SliverAppBar(
+              title: Text(
+                "${_continent.continent}",
+                style: TextStyle(
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.grey[800]
+                      : Colors.grey[50],
+                ),
+              ),
+              leading: BackButton(
                 color: Theme.of(context).brightness == Brightness.light
                     ? Colors.grey[800]
                     : Colors.grey[50],
               ),
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
             ),
-            leading: BackButton(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey[800]
-                  : Colors.grey[50],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                children,
+              ),
             ),
-            centerTitle: true,
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              children,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

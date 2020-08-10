@@ -135,19 +135,21 @@ class CountryPage extends StatelessWidget {
       ),
     ];
 
-    return Material(
-      child: CustomScrollView(
-        slivers: <Widget>[
-          CountryAppBar(
-            country: _country,
-            size: size,
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              children,
+    return Scaffold(
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: <Widget>[
+            CountryAppBar(
+              country: _country,
+              size: size,
             ),
-          )
-        ],
+            SliverList(
+              delegate: SliverChildListDelegate(
+                children,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -94,23 +94,26 @@ class _SafetyPageState extends State<SafetyPage>
       ),
     ];
 
-    return Material(
+    return Scaffold(
+      body: SafeArea(
         child: CustomScrollView(
           controller: scrollController,
-      slivers: <Widget>[
-        SliverPersistentHeader(
-          delegate: Header(
-            maxExtent: size.height / 3,
-            minExtent: size.height / 4,
-            imagePath: "assets/svgs/doctor_1.svg",
-            headerMessage: "If you feel sick,\nGet yourself tested!",
-          ),
+          slivers: <Widget>[
+            SliverPersistentHeader(
+              delegate: Header(
+                maxExtent: size.height / 3,
+                minExtent: size.height / 4,
+                imagePath: "assets/svgs/doctor_1.svg",
+                headerMessage: "If you feel sick,\nGet yourself tested!",
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(children),
+            )
+          ],
         ),
-        SliverList(
-          delegate: SliverChildListDelegate(children),
-        )
-      ],
-    ));
+      ),
+    );
   }
 
   @override

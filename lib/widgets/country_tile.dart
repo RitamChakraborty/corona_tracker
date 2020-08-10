@@ -35,7 +35,7 @@ class CountryTile extends StatelessWidget {
             );
           },
           child: ListTile(
-            leading: SizedBox(
+            trailing: SizedBox(
               height: 50,
               width: 50,
               child: ClipRRect(
@@ -49,20 +49,23 @@ class CountryTile extends StatelessWidget {
               _country.country,
               style: TextStyle(fontSize: 20.0),
             ),
-            subtitle: Row(
-              children: <Widget>[
-                Chip(
-                  label: Text("Cases: ${_country.cases}"),
-                ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Chip(
-                  label: Text("Deaths: ${_country.deaths}"),
-                )
-              ],
+            subtitle: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: <Widget>[
+                  Chip(
+                    label: Text("Cases: ${_country.cases}"),
+                  ),
+                  SizedBox(
+                    width: 8.0,
+                  ),
+                  Chip(
+                    label: Text("Deaths: ${_country.deaths}"),
+                  )
+                ],
+              ),
             ),
-            trailing: Text(
+            leading: Text(
               "$_index",
               style: TextStyle(fontSize: 24.0),
             ),

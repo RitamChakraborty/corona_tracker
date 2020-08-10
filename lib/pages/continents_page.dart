@@ -19,33 +19,52 @@ class _ContinentsPageState extends State<ContinentsPage>
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Continent> continents = serviceProvider.continents;
 
-    return Material(
-      child: SafeArea(
-        child: continents == null
-            ? Center(
-                child: CircularProgressIndicator(),
-              )
-            : FloatingSearchBar.builder(
-                leading: Icon(Icons.search),
-                trailing: IconButton(
-                  icon: Icon(Icons.sort),
-                  onPressed: null,
-                ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                decoration:
-                    InputDecoration.collapsed(hintText: "Search country"),
-                itemCount: continents.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Continent continent = continents[index];
-                  return ContinentTile(
-                    continent: continent,
-                    index: index + 1,
-                  );
-                },
+    return Scaffold(
+      body: SafeArea(
+      child: CustomScrollView(
+      controller: scrollController,
+      slivers: <Widget>[
+        SliverPadding(
+          padding:
+          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          sliver: SliverAppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            floating: true,
+            pinned: true,
+            flexibleSpace: Card(
+              elevation: 10.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
-      ),
-    );
+              child: Container(
+                height: 75.0,
+                alignment: Alignment.center,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                ),
+                child: TextField(
+                  decoration:
+                  InputDecoration.collapsed(hintText: "Search country"),
+                ),
+              ),
+            ),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+              Continent continent = continents[index];
+              return ContinentTile(
+                continent: continent,
+                index: index,
+              );
+            },
+            childCount: continents.length,
+          ),
+        )
+      ],
+    ),
   }
 
   @override

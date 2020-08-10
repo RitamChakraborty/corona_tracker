@@ -47,10 +47,7 @@ class ServiceProvider extends ChangeNotifier {
   }
 
   List<Continent> get continents {
-    _continents = // 20200806212458
-// https://disease.sh/v3/covid-19/continents
-
-        [
+    _continents = [
       {
         "updated": 1596729030803,
         "cases": 5863621,

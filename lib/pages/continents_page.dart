@@ -33,50 +33,52 @@ class _ContinentsPageState extends State<ContinentsPage>
 
     return Scaffold(
       body: SafeArea(
-      child: CustomScrollView(
-      controller: scrollController,
-      slivers: <Widget>[
-        SliverPadding(
-          padding:
-          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-          sliver: SliverAppBar(
-            backgroundColor: Colors.transparent,
-            elevation: 0.0,
-            floating: true,
-            pinned: true,
-            flexibleSpace: Card(
-              elevation: 10.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: Container(
-                height: 75.0,
-                alignment: Alignment.center,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                ),
-                child: TextField(
-                  decoration:
-                  InputDecoration.collapsed(hintText: "Search country"),
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            SliverPadding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              sliver: SliverAppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                floating: true,
+                pinned: true,
+                flexibleSpace: Card(
+                  elevation: 10.0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Container(
+                    height: 75.0,
+                    alignment: Alignment.center,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                    ),
+                    child: TextField(
+                      decoration:
+                          InputDecoration.collapsed(hintText: "Search country"),
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-              Continent continent = continents[index];
-              return ContinentTile(
-                continent: continent,
-                index: index,
-              );
-            },
-            childCount: continents.length,
-          ),
-        )
-      ],
-    ),
+                  Continent continent = continents[index];
+                  return ContinentTile(
+                    continent: continent,
+                    index: index,
+                  );
+                },
+                childCount: continents.length,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override

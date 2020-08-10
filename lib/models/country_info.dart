@@ -55,6 +55,4 @@ class CountryInfo {
   String get iso2 => _iso2;
 
   int get id => _id;
-
-
 }

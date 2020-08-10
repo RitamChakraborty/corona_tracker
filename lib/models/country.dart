@@ -159,4 +159,16 @@ class Country {
   CountryInfo get countryInfo => _countryInfo;
 
   String get country => _country;
+
+  double get totalAffectedPercentage => (_cases / _population) * 100;
+
+  double get deathsPercentage => (_deaths / _cases) * 100;
+
+  double get recoveryPercentage => (_recovered / _cases) * 100;
+
+  double get activeCasesPercentage => (_active / _cases) * 100;
+
+  double get criticalCasesPercentage => (_critical / _active) * 100;
+
+  double get testsPercentage => (_tests / _population) * 100;
 }

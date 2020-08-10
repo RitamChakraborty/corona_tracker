@@ -2,6 +2,7 @@ import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/continent_tile.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
@@ -51,13 +52,23 @@ class _ContinentsPageState extends State<ContinentsPage>
                   ),
                   child: Container(
                     height: 75.0,
-                    alignment: Alignment.center,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 16.0,
                     ),
                     child: TextField(
-                      decoration:
-                          InputDecoration.collapsed(hintText: "Search country"),
+                      decoration: InputDecoration(
+                        hintText: "Search country",
+                        border: InputBorder.none,
+                        disabledBorder: InputBorder.none,
+                        contentPadding: const EdgeInsets.only(top: 14.0),
+                        icon: Icon(Icons.search),
+                        suffixIcon: IconButton(
+                          icon: Icon(Icons.sort),
+                          onPressed: () {
+
+                          },
+                        ),
+                      ),
                     ),
                   ),
                 ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SearchBar extends StatelessWidget {
+class SliverSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverPadding(

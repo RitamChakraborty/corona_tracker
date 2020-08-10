@@ -1,6 +1,7 @@
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
+import 'package:coronatracker/widgets/sliver_search_bar.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,33 +38,7 @@ class _CountriesPageState extends State<CountriesPage>
         child: CustomScrollView(
           controller: scrollController,
           slivers: <Widget>[
-            SliverPadding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              sliver: SliverAppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                  floating: true,
-                pinned: true,
-                flexibleSpace: Card(
-                  elevation: 10.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Container(
-                    height: 75.0,
-                    alignment: Alignment.center,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                    ),
-                    child: TextField(
-                      decoration:
-                          InputDecoration.collapsed(hintText: "Search country"),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            SliverSearchBar(),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {

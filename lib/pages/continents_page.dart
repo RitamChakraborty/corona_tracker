@@ -1,7 +1,7 @@
 import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/continent_tile.dart';
-import 'package:coronatracker/widgets/search_bar.dart';
+import 'package:coronatracker/widgets/sliver_search_bar.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +38,7 @@ class _ContinentsPageState extends State<ContinentsPage>
         child: CustomScrollView(
           controller: scrollController,
           slivers: <Widget>[
-            SearchBar(),
+            SliverSearchBar(),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {

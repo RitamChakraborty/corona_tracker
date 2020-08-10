@@ -3,6 +3,7 @@ import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/continent_tile.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 class ContinentsPage extends StatefulWidget {
@@ -16,6 +17,17 @@ class _ContinentsPageState extends State<ContinentsPage>
 
   @override
   Widget build(BuildContext context) {
+    ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        provider.value = false;
+      }
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        provider.value = true;
+      }
+    });
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Continent> continents = serviceProvider.continents;
 

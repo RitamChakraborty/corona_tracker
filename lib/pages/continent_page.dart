@@ -9,10 +9,10 @@ class ContinentPage extends StatelessWidget {
   final int _index;
 
   const ContinentPage({@required Continent continent, @required int index})
-  : this._continent = continent,
-  this._index = index,
-  assert(continent != null),
-  assert(index != null);
+      : this._continent = continent,
+        this._index = index,
+        assert(continent != null),
+        assert(index != null);
 
   @override
   Widget build(BuildContext context) {
@@ -122,16 +122,47 @@ class ContinentPage extends StatelessWidget {
         label: "Percentage of people tested among total population",
         value: _continent.testsPercentage.toStringAsFixed(2) + "%",
       ),
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+        child: Card(
+          elevation: 10.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          color: Theme.of(context).brightness == Brightness.light
+              ? Colors.grey[50]
+              : Colors.grey[800],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Theme(
+              data: Theme.of(context).copyWith(
+                dividerColor: Colors.transparent,
+              ),
+              child: ExpansionTile(
+                title: Text("Affected countries"),
+                children: _continent.countries
+                    .map((e) => ListTile(
+                          title: Text("$e"),
+                        ))
+                    .toList(),
+              ),
+            ),
+          ),
+        ),
+      )
     ];
     return Material(
       child: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
-            title: Text("${_continent.continent}", style: TextStyle(
-              color: Theme.of(context).brightness == Brightness.light
-                  ? Colors.grey[800]
-                  : Colors.grey[50],
-            ),),
+            title: Text(
+              "${_continent.continent}",
+              style: TextStyle(
+                color: Theme.of(context).brightness == Brightness.light
+                    ? Colors.grey[800]
+                    : Colors.grey[50],
+              ),
+            ),
             leading: BackButton(
               color: Theme.of(context).brightness == Brightness.light
                   ? Colors.grey[800]

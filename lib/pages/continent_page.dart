@@ -66,10 +66,10 @@ class ContinentPage extends StatelessWidget {
         label: "Cases per one million",
         value: _continent.casesPerOneMillion.toStringAsFixed(2),
       ),
-//      DataTile(
-//        label: "Percentage of cases among total population",
-//        value: _continent.totalAffectedPercentage.toStringAsFixed(2) + "%",
-//      ),
+      DataTile(
+        label: "Percentage of cases among total population",
+        value: _continent.totalAffectedPercentage.toStringAsFixed(2) + "%",
+      ),
       DataTile(
         label: "Today Deaths",
         value: _continent.todayDeaths.toString(),
@@ -78,10 +78,10 @@ class ContinentPage extends StatelessWidget {
         label: "Deaths per One Million",
         value: _continent.deathsPerOneMillion.toStringAsFixed(2),
       ),
-//      DataTile(
-//        label: "Percentage of deaths among total cases",
-//        value: _continent.deathsPercentage.toStringAsFixed(2) + "%",
-//      ),
+      DataTile(
+        label: "Percentage of deaths among total cases",
+        value: _continent.deathsPercentage.toStringAsFixed(2) + "%",
+      ),
       DataTile(
         label: "Today Recovered",
         value: _continent.todayRecovered.toString(),
@@ -90,26 +90,26 @@ class ContinentPage extends StatelessWidget {
         label: "Recovered per one million",
         value: _continent.recoveredPerOneMillion.toStringAsFixed(2),
       ),
-//      DataTile(
-//        label: "Percentage of recovered people among total cases",
-//        value: _continent.recoveryPercentage.toStringAsFixed(2) + "%",
-//      ),
+      DataTile(
+        label: "Percentage of recovered people among total cases",
+        value: _continent.recoveryPercentage.toStringAsFixed(2) + "%",
+      ),
       DataTile(
         label: "Active cases per one million",
         value: _continent.activePerOneMillion.toStringAsFixed(2),
       ),
-//      DataTile(
-//        label: "Percentage of active cases among total cases",
-//        value: _continent.activeCasesPercentage.toStringAsFixed(2) + "%",
-//      ),
+      DataTile(
+        label: "Percentage of active cases among total cases",
+        value: _continent.activeCasesPercentage.toStringAsFixed(2) + "%",
+      ),
       DataTile(
         label: "Critical cases per one million",
         value: _continent.criticalPerOneMillion.toStringAsFixed(2),
       ),
-//      DataTile(
-//        label: "Percentage of critical cases among total active cases",
-//        value: _continent.criticalCasesPercentage.toStringAsFixed(2) + "%",
-//      ),
+      DataTile(
+        label: "Percentage of critical cases among total active cases",
+        value: _continent.criticalCasesPercentage.toStringAsFixed(2) + "%",
+      ),
       DataTile(
         label: "Total tests done",
         value: _continent.tests.toString(),
@@ -118,14 +118,10 @@ class ContinentPage extends StatelessWidget {
         label: "Test per one million",
         value: _continent.testsPerOneMillion.toStringAsFixed(2),
       ),
-//      DataTile(
-//        label: "Percentage of people tested among total population",
-//        value: _continent.testsPercentage.toStringAsFixed(2) + "%",
-//      ),
-//      DataTile(
-//        label: "Total affected countries",
-//        value: _continent.affectedCountries.toString(),
-//      ),
+      DataTile(
+        label: "Percentage of people tested among total population",
+        value: _continent.testsPercentage.toStringAsFixed(2) + "%",
+      ),
     ];
     return Material(
       child: CustomScrollView(

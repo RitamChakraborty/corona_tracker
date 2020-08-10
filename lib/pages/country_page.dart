@@ -1,5 +1,6 @@
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/widgets/bezier_clipper.dart';
+import 'package:coronatracker/widgets/country_app_bar.dart';
 import 'package:coronatracker/widgets/data_card.dart';
 import 'package:coronatracker/widgets/data_tile.dart';
 import 'package:coronatracker/widgets/hero_flag.dart';
@@ -137,33 +138,9 @@ class CountryPage extends StatelessWidget {
     return Material(
       child: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            floating: true,
-            backgroundColor: Colors.transparent,
-            expandedHeight: size.height / 4,
-            flexibleSpace: ClipPath(
-              clipper: BezierClipper(),
-              child: FlexibleSpaceBar(
-                centerTitle: true,
-                background: Stack(
-                  fit: StackFit.expand,
-                  children: <Widget>[
-                    HeroFlag(
-                      country: _country,
-                    ),
-                    SizedBox.expand(
-                      child: Container(
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ],
-                ),
-                title: Padding(
-                  padding: const EdgeInsets.only(bottom: 64.0),
-                  child: Text("${_country.country}"),
-                ),
-              ),
-            ),
+          CountryAppBar(
+            country: _country,
+            size: size,
           ),
           SliverList(
             delegate: SliverChildListDelegate(

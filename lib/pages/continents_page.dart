@@ -1,6 +1,7 @@
 import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/continent_tile.dart';
+import 'package:coronatracker/widgets/search_bar.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,43 +38,7 @@ class _ContinentsPageState extends State<ContinentsPage>
         child: CustomScrollView(
           controller: scrollController,
           slivers: <Widget>[
-            SliverPadding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              sliver: SliverAppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0.0,
-                floating: true,
-                pinned: true,
-                flexibleSpace: Card(
-                  elevation: 10.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Container(
-                    height: 75.0,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0,
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Search country",
-                        border: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        contentPadding: const EdgeInsets.only(top: 14.0),
-                        icon: Icon(Icons.search),
-                        suffixIcon: IconButton(
-                          icon: Icon(Icons.sort),
-                          onPressed: () {
-
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            SearchBar(),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {

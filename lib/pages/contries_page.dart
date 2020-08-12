@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/sorting.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
@@ -16,6 +17,9 @@ class CountriesPage extends StatefulWidget {
 class _CountriesPageState extends State<CountriesPage>
     with AutomaticKeepAliveClientMixin {
   ScrollController scrollController = ScrollController();
+  TextEditingController controller = TextEditingController();
+  bool enabled = true;
+  String filter = "";
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,68 @@ class _CountriesPageState extends State<CountriesPage>
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Country> countries = serviceProvider.countries;
 
+    Widget sortButton = IconButton(
+      icon: Icon(Icons.sort),
+      onPressed: () {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Sort countries by"),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                elevation: 10.0,
+                content: Wrap(
+                  children: <Widget>[
+                    RadioListTile<SortingType>(
+                      value: SortingType.NAME,
+                      groupValue: SortingType.NAME,
+                      onChanged: (SortingType sortingType) {},
+                      title: Text("Name"),
+                    ),
+                    RadioListTile<SortingType>(
+                      value: SortingType.CASES,
+                      groupValue: SortingType.NAME,
+                      onChanged: (SortingType sortingType) {},
+                      title: Text("Cases"),
+                    ),
+                    RadioListTile<SortingType>(
+                      value: SortingType.DEATHS,
+                      groupValue: SortingType.NAME,
+                      onChanged: (SortingType sortingType) {},
+                      title: Text("Deaths"),
+                    ),
+                    RadioListTile<SortingType>(
+                      value: SortingType.ACTIVE,
+                      groupValue: SortingType.NAME,
+                      onChanged: (SortingType sortingType) {},
+                      title: Text("Active cases"),
+                    ),
+                    RadioListTile<SortingType>(
+                      value: SortingType.RECOVERED,
+                      groupValue: SortingType.NAME,
+                      onChanged: (SortingType sortingType) {},
+                      title: Text("Recovered"),
+                    ),
+                  ],
+                ),
+              );
+            });
+      },
+    );
+
+    Widget clearButton = IconButton(
+      icon: Icon(Icons.clear),
+      onPressed: () {
+        setState(() {
+          controller.text = "";
+          filter = "";
+          enabled = false;
+        });
+      },
+    );
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -40,6 +106,25 @@ class _CountriesPageState extends State<CountriesPage>
           slivers: <Widget>[
             SliverSearchBar(
               hintText: "Search country",
+              controller: controller,
+              suffixIcon: filter.isEmpty ? sortButton : clearButton,
+              enabled: enabled,
+              onTap: () async {
+                await Future.delayed(Duration(milliseconds: 100));
+                setState(() {
+                  enabled = true;
+                });
+              },
+              onChanged: (String value) {
+                setState(() {
+                  filter = value;
+                });
+              },
+              onSubmitted: (String value) {
+                setState(() {
+                  filter = value;
+                });
+              },
             ),
             SliverList(
               delegate: SliverChildBuilderDelegate(

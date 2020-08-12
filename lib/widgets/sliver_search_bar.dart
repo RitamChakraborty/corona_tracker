@@ -1,86 +1,40 @@
 import 'package:coronatracker/data/sorting.dart';
 import 'package:flutter/material.dart';
 
-class SliverSearchBar extends StatefulWidget {
+class SliverSearchBar extends StatelessWidget {
   final String _hintText;
+  final bool _enabled;
+  final TextEditingController _controller;
+  final Widget _suffixIcon;
+  final VoidCallback _onTap;
+  final ValueChanged<String> _onChanged;
+  final ValueChanged<String> _onSubmitted;
 
-  const SliverSearchBar({@required String hintText})
-      : this._hintText = hintText,
-        assert(hintText != null);
-
-  @override
-  _SliverSearchBarState createState() => _SliverSearchBarState();
-}
-
-class _SliverSearchBarState extends State<SliverSearchBar> {
-  bool b = true;
-  TextEditingController controller = TextEditingController();
-  String filter = "";
+  const SliverSearchBar({
+    @required String hintText,
+    @required bool enabled,
+    @required TextEditingController controller,
+    @required Widget suffixIcon,
+    @required VoidCallback onTap,
+    @required ValueChanged<String> onChanged,
+    @required ValueChanged<String> onSubmitted,
+  })  : this._hintText = hintText,
+        this._enabled = enabled,
+        this._controller = controller,
+        this._suffixIcon = suffixIcon,
+        this._onTap = onTap,
+        this._onChanged = onChanged,
+        this._onSubmitted = onSubmitted,
+        assert(hintText != null),
+        assert(enabled != null),
+        assert(controller != null),
+        assert(suffixIcon != null),
+        assert(onTap != null),
+        assert(onChanged != null),
+        assert(onSubmitted != null);
 
   @override
   Widget build(BuildContext context) {
-    Widget sortButton = IconButton(
-      icon: Icon(Icons.sort),
-      onPressed: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Sort countries by"),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                elevation: 10.0,
-                content: Wrap(
-                  children: <Widget>[
-                    RadioListTile<SortingType>(
-                      value: SortingType.NAME,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Name"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.CASES,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Cases"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.DEATHS,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Deaths"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.ACTIVE,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Active cases"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.RECOVERED,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Recovered"),
-                    ),
-                  ],
-                ),
-              );
-            });
-      },
-    );
-
-    Widget clearButton = IconButton(
-      icon: Icon(Icons.clear),
-      onPressed: () {
-        setState(() {
-          controller.text = "";
-          filter = "";
-          b = false;
-        });
-      },
-    );
-
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       sliver: SliverAppBar(
@@ -99,31 +53,18 @@ class _SliverSearchBarState extends State<SliverSearchBar> {
               horizontal: 16.0,
             ),
             child: TextField(
-              controller: controller,
-              enabled: b,
-              onTap: () async {
-                await Future.delayed(Duration(milliseconds: 10));
-                setState(() {
-                  b = true;
-                });
-              },
-              onChanged: (String value) {
-                setState(() {
-                  filter = value;
-                });
-              },
-              onSubmitted: (String value) {
-                setState(() {
-                  filter = value;
-                });
-              },
+              controller: _controller,
+              enabled: _enabled,
+              onTap: _onTap,
+              onChanged: _onChanged,
+              onSubmitted: _onSubmitted,
               decoration: InputDecoration(
-                hintText: widget._hintText,
+                hintText: _hintText,
                 border: InputBorder.none,
                 disabledBorder: InputBorder.none,
                 contentPadding: const EdgeInsets.only(top: 14.0),
                 icon: Icon(Icons.search),
-                suffixIcon: filter.isNotEmpty ? clearButton : sortButton,
+                suffixIcon: _suffixIcon,
               ),
             ),
           ),

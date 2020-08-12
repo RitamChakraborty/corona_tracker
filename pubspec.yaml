@@ -11,6 +11,7 @@ dependencies:
   http: any
   flutter_svg: any
   provider: any
+  flutter_bloc: any
   intl: any
   google_nav_bar: any
   floating_search_bar: any

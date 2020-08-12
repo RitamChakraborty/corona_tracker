@@ -3,6 +3,7 @@ import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
 import 'package:coronatracker/widgets/sliver_search_bar.dart';
+import 'package:coronatracker/widgets/sorting_popup_button.dart';
 import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class _CountriesPageState extends State<CountriesPage>
   TextEditingController controller = TextEditingController();
   bool enabled = true;
   String filter = "";
+  SortingType sortingType = SortingType.NAME;
 
   @override
   Widget build(BuildContext context) {
@@ -37,54 +39,13 @@ class _CountriesPageState extends State<CountriesPage>
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Country> countries = serviceProvider.countries;
 
-    Widget sortButton = IconButton(
-      icon: Icon(Icons.sort),
-      onPressed: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text("Sort countries by"),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                elevation: 10.0,
-                content: Wrap(
-                  children: <Widget>[
-                    RadioListTile<SortingType>(
-                      value: SortingType.NAME,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Name"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.CASES,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Cases"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.DEATHS,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Deaths"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.ACTIVE,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Active cases"),
-                    ),
-                    RadioListTile<SortingType>(
-                      value: SortingType.RECOVERED,
-                      groupValue: SortingType.NAME,
-                      onChanged: (SortingType sortingType) {},
-                      title: Text("Recovered"),
-                    ),
-                  ],
-                ),
-              );
-            });
+    Widget sortButton = SortingPopupButton(
+      groupValue: sortingType,
+      onChanged: (SortingType sortingType) {
+        setState(() {
+          this.sortingType = sortingType;
+          Navigator.pop(context);
+        });
       },
     );
 

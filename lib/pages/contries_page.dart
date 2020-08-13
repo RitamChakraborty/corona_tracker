@@ -63,6 +63,10 @@ class _CountriesPageState extends State<CountriesPage>
           filter = "";
           enabled = false;
         });
+
+        WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+          countrySearchBloc.add(FilterChangeEvent(filter: ""));
+        });
       },
     );
 
@@ -111,7 +115,9 @@ class _CountriesPageState extends State<CountriesPage>
                           country: country,
                           index: index,
                         );
-                      } else if (country.country.toLowerCase().contains(filter)) {
+                      } else if (country.country
+                          .toLowerCase()
+                          .contains(filter)) {
                         return CountryTile(
                           country: country,
                           index: index,

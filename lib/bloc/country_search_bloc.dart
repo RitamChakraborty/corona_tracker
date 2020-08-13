@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class AbstractCountrySearchEvent {}
 
+class CountrySearchInvokeInitialEvent extends AbstractCountrySearchEvent {}
+
 class FilterChangeEvent extends AbstractCountrySearchEvent {
   final String _filter;
 
@@ -35,7 +37,9 @@ class CountrySearchBloc
   @override
   Stream<AbstractCountrySearchState> mapEventToState(
       AbstractCountrySearchEvent event) async* {
-    if (event is FilterChangeEvent) {
+    if (event is CountrySearchInvokeInitialEvent) {
+      yield CountrySearchInitialState();
+    } else if (event is FilterChangeEvent) {
       String filter = event.filter;
       yield FilterChangedState(filter: filter);
     }

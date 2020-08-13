@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       child: BlocProvider.value(
         value: CountrySearchBloc(CountrySearchInitialState()),
         child: MaterialApp(
-          debugShowCheckedModeBanner: true,
+          debugShowCheckedModeBanner: false,
           title: "Corona Tracker",
           theme: ThemeData(
             brightness: Brightness.light,

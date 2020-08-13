@@ -48,6 +48,18 @@ Track the outbreak of the Corona Virus.
     <img src="assets/screenshots/dark_11.jpg" height="384" width="216" hspace="10" vspace="10">
 </p>
 
+## Download
+
+Download the [v2.0.0-alpha](https://github.com/RitamChakraborty/corona_tracker/releases/download/v2.0.0-alpha) version from [here](https://github.com/RitamChakraborty/corona_tracker/releases/download/v2.0.0-alpha/Corona_Tracker_v2.0.0-alpha.apk)
+
+## API
+
+Using official [disease.sh](https://disease.sh/) API
+
+- [Global](https://disease.sh/v3/covid-19/all)
+- [Continents](https://disease.sh/v3/covid-19/continents)
+- [Countries](https://disease.sh/v3/covid-19/countries)
+
 ## Packages Used
 
 - [http](https://pub.dev/packages/http)

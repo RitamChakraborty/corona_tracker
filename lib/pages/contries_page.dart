@@ -19,7 +19,7 @@ class _CountriesPageState extends State<CountriesPage>
     with AutomaticKeepAliveClientMixin {
   ScrollController scrollController = ScrollController();
   TextEditingController controller = TextEditingController();
-  bool enabled = true;
+  bool enabled = false;
   String filter = "";
   SortingType sortingType = SortingType.NAME;
 
@@ -68,7 +68,7 @@ class _CountriesPageState extends State<CountriesPage>
             SliverSearchBar(
               hintText: "Search country",
               controller: controller,
-              suffixIcon: filter.isEmpty ? sortButton : clearButton,
+              trailingIcon: enabled ? clearButton : sortButton,
               enabled: enabled,
               onTap: () async {
                 await Future.delayed(Duration(milliseconds: 100));
@@ -77,27 +77,28 @@ class _CountriesPageState extends State<CountriesPage>
                 });
               },
               onChanged: (String value) {
-                setState(() {
-                  filter = value;
-                });
+                filter = value;
               },
               onSubmitted: (String value) {
-                setState(() {
                   filter = value;
-                });
               },
             ),
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  Country country = countries[index];
-                  return CountryTile(
-                    country: country,
-                    index: index,
-                  );
-                },
-                childCount: countries.length,
-              ),
+            Builder(
+              builder: (context) {
+                print('filter');
+                return SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (BuildContext context, int index) {
+                      Country country = countries[index];
+                      return CountryTile(
+                        country: country,
+                        index: index,
+                      );
+                    },
+                    childCount: countries.length,
+                  ),
+                );
+              }
             )
           ],
         ),

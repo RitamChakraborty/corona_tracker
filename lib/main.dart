@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             brightness: Brightness.light,
             primaryColor: Colors.purple,
-            accentColor: Colors.tealAccent,
+            accentColor: Colors.tealAccent.shade400,
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,

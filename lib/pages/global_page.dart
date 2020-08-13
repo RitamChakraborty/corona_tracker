@@ -32,7 +32,6 @@ class _GlobalPageState extends State<GlobalPage>
     });
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     Global global = serviceProvider.global;
-    Widget arrowIcon = Icon(Icons.expand_more);
     List<Widget> children = [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),

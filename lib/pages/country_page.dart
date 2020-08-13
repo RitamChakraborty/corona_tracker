@@ -1,9 +1,7 @@
 import 'package:coronatracker/models/country.dart';
-import 'package:coronatracker/widgets/bezier_clipper.dart';
 import 'package:coronatracker/widgets/country_app_bar.dart';
 import 'package:coronatracker/widgets/data_card.dart';
 import 'package:coronatracker/widgets/data_tile.dart';
-import 'package:coronatracker/widgets/hero_flag.dart';
 import 'package:flutter/material.dart';
 
 class CountryPage extends StatelessWidget {

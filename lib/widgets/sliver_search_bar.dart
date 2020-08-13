@@ -1,4 +1,3 @@
-import 'package:coronatracker/data/sorting.dart';
 import 'package:flutter/material.dart';
 
 class SliverSearchBar extends StatelessWidget {

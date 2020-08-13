@@ -52,7 +52,9 @@ class SliverSearchBar extends StatelessWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       sliver: SliverAppBar(
-        backgroundColor: Colors.grey[50],
+        backgroundColor: Theme.of(context).brightness == Brightness.light
+            ? Colors.grey[50]
+            : Colors.grey[800],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

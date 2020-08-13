@@ -1,3 +1,4 @@
+import 'package:coronatracker/bloc/country_search_bloc.dart';
 import 'package:coronatracker/data/sorting.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
@@ -7,6 +8,7 @@ import 'package:coronatracker/widgets/sorting_popup_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 class CountriesPage extends StatefulWidget {
@@ -25,6 +27,10 @@ class _CountriesPageState extends State<CountriesPage>
   @override
   Widget build(BuildContext context) {
     ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
+    // ignore: close_sinks
+    CountrySearchBloc countrySearchBloc =
+        Provider.of<CountrySearchBloc>(context);
+
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
@@ -35,6 +41,7 @@ class _CountriesPageState extends State<CountriesPage>
         provider.value = true;
       }
     });
+
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Country> countries = serviceProvider.countries;
 
@@ -76,28 +83,47 @@ class _CountriesPageState extends State<CountriesPage>
                 });
               },
               onChanged: (String value) {
-                filter = value;
+                countrySearchBloc.add(FilterChangeEvent(
+                  filter: value,
+                ));
               },
               onSubmitted: (String value) {
-                  filter = value;
+                countrySearchBloc.add(FilterChangeEvent(
+                  filter: value,
+                ));
               },
             ),
-            Builder(
-              builder: (context) {
-                print('filter');
+            BlocBuilder<CountrySearchBloc, AbstractCountrySearchState>(
+              builder:
+                  (BuildContext context, AbstractCountrySearchState state) {
+                if (enabled) {
+                  if (state is FilterChangedState) {
+                    filter = state.filter;
+                  }
+                }
+
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
                       Country country = countries[index];
-                      return CountryTile(
-                        country: country,
-                        index: index,
-                      );
+                      if (filter.isEmpty) {
+                        return CountryTile(
+                          country: country,
+                          index: index,
+                        );
+                      } else if (country.country.toLowerCase().contains(filter)) {
+                        return CountryTile(
+                          country: country,
+                          index: index,
+                        );
+                      } else {
+                        return Container();
+                      }
                     },
                     childCount: countries.length,
                   ),
                 );
-              }
+              },
             )
           ],
         ),

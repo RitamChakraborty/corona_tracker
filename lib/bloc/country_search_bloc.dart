@@ -15,9 +15,7 @@ class FilterChangeEvent extends AbstractCountrySearchEvent {
 
 abstract class AbstractCountrySearchState {}
 
-class CountrySearchInitialState extends AbstractCountrySearchState {
-  String get filter => "";
-}
+class CountrySearchInitialState extends AbstractCountrySearchState {}
 
 class FilterChangedState extends AbstractCountrySearchState {
   final String _filter;
@@ -31,8 +29,6 @@ class FilterChangedState extends AbstractCountrySearchState {
 
 class CountrySearchBloc
     extends Bloc<AbstractCountrySearchEvent, AbstractCountrySearchState> {
-  String _filter = "";
-
   CountrySearchBloc(AbstractCountrySearchState initialState)
       : super(initialState);
 
@@ -40,8 +36,8 @@ class CountrySearchBloc
   Stream<AbstractCountrySearchState> mapEventToState(
       AbstractCountrySearchEvent event) async* {
     if (event is FilterChangeEvent) {
-      _filter = event.filter;
-      yield FilterChangedState(filter: _filter);
+      String filter = event.filter;
+      yield FilterChangedState(filter: filter);
     }
   }
 }

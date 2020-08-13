@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/sorting.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/pages/country_page.dart';
 import 'package:coronatracker/widgets/hero_flag.dart';
@@ -6,14 +7,37 @@ import 'package:flutter/material.dart';
 class CountryTile extends StatelessWidget {
   final Country _country;
   final int _index;
+  final SortingType _sortingType;
 
-  const CountryTile({@required Country country, int index})
+  const CountryTile(
+      {@required Country country, @required SortingType sortingType, int index})
       : this._country = country,
-  this._index = index,
-        assert(country != null);
+        this._sortingType = sortingType,
+        this._index = index,
+        assert(country != null),
+        assert(sortingType != null);
 
   @override
   Widget build(BuildContext context) {
+    Widget typeChip() {
+      Widget label = Text("Cases: ${_country.cases}");
+      if (_sortingType == SortingType.NAME) {
+        label = Text("Cases: ${_country.cases}");
+      } else if (_sortingType == SortingType.CASES) {
+        label = Text("Cases: ${_country.cases}");
+      } else if (_sortingType == SortingType.DEATHS) {
+        label = Text("Deaths: ${_country.deaths}");
+      } else if (_sortingType == SortingType.ACTIVE) {
+        label = Text("Active: ${_country.active}");
+      } else if (_sortingType == SortingType.RECOVERED) {
+        label = label = Text("Recovered: ${_country.recovered}");
+      }
+
+      return Chip(
+        label: label,
+      );
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: Card(
@@ -52,22 +76,16 @@ class CountryTile extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: <Widget>[
-                  Chip(
-                    label: Text("Cases: ${_country.cases}"),
-                  ),
-                  SizedBox(
-                    width: 8.0,
-                  ),
-                  Chip(
-                    label: Text("Deaths: ${_country.deaths}"),
-                  )
+                  typeChip(),
                 ],
               ),
             ),
-            leading: _index == null ? null : Text(
-              "${_index + 1}",
-              style: TextStyle(fontSize: 24.0),
-            ),
+            leading: _index == null
+                ? null
+                : Text(
+                    "${_index + 1}",
+                    style: TextStyle(fontSize: 24.0),
+                  ),
           ),
         ),
       ),

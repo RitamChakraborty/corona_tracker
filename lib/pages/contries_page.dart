@@ -131,6 +131,7 @@ class _CountriesPageState extends State<CountriesPage>
                       if (filter.isEmpty) {
                         return CountryTile(
                           country: country,
+                          sortingType: sortingType,
                           index: index,
                         );
                       } else if (country.country
@@ -138,6 +139,7 @@ class _CountriesPageState extends State<CountriesPage>
                           .contains(filter)) {
                         return CountryTile(
                           country: country,
+                          sortingType: sortingType,
                         );
                       } else {
                         return Container();

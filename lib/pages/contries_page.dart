@@ -100,6 +100,24 @@ class _CountriesPageState extends State<CountriesPage>
             BlocBuilder<CountrySearchBloc, AbstractCountrySearchState>(
               builder:
                   (BuildContext context, AbstractCountrySearchState state) {
+                List<Country> sortedCountries = countries;
+                sortedCountries.sort((Country a, Country b) {
+                  switch (sortingType) {
+                    case SortingType.NAME:
+                      return a.country.compareTo(b.country);
+                    case SortingType.CASES:
+                      return b.cases.compareTo(a.cases);
+                    case SortingType.DEATHS:
+                      return b.deaths.compareTo(a.deaths);
+                    case SortingType.ACTIVE:
+                      return b.active.compareTo(a.active);
+                    case SortingType.RECOVERED:
+                      return b.recovered.compareTo(a.recovered);
+                    default:
+                      return 0;
+                  }
+                });
+
                 if (enabled) {
                   if (state is FilterChangedState) {
                     filter = state.filter;

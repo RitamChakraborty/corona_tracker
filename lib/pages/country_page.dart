@@ -10,11 +10,10 @@ class CountryPage extends StatelessWidget {
   final Country _country;
   final int _index;
 
-  const CountryPage({@required Country country, @required int index})
+  const CountryPage({@required Country country, int index})
       : this._country = country,
         this._index = index,
-        assert(country != null),
-        assert(index != null);
+        assert(country != null);
 
   @override
   Widget build(BuildContext context) {

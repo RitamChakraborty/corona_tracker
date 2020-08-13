@@ -7,11 +7,10 @@ class CountryTile extends StatelessWidget {
   final Country _country;
   final int _index;
 
-  const CountryTile({@required Country country, @required int index})
+  const CountryTile({@required Country country, int index})
       : this._country = country,
-        this._index = index + 1,
-        assert(country != null),
-        assert(index != null);
+  this._index = index,
+        assert(country != null);
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +64,8 @@ class CountryTile extends StatelessWidget {
                 ],
               ),
             ),
-            leading: Text(
-              "$_index",
+            leading: _index == null ? null : Text(
+              "${_index + 1}",
               style: TextStyle(fontSize: 24.0),
             ),
           ),

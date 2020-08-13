@@ -120,7 +120,6 @@ class _CountriesPageState extends State<CountriesPage>
                           .contains(filter)) {
                         return CountryTile(
                           country: country,
-                          index: index,
                         );
                       } else {
                         return Container();

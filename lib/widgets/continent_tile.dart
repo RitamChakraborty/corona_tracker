@@ -52,7 +52,7 @@ class ContinentTile extends StatelessWidget {
               ],
             ),
             leading: Text(
-              "$_index",
+              "${_index + 1}",
               style: TextStyle(fontSize: 24.0),
             ),
           ),

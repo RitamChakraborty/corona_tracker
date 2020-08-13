@@ -4,7 +4,6 @@ import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
 import 'package:coronatracker/widgets/sliver_search_bar.dart';
 import 'package:coronatracker/widgets/sorting_popup_button.dart';
-import 'package:floating_search_bar/floating_search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

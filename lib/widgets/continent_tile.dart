@@ -42,12 +42,6 @@ class ContinentTile extends StatelessWidget {
               children: <Widget>[
                 Chip(
                   label: Text("Cases: ${_continent.cases}"),
-                ),
-                SizedBox(
-                  width: 8.0,
-                ),
-                Chip(
-                  label: Text("Deaths: ${_continent.deaths}"),
                 )
               ],
             ),

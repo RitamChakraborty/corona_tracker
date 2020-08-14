@@ -36,9 +36,6 @@ class _ContinentsPageState extends State<ContinentsPage>
         child: CustomScrollView(
           controller: scrollController,
           slivers: <Widget>[
-//            SliverSearchBar(
-//              hintText: "Search continent",
-//            ),
             SliverList(
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {

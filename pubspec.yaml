@@ -14,7 +14,6 @@ dependencies:
   flutter_bloc: any
   intl: any
   google_nav_bar: any
-  floating_search_bar: any
 
 dev_dependencies:
   flutter_test:

@@ -26,12 +26,14 @@ class SplashScreen extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.all(32.0),
               decoration: BoxDecoration(
-                gradient: RadialGradient(colors: [
-                  Colors.purpleAccent,
-                  Theme.of(context).brightness == Brightness.light
-                      ? Colors.white
-                      : Colors.black,
-                ]),
+                gradient: RadialGradient(
+                  colors: [
+                    Colors.purpleAccent,
+                    Theme.of(context).brightness == Brightness.light
+                        ? Colors.white
+                        : Colors.black,
+                  ],
+                ),
               ),
               child: Image.asset('assets/images/do_dont.png'),
             ),

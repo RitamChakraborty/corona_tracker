@@ -1,9 +1,8 @@
 import 'package:coronatracker/widgets/bezier_clipper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class Header implements SliverPersistentHeaderDelegate {
+class Header extends SliverPersistentHeaderDelegate {
   final double _maxExtent;
   final double _minExtent;
   final String _imagePath;
@@ -34,9 +33,10 @@ class Header implements SliverPersistentHeaderDelegate {
           padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
             gradient: LinearGradient(
-                begin: Alignment.bottomLeft,
-                end: Alignment.topRight,
-                colors: [Colors.deepPurple, Colors.purple[200]]),
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [Colors.deepPurple, Colors.purple[200]],
+            ),
             image: DecorationImage(
               image: Image.asset('assets/images/virus.png').image,
               alignment: Alignment.center,
@@ -80,10 +80,4 @@ class Header implements SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
-
-  @override
-  FloatingHeaderSnapConfiguration get snapConfiguration => null;
-
-  @override
-  OverScrollHeaderStretchConfiguration get stretchConfiguration => null;
 }

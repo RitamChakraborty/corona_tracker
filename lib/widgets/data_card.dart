@@ -1,4 +1,5 @@
 import 'package:coronatracker/data/constants.dart';
+import 'package:coronatracker/pages/data_page.dart';
 import 'package:flutter/material.dart';
 
 class DataCard extends StatelessWidget {
@@ -20,13 +21,23 @@ class DataCard extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Material(
+        child: MaterialButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => DataPage(),
+              ),
+            );
+          },
           color: _color,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
           elevation: 10,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[

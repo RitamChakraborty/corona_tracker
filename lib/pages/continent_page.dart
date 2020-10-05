@@ -170,7 +170,7 @@ class ContinentPage extends StatelessWidget {
                     : Colors.grey[50],
               ),
               centerTitle: true,
-              backgroundColor: Colors.transparent,
+              backgroundColor: Theme.of(context).canvasColor,
               elevation: 0.0,
             ),
             SliverList(

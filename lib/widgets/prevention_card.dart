@@ -6,13 +6,16 @@ class PreventionCard extends StatelessWidget {
   final String _headerText;
   final String _text;
 
-  const PreventionCard({@required String imagePath, @required String headerText, @required String text,})
-  : this._imagePath = imagePath,
-  this._headerText = headerText,
-  this._text = text,
-  assert(imagePath != null),
-  assert(headerText != null),
-  assert(text != null);
+  const PreventionCard({
+    @required String imagePath,
+    @required String headerText,
+    @required String text,
+  })  : this._imagePath = imagePath,
+        this._headerText = headerText,
+        this._text = text,
+        assert(imagePath != null),
+        assert(headerText != null),
+        assert(text != null);
 
   @override
   Widget build(BuildContext context) {
@@ -43,23 +46,25 @@ class PreventionCard extends StatelessWidget {
                       flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Text(
-                              "$_headerText",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Text(
+                                "$_headerText",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            Container(
-                              child: Text(
-                                "$_text",
+                              Container(
+                                child: Text(
+                                  "$_text",
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),

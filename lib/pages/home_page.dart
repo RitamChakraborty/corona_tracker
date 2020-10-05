@@ -41,59 +41,58 @@ class _HomePageState extends State<HomePage>
       child: provider.value
           ? Container()
           : Container(
-        alignment: Alignment.bottomRight,
-        margin: const EdgeInsets.only(left: 32.0),
-        child: Material(
-          color: Theme.of(context).brightness == Brightness.light
-              ? Colors.white
-              : Colors.blueGrey,
-          elevation: 10.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(100.0),
-          ),
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0, vertical: 8.0),
-              child: GNav(
-                gap: 4,
-                activeColor: Colors.grey[800],
-                iconSize: 24,
-                padding:
-                EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
-                duration: Duration(milliseconds: 500),
-                tabBackgroundColor: Colors.grey[100],
-                color: Colors.grey,
-                tabs: [
-                  GButton(
-                    icon: Icons.public,
-                    text: "Global",
+              alignment: Alignment.bottomRight,
+              margin: const EdgeInsets.only(left: 32.0),
+              child: Material(
+                color: Theme.of(context).bottomAppBarColor,
+                elevation: 10.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100.0),
+                ),
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
+                    child: GNav(
+                      gap: 4,
+                      iconSize: 24,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                      duration: Duration(milliseconds: 500),
+                      activeColor: Theme.of(context).primaryColor,
+                      tabBackgroundColor: Theme.of(context).buttonColor,
+                      color: Theme.of(context).accentColor,
+                      backgroundColor: Theme.of(context).bottomAppBarColor,
+                      tabs: [
+                        GButton(
+                          icon: Icons.public,
+                          text: "Global",
+                        ),
+                        GButton(
+                          icon: Icons.map,
+                          text: "Continents",
+                        ),
+                        GButton(
+                          icon: Icons.flag,
+                          text: "Countries",
+                        ),
+                        GButton(
+                          icon: Icons.security,
+                          text: "Safety",
+                        )
+                      ],
+                      selectedIndex: currentIndex,
+                      onTabChange: (int index) {
+                        setState(() {
+                          currentIndex = index;
+                          tabController.index = index;
+                        });
+                      },
+                    ),
                   ),
-                  GButton(
-                    icon: Icons.map,
-                    text: "Continents",
-                  ),
-                  GButton(
-                    icon: Icons.flag,
-                    text: "Countries",
-                  ),
-                  GButton(
-                    icon: Icons.security,
-                    text: "Safety",
-                  )
-                ],
-                selectedIndex: currentIndex,
-                onTabChange: (int index) {
-                  setState(() {
-                    currentIndex = index;
-                    tabController.index = index;
-                  });
-                },
+                ),
               ),
             ),
-          ),
-        ),
-      ),
     );
 
     return Material(

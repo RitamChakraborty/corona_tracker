@@ -27,10 +27,14 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             brightness: Brightness.light,
             primaryColor: Colors.purple,
-            accentColor: Colors.tealAccent.shade400,
+            accentColor: Colors.grey,
           ),
           darkTheme: ThemeData(
             brightness: Brightness.dark,
+            primaryColor: Colors.purple.shade50,
+            accentColor: Colors.grey,
+            buttonColor: Colors.purple,
+            bottomAppBarColor: Colors.grey.shade900,
           ),
           home: SplashScreen(),
         ),

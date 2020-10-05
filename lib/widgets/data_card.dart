@@ -26,7 +26,11 @@ class DataCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => DataPage(),
+                builder: (BuildContext context) => DataPage(
+                  heading: _label,
+                  value: _value,
+                  color: _color,
+                ),
               ),
             );
           },

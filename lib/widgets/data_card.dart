@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/constants.dart';
 import 'package:flutter/material.dart';
 
 class DataCard extends StatelessWidget {
@@ -22,7 +23,7 @@ class DataCard extends StatelessWidget {
         child: Material(
           color: _color,
           shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           elevation: 10,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -31,11 +32,11 @@ class DataCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   _label,
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 SizedBox(height: 32.0),
                 Text(
-                  _value,
+                  NUMBER_FORMAT.format(int.parse(_value)),
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ],

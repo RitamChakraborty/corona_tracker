@@ -28,7 +28,7 @@ class SymptomsCard extends StatelessWidget {
             direction: Axis.vertical,
             children: <Widget>[
               Flexible(
-                flex: 4,
+                flex: 3,
                 child: Image.asset(
                   '$_imagePath',
                   fit: BoxFit.cover,
@@ -36,7 +36,10 @@ class SymptomsCard extends StatelessWidget {
               ),
               Flexible(
                 flex: 1,
-                child: Text("$_text"),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Text("$_text"),
+                ),
               ),
             ],
           ),

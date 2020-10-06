@@ -28,7 +28,7 @@ flutter:
     - assets/svgs/doctor_2.svg
     - assets/svgs/nurse.svg
     - assets/images/bodyache.png
-    - assets/images/caugh.png
+    - assets/images/cough.png
     - assets/images/do_dont.png
     - assets/images/dress.png
     - assets/images/fever.png

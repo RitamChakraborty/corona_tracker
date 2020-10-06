@@ -42,32 +42,28 @@ class _SafetyPageState extends State<SafetyPage>
       ),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Flex(
-          direction: Axis.horizontal,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Flexible(
-              flex: 1,
-              child: SymptomsCard(
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: <Widget>[
+              SymptomsCard(
                 text: "Headache",
                 imagePath: 'assets/images/headache.png',
               ),
-            ),
-            Flexible(
-              flex: 1,
-              child: SymptomsCard(
-                text: "Cough",
-                imagePath: 'assets/images/caugh.png',
+              SymptomsCard(
+                text: "Body Ache",
+                imagePath: 'assets/images/bodyache.png',
               ),
-            ),
-            Flexible(
-              flex: 1,
-              child: SymptomsCard(
+              SymptomsCard(
+                text: "Cough",
+                imagePath: 'assets/images/cough.png',
+              ),
+              SymptomsCard(
                 text: "Fever",
                 imagePath: 'assets/images/fever.png',
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       Padding(

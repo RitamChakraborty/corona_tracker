@@ -38,7 +38,7 @@ class Header extends SliverPersistentHeaderDelegate {
               colors: [Colors.deepPurple, Colors.purple[200]],
             ),
             image: DecorationImage(
-              image: Image.asset('assets/images/virus.png').image,
+              image: Image.asset('assets/images/virus2.png').image,
               alignment: Alignment.center,
               fit: BoxFit.cover,
             ),

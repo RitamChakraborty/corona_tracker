@@ -88,6 +88,12 @@ class _SafetyPageState extends State<SafetyPage>
         text: "Face masks prevent the spread of the virus. " +
             "Make sure you ware the mask correctly and it totally covers your face.",
       ),
+      PreventionCard(
+        imagePath: "assets/images/person.png",
+        headerText: "Ask for Help",
+        text: "If you feel sick, don't hesitated to ask for help. " +
+            "Go to a clinic and get yourself tested.",
+      ),
     ];
 
     return Scaffold(

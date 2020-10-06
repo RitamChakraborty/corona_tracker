@@ -72,8 +72,11 @@ Using official [disease.sh](https://disease.sh/) API
 ## Designs
 
 Gotta search [Dribble](https://dribble.com)!
+[](https://dribbble.com/shots/11103623-COVID-19-Virus-Tracker-Donation-Application)
 
 ## Credits
 
 - [COVID-19 App - Flutter UI - Speed Code](https://www.youtube.com/watch?v=zx6uMCoW2gQ) by [The Flutter Way](https://www.youtube.com/channel/UCJm7i4g4z7ZGcJA_HKHLCVw)
 - [Flutter COVID-19 Dashboard UI | Speed Code](https://www.youtube.com/watch?v=krU-ASLb8lM) by [Marcus Ng](https://www.youtube.com/channel/UC6Dy0rQ6zDnQuHQ1EeErGUA)
+[](https://www.youtube.com/watch?v=yG3WiFu2aUE&ab_channel=RobbyRahmana)
+[](https://www.youtube.com/watch?v=axWBN1aotQk&t=27s&ab_channel=TheFlutterWay)

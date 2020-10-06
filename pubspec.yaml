@@ -26,17 +26,21 @@ flutter:
     - assets/svgs/background_art_2.svg
     - assets/svgs/doctor_1.svg
     - assets/svgs/doctor_2.svg
-    - assets/svgs/map.svg
+    - assets/svgs/nurse.svg
+    - assets/images/bodyache.png
     - assets/images/caugh.png
+    - assets/images/do_dont.png
+    - assets/images/dress.png
     - assets/images/fever.png
     - assets/images/headache.png
-    - assets/images/map.png
+    - assets/images/heading.png
+    - assets/images/hospital.png
     - assets/images/own_test.png
+    - assets/images/person.png
     - assets/images/virus.png
+    - assets/images/virus2.png
     - assets/images/wash_hands.png
     - assets/images/wear_mask.png
-    - assets/images/dress.png
-    - assets/do_dont.png
     - assets/gifs/home_page.gif
     - assets/gifs/light_1.gif
     - assets/gifs/light_2.gif

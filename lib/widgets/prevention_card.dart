@@ -19,8 +19,10 @@ class PreventionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Container(
-      height: 150,
+      height: size.height / 5,
       margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
       child: Stack(
         fit: StackFit.expand,

@@ -1,6 +1,7 @@
 import 'package:coronatracker/services/symptoms_card.dart';
 import 'package:coronatracker/widgets/header.dart';
 import 'package:coronatracker/widgets/prevention_card.dart';
+import 'package:coronatracker/widgets/prevention_card_1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -89,10 +90,27 @@ class _SafetyPageState extends State<SafetyPage>
             "Make sure you ware the mask correctly and it totally covers your face.",
       ),
       PreventionCard(
+        imagePath: "assets/images/cover_cough.png",
+        headerText: "Cover Cough",
+        text: "Cover you mouth and nose when you're about to sneeze. " +
+            "Use handkerchief or your arms.",
+      ),
+      PreventionCard1(
+        imagePath: "assets/images/social_distance.png",
+        headerText: "Physical Distancing",
+        text: "Keep at least 1 meter distance from an unknown person. " +
+            "Avoid going to crowded places.",
+      ),
+      PreventionCard1(
+        imagePath: "assets/images/sanitize.png",
+        headerText: "Sanitize House",
+        text: "Keep your house clean. " + "Sanitize places frequently touched.",
+      ),
+      PreventionCard1(
         imagePath: "assets/images/person.png",
         headerText: "Ask for Help",
         text: "If you feel sick, don't hesitated to ask for help. " +
-            "Go to a clinic and get yourself tested.",
+            "Go to a clinic and get medical advise.",
       ),
     ];
 

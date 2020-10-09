@@ -1,4 +1,5 @@
 import 'package:coronatracker/services/symptoms_card.dart';
+import 'package:coronatracker/widgets/emergency.dart';
 import 'package:coronatracker/widgets/header.dart';
 import 'package:coronatracker/widgets/prevention_card.dart';
 import 'package:coronatracker/widgets/prevention_card_1.dart';
@@ -112,6 +113,10 @@ class _SafetyPageState extends State<SafetyPage>
         text: "If you feel sick, don't hesitated to ask for help. " +
             "Go to a clinic and get medical advise.",
       ),
+      SizedBox(
+        height: 16,
+      ),
+      Emergency(),
     ];
 
     return Scaffold(

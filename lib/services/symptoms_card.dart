@@ -16,7 +16,7 @@ class SymptomsCard extends StatelessWidget {
     return Container(
       height: 125,
       width: 125,
-      margin: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
       child: Card(
         elevation: 10.0,
         shape: RoundedRectangleBorder(

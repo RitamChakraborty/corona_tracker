@@ -29,6 +29,7 @@ flutter:
     - assets/svgs/nurse.svg
     - assets/images/bodyache.png
     - assets/images/cough.png
+    - assets/images/cover_cough.png
     - assets/images/do_dont.png
     - assets/images/dress.png
     - assets/images/fever.png
@@ -37,6 +38,8 @@ flutter:
     - assets/images/hospital.png
     - assets/images/own_test.png
     - assets/images/person.png
+    - assets/images/sanatize.png
+    - assets/images/social_distance.png
     - assets/images/virus.png
     - assets/images/virus2.png
     - assets/images/wash_hands.png

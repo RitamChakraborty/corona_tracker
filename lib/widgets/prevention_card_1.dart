@@ -48,6 +48,7 @@ class PreventionCard1 extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(height: 8.0),
                       Container(
                         child: Text(
                           "$_text",
@@ -60,7 +61,10 @@ class PreventionCard1 extends StatelessWidget {
             ),
             Flexible(
               flex: 1,
-              child: Image.asset(_imagePath),
+              child: Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Image.asset(_imagePath),
+              ),
             ),
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Emergency extends StatelessWidget {
   @override
@@ -16,15 +17,20 @@ class Emergency extends StatelessWidget {
       @required Color color,
     }) =>
         GestureDetector(
-          onTap: () {
-            print(url);
+          onTap: () async {
+            if (await canLaunch(url)) {
+              await launch(url);
+            }
           },
           child: Chip(
             elevation: 10.0,
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8.0),
-            avatar: Icon(
-              icon,
-              color: Colors.white,
+            avatar: Padding(
+              padding: const EdgeInsets.only(left: 4),
+              child: Icon(
+                icon,
+                color: Colors.white,
+              ),
             ),
             backgroundColor: color,
             label: Text(
@@ -38,7 +44,6 @@ class Emergency extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
       child: Stack(
-        // fit: StackFit.expand,
         children: [
           Card(
             elevation: 10.0,
@@ -63,7 +68,7 @@ class Emergency extends StatelessWidget {
                   ),
                   Flex(
                     direction: Axis.horizontal,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Flexible(
@@ -77,10 +82,11 @@ class Emergency extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             chip(
-                                label: "+91-11-23978046",
-                                url: "tel:+91-11-23978046",
-                                icon: Icons.phone,
-                                color: Colors.deepPurple),
+                              label: "+91-11-23978046",
+                              url: "tel:+91-11-23978046",
+                              icon: Icons.phone,
+                              color: Colors.deepPurple,
+                            ),
                             chip(
                               label: "ncov2019@gov.in",
                               url: "mailto:mcov2019@gov.in",
@@ -102,13 +108,38 @@ class Emergency extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.only(top: 50),
-              child: SvgPicture.asset(
-                "assets/svgs/nurse.svg",
-                fit: BoxFit.cover,
-              ),
+          Container(
+            padding: const EdgeInsets.only(top: 50),
+            width: double.infinity,
+            child: Flex(
+              direction: Axis.horizontal,
+              children: [
+                Flexible(
+                  flex: 1,
+                  child: Container(
+                    width: double.infinity,
+                  ),
+                ),
+                Flexible(
+                  flex: 15,
+                  fit: FlexFit.loose,
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: double.infinity,
+                    child: SvgPicture.asset(
+                      "assets/svgs/nurse.svg",
+                    ),
+                  ),
+                ),
+                Flexible(
+                  flex: 10,
+                  fit: FlexFit.loose,
+                  child: Container(
+                    width: double.infinity,
+                    color: Colors.yellow,
+                  ),
+                )
+              ],
             ),
           ),
         ],

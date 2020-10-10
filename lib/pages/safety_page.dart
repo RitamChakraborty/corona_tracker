@@ -43,11 +43,12 @@ class _SafetyPageState extends State<SafetyPage>
         ),
       ),
       Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
             children: <Widget>[
+              SizedBox(width: 16),
               SymptomsCard(
                 text: "Headache",
                 imagePath: 'assets/images/headache.png',
@@ -64,6 +65,7 @@ class _SafetyPageState extends State<SafetyPage>
                 text: "Fever",
                 imagePath: 'assets/images/fever.png',
               ),
+              SizedBox(width: 16),
             ],
           ),
         ),

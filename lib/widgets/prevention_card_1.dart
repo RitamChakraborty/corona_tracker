@@ -5,9 +5,11 @@ class PreventionCard1 extends StatelessWidget {
   final String _headerText;
   final String _text;
 
-  const PreventionCard1(
-      {@required String imagePath, @required String headerText, @required text})
-      : this._imagePath = imagePath,
+  const PreventionCard1({
+    @required String imagePath,
+    @required String headerText,
+    @required text,
+  })  : this._imagePath = imagePath,
         this._headerText = headerText,
         this._text = text,
         assert(imagePath != null),
@@ -59,7 +61,7 @@ class PreventionCard1 extends StatelessWidget {
             Flexible(
               flex: 1,
               child: Image.asset(_imagePath),
-            )
+            ),
           ],
         ),
       ),

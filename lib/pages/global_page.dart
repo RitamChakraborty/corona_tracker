@@ -145,19 +145,24 @@ class _GlobalPageState extends State<GlobalPage>
     ];
 
     return Scaffold(
-      body: CustomScrollView(
-        controller: scrollController,
-        slivers: <Widget>[
-          SliverPersistentHeader(
-            delegate: Header(
-              maxExtent: size.height / 3,
-              minExtent: size.height / 4,
-              imagePath: "assets/svgs/doctor_2.svg",
-              headerMessage: "Stay Home,\nStay Safe!",
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await Future.delayed(Duration(seconds: 2));
+        },
+        child: CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            SliverPersistentHeader(
+              delegate: Header(
+                maxExtent: size.height / 3,
+                minExtent: size.height / 4,
+                imagePath: "assets/svgs/doctor_2.svg",
+                headerMessage: "Stay Home,\nStay Safe!",
+              ),
             ),
-          ),
-          SliverList(delegate: SliverChildListDelegate(children))
-        ],
+            SliverList(delegate: SliverChildListDelegate(children))
+          ],
+        ),
       ),
     );
   }

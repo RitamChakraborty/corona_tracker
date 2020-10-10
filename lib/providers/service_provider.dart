@@ -46,6 +46,12 @@ class ServiceProvider extends ChangeNotifier {
     return _global;
   }
 
+  Future<void> fetchGlobal() async {
+    Global global = await _httpService.fetchGlobalData();
+    _global = global;
+    notifyListeners();
+  }
+
   List<Continent> get continents {
     _continents = [
       {
@@ -123,6 +129,11 @@ class ServiceProvider extends ChangeNotifier {
     return _continents;
   }
 
+  Future<void> fetchContinents() async {
+    _continents = await _httpService.fetchContinentData();
+    notifyListeners();
+  }
+
   List<Country> get countries {
     _countries = [
       {
@@ -168,5 +179,9 @@ class ServiceProvider extends ChangeNotifier {
     }
 
     return _countries;
+  }
+
+  Future<void> fetchCountries() async {
+    _countries = await _httpService.fetchCountryData();
   }
 }

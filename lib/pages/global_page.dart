@@ -146,9 +146,7 @@ class _GlobalPageState extends State<GlobalPage>
 
     return Scaffold(
       body: RefreshIndicator(
-        onRefresh: () async {
-          await Future.delayed(Duration(seconds: 2));
-        },
+        onRefresh: serviceProvider.fetchGlobal,
         child: CustomScrollView(
           controller: scrollController,
           slivers: <Widget>[

@@ -14,6 +14,8 @@ class ContinentsPage extends StatefulWidget {
 class _ContinentsPageState extends State<ContinentsPage>
     with AutomaticKeepAliveClientMixin {
   ScrollController scrollController = ScrollController();
+  GlobalKey<RefreshIndicatorState> refreshIndicatorKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -32,29 +34,43 @@ class _ContinentsPageState extends State<ContinentsPage>
     List<Continent> continents = serviceProvider.continents;
 
     if (continents == null) {
-      return Center(
-        child: CircularProgressIndicator(),
+      refreshIndicatorKey.currentState?.show();
+      return RefreshIndicator(
+        key: refreshIndicatorKey,
+        onRefresh: serviceProvider.fetchContinents,
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text("Fetching continents"),
+            ),
+          ],
+        ),
       );
     }
 
     return Scaffold(
       body: SafeArea(
-        child: CustomScrollView(
-          controller: scrollController,
-          slivers: <Widget>[
-            SliverList(
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  Continent continent = continents[index];
-                  return ContinentTile(
-                    continent: continent,
-                    index: index,
-                  );
-                },
-                childCount: continents.length,
-              ),
-            )
-          ],
+        child: RefreshIndicator(
+          key: refreshIndicatorKey,
+          onRefresh: serviceProvider.fetchContinents,
+          child: CustomScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            controller: scrollController,
+            slivers: <Widget>[
+              SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    Continent continent = continents[index];
+                    return ContinentTile(
+                      continent: continent,
+                      index: index,
+                    );
+                  },
+                  childCount: continents.length,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

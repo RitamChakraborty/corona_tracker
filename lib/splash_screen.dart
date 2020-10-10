@@ -9,9 +9,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
 
-    if (serviceProvider.global != null &&
-        serviceProvider.countries != null &&
-        serviceProvider.continents != null) {
+    if (serviceProvider.global != null) {
       return HomePage();
     }
 

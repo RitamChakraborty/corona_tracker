@@ -31,6 +31,12 @@ class _ContinentsPageState extends State<ContinentsPage>
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Continent> continents = serviceProvider.continents;
 
+    if (continents == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(

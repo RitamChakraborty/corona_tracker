@@ -70,6 +70,12 @@ class _CountriesPageState extends State<CountriesPage>
       },
     );
 
+    if (countries == null) {
+      return Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(

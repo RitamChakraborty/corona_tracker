@@ -1,6 +1,7 @@
 import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/providers/service_provider.dart';
 import 'package:coronatracker/widgets/continent_tile.dart';
+import 'package:coronatracker/widgets/tile_demo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

@@ -16,6 +16,9 @@ class CountryAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      leading: BackButton(
+        color: Theme.of(context).textTheme.headline6.color,
+      ),
       elevation: 0.0,
       backgroundColor: Colors.transparent,
       expandedHeight: _size.height / 4,

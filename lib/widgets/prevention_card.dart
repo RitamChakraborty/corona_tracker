@@ -20,9 +20,15 @@ class PreventionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Orientation orientation = MediaQuery.of(context).orientation;
+    double cardHeight = size.height / 5;
+
+    if (orientation == Orientation.landscape) {
+      cardHeight = size.height / 3;
+    }
 
     return Container(
-      height: size.height / 5,
+      height: cardHeight,
       margin: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
       child: Stack(
         fit: StackFit.expand,

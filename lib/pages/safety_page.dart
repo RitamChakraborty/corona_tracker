@@ -42,11 +42,14 @@ class _SafetyPageState extends State<SafetyPage>
           ),
         ),
       ),
-      Padding(
+      Container(
+        width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 8.0),
+        alignment: Alignment.center,
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(width: 16),
               SymptomsCard(

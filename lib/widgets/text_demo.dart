@@ -15,7 +15,7 @@ class TextDemo extends StatelessWidget {
       height: _height ?? 16.0,
       width: _width,
       decoration: BoxDecoration(
-        color: Theme.of(context).disabledColor,
+        color: Theme.of(context).chipTheme.backgroundColor,
         borderRadius: BorderRadius.circular(24.0),
       ),
     );

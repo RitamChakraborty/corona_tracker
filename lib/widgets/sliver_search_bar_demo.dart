@@ -27,6 +27,7 @@ class SliverSearchBarDemo extends StatelessWidget {
           ),
         ],
         title: TextDemo(
+          height: 18,
           width: 120.0,
         ),
       ),

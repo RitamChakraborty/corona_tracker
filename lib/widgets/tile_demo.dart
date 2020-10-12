@@ -18,41 +18,40 @@ class TileDemo extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        child: ListTile(
-          title: Row(
-            children: [
-              TextDemo(
-                height: 24.0,
-                width: 200.0,
-              ),
-            ],
-          ),
-          subtitle: Container(
-            alignment: Alignment.centerLeft,
-            child: Chip(
-              label: TextDemo(
-                width: 50.0,
+        child: MaterialButton(
+          onPressed: null,
+          child: ListTile(
+            title: TextDemo(
+              height: 24.0,
+              width: 100,
+            ),
+            subtitle: Container(
+              alignment: Alignment.centerLeft,
+              child: Chip(
+                label: Container(
+                  width: 75,
+                ),
               ),
             ),
-          ),
-          leading: _index == null
-              ? null
-              : Text(
-                  "${_index + 1}",
-                  style: TextStyle(fontSize: 24.0),
-                ),
-          trailing: _showFlag != null && _showFlag
-              ? SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(50),
-                    child: Container(
-                      color: Theme.of(context).disabledColor,
-                    ),
+            leading: _index == null
+                ? null
+                : Text(
+                    "${_index + 1}",
+                    style: TextStyle(fontSize: 24.0),
                   ),
-                )
-              : null,
+            trailing: _showFlag != null && _showFlag
+                ? SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: Container(
+                        color: Theme.of(context).chipTheme.backgroundColor,
+                      ),
+                    ),
+                  )
+                : null,
+          ),
         ),
       ),
     );

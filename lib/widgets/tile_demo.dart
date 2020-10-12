@@ -1,11 +1,13 @@
 import 'package:coronatracker/widgets/text_demo.dart';
 import 'package:flutter/material.dart';
 
-class CountryTileDemo extends StatelessWidget {
+class TileDemo extends StatelessWidget {
   final int _index;
+  final bool _showFlag;
 
-  const CountryTileDemo({int index, double height, double width})
-      : this._index = index;
+  const TileDemo({int index, bool showFlag})
+      : this._index = index,
+        this._showFlag = showFlag;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +19,6 @@ class CountryTileDemo extends StatelessWidget {
           borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(
-          trailing: SizedBox(
-            height: 50,
-            width: 50,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(50),
-              child: Container(
-                color: Theme.of(context).disabledColor,
-              ),
-            ),
-          ),
           title: Row(
             children: [
               TextDemo(
@@ -49,6 +41,18 @@ class CountryTileDemo extends StatelessWidget {
                   "${_index + 1}",
                   style: TextStyle(fontSize: 24.0),
                 ),
+          trailing: _showFlag != null && _showFlag
+              ? SizedBox(
+                  height: 50,
+                  width: 50,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Container(
+                      color: Theme.of(context).disabledColor,
+                    ),
+                  ),
+                )
+              : null,
         ),
       ),
     );

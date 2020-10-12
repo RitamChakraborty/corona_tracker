@@ -20,6 +20,11 @@ class _ContinentsPageState extends State<ContinentsPage>
   @override
   Widget build(BuildContext context) {
     ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
+    ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
+    List<Continent> continents = serviceProvider.continents;
+    List<Widget> demoContinents = [];
+    int contientsCount = 6;
+
     scrollController.addListener(() {
       if (scrollController.position.userScrollDirection ==
           ScrollDirection.forward) {
@@ -30,22 +35,14 @@ class _ContinentsPageState extends State<ContinentsPage>
         provider.value = true;
       }
     });
-    ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
-    List<Continent> continents = serviceProvider.continents;
 
     if (continents == null) {
       refreshIndicatorKey.currentState?.show();
-      return RefreshIndicator(
-        key: refreshIndicatorKey,
-        onRefresh: serviceProvider.fetchContinents,
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text("Fetching continents"),
-            ),
-          ],
-        ),
-      );
+      demoContinents = List<Widget>.generate(
+          contientsCount,
+          (index) => TileDemo(
+                index: index,
+              )).toList();
     }
 
     return Scaffold(
@@ -60,13 +57,17 @@ class _ContinentsPageState extends State<ContinentsPage>
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (BuildContext context, int index) {
-                    Continent continent = continents[index];
-                    return ContinentTile(
-                      continent: continent,
-                      index: index,
-                    );
+                    if (continents == null) {
+                      return demoContinents[index];
+                    } else {
+                      Continent continent = continents[index];
+                      return ContinentTile(
+                        continent: continent,
+                        index: index,
+                      );
+                    }
                   },
-                  childCount: continents.length,
+                  childCount: contientsCount,
                 ),
               )
             ],

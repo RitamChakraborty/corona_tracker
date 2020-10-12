@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
               primaryColor: Colors.purple.shade50,
               accentColor: Colors.grey,
               buttonColor: Colors.purple,
-              bottomAppBarColor: Colors.grey.shade900,
+              bottomAppBarColor: Colors.blueGrey.shade900,
               dividerColor: Colors.grey.shade600),
           home: SplashScreen(),
         ),

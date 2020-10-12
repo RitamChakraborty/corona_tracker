@@ -1,9 +1,10 @@
+import 'package:coronatracker/widgets/text_demo.dart';
 import 'package:flutter/material.dart';
 
-class DemoCountryTile extends StatelessWidget {
+class CountryTileDemo extends StatelessWidget {
   final int _index;
 
-  const DemoCountryTile({int index, double height, double width})
+  const CountryTileDemo({int index, double height, double width})
       : this._index = index;
 
   @override
@@ -22,27 +23,22 @@ class DemoCountryTile extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(50),
               child: Container(
-                color: Colors.grey,
+                color: Theme.of(context).disabledColor,
               ),
             ),
           ),
           title: Row(
             children: [
-              Container(
+              TextDemo(
                 height: 24.0,
                 width: 200.0,
-                decoration: BoxDecoration(
-                  color: Colors.grey,
-                  borderRadius: BorderRadius.circular(24.0),
-                ),
               ),
             ],
           ),
           subtitle: Container(
             alignment: Alignment.centerLeft,
             child: Chip(
-              label: Container(
-                height: 16.0,
+              label: TextDemo(
                 width: 50.0,
               ),
             ),

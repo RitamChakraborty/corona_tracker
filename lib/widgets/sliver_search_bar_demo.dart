@@ -1,3 +1,4 @@
+import 'package:coronatracker/widgets/text_demo.dart';
 import 'package:flutter/material.dart';
 
 class SliverSearchBarDemo extends StatelessWidget {
@@ -6,9 +7,7 @@ class SliverSearchBarDemo extends StatelessWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       sliver: SliverAppBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? Colors.grey[50]
-            : Colors.grey[800],
+        backgroundColor: Theme.of(context).cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
@@ -17,15 +16,18 @@ class SliverSearchBarDemo extends StatelessWidget {
         pinned: true,
         key: GlobalKey(debugLabel: "sliver_search_bar"),
         iconTheme: Theme.of(context).iconTheme,
-        leading: Icon(Icons.search),
-        actions: [Icon(Icons.sort)],
-        title: Container(
-          height: 16,
-          width: 100,
-          decoration: BoxDecoration(
-            color: Colors.grey,
-            borderRadius: BorderRadius.circular(16.0),
+        leading: IconButton(
+          icon: Icon(Icons.search),
+          onPressed: null,
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.sort),
+            onPressed: null,
           ),
+        ],
+        title: TextDemo(
+          width: 120.0,
         ),
       ),
     );

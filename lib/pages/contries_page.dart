@@ -2,10 +2,10 @@ import 'package:coronatracker/bloc/country_search_bloc.dart';
 import 'package:coronatracker/data/sorting.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
-import 'package:coronatracker/widgets/SliverSearchBarDemo.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
-import 'package:coronatracker/widgets/demo_country_tile.dart';
+import 'package:coronatracker/widgets/country_tile_demo.dart';
 import 'package:coronatracker/widgets/sliver_search_bar.dart';
+import 'package:coronatracker/widgets/sliver_search_bar_demo.dart';
 import 'package:coronatracker/widgets/sorting_popup_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,35 +30,21 @@ class _CountriesPageState extends State<CountriesPage>
 
   @override
   Widget build(BuildContext context) {
-    ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
     // ignore: close_sinks
     CountrySearchBloc countrySearchBloc =
         Provider.of<CountrySearchBloc>(context);
-
-    scrollController.addListener(() {
-      if (scrollController.position.userScrollDirection ==
-          ScrollDirection.forward) {
-        provider.value = false;
-      }
-      if (scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        provider.value = true;
-      }
-    });
-
+    ValueNotifier<bool> provider = Provider.of<ValueNotifier<bool>>(context);
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Country> countries = serviceProvider.countries;
     int countryCount = serviceProvider.global.affectedCountries;
     List<Widget> demoCountries = [];
     List<Widget> demoSlivers = [];
 
-    // countries = null;
-
     if (countries == null) {
       refreshIndicatorKey.currentState?.show();
       demoCountries = List<Widget>.generate(
         countryCount,
-        (index) => DemoCountryTile(
+        (index) => CountryTileDemo(
           index: index,
         ),
       ).toList();
@@ -74,6 +60,17 @@ class _CountriesPageState extends State<CountriesPage>
         ),
       ];
     }
+
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        provider.value = false;
+      }
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        provider.value = true;
+      }
+    });
 
     Widget sortButton = SortingPopupButton(
       groupValue: sortingType,

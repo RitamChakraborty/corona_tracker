@@ -2,7 +2,9 @@ import 'package:coronatracker/bloc/country_search_bloc.dart';
 import 'package:coronatracker/data/sorting.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/providers/service_provider.dart';
+import 'package:coronatracker/widgets/SliverSearchBarDemo.dart';
 import 'package:coronatracker/widgets/country_tile.dart';
+import 'package:coronatracker/widgets/demo_country_tile.dart';
 import 'package:coronatracker/widgets/sliver_search_bar.dart';
 import 'package:coronatracker/widgets/sorting_popup_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -46,21 +48,31 @@ class _CountriesPageState extends State<CountriesPage>
 
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     List<Country> countries = serviceProvider.countries;
+    int countryCount = serviceProvider.global.affectedCountries;
+    List<Widget> demoCountries = [];
+    List<Widget> demoSlivers = [];
+
+    // countries = null;
 
     if (countries == null) {
       refreshIndicatorKey.currentState?.show();
-
-      return RefreshIndicator(
-        key: refreshIndicatorKey,
-        onRefresh: serviceProvider.fetchCountries,
-        child: ListView(
-          children: [
-            ListTile(
-              title: Text("Fetching countries"),
-            ),
-          ],
+      demoCountries = List<Widget>.generate(
+        countryCount,
+        (index) => DemoCountryTile(
+          index: index,
         ),
-      );
+      ).toList();
+      demoSlivers = [
+        SliverSearchBarDemo(),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return demoCountries[index];
+            },
+            childCount: countryCount,
+          ),
+        ),
+      ];
     }
 
     Widget sortButton = SortingPopupButton(
@@ -95,83 +107,84 @@ class _CountriesPageState extends State<CountriesPage>
           onRefresh: serviceProvider.fetchCountries,
           child: CustomScrollView(
             controller: scrollController,
-            slivers: <Widget>[
-              SliverSearchBar(
-                hintText: "Search country",
-                controller: controller,
-                trailingIcon: enabled ? clearButton : sortButton,
-                enabled: enabled,
-                onTap: () async {
-                  await Future.delayed(Duration(milliseconds: 100));
-                  setState(() {
-                    enabled = true;
-                  });
-                },
-                onChanged: (String value) {
-                  countrySearchBloc.add(FilterChangeEvent(
-                    filter: value,
-                  ));
-                },
-                onSubmitted: (String value) {
-                  countrySearchBloc.add(FilterChangeEvent(
-                    filter: value,
-                  ));
-                },
-              ),
-              BlocBuilder<CountrySearchBloc, AbstractCountrySearchState>(
-                builder:
-                    (BuildContext context, AbstractCountrySearchState state) {
-                  List<Country> sortedCountries = countries;
-                  sortedCountries.sort((Country a, Country b) {
-                    switch (sortingType) {
-                      case SortingType.NAME:
-                        return a.country.compareTo(b.country);
-                      case SortingType.CASES:
-                        return b.cases.compareTo(a.cases);
-                      case SortingType.DEATHS:
-                        return b.deaths.compareTo(a.deaths);
-                      case SortingType.ACTIVE:
-                        return b.active.compareTo(a.active);
-                      case SortingType.RECOVERED:
-                        return b.recovered.compareTo(a.recovered);
-                      default:
-                        return 0;
-                    }
-                  });
-
-                  if (enabled) {
-                    if (state is FilterChangedState) {
-                      filter = state.filter;
-                    }
-                  }
-
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        Country country = countries[index];
-                        if (filter.isEmpty) {
-                          return CountryTile(
-                            country: country,
-                            sortingType: sortingType,
-                            index: index,
-                          );
-                        } else if (country.country
-                            .toLowerCase()
-                            .contains(filter)) {
-                          return CountryTile(
-                            country: country,
-                            sortingType: sortingType,
-                          );
-                        } else {
-                          return Container();
-                        }
+            slivers: countries == null
+                ? demoSlivers
+                : <Widget>[
+                    SliverSearchBar(
+                      hintText: "Search country",
+                      controller: controller,
+                      trailingIcon: enabled ? clearButton : sortButton,
+                      enabled: enabled,
+                      onTap: () async {
+                        await Future.delayed(Duration(milliseconds: 100));
+                        setState(() {
+                          enabled = true;
+                        });
                       },
-                      childCount: countries.length,
+                      onChanged: (String value) {
+                        countrySearchBloc.add(FilterChangeEvent(
+                          filter: value,
+                        ));
+                      },
+                      onSubmitted: (String value) {
+                        countrySearchBloc.add(FilterChangeEvent(
+                          filter: value,
+                        ));
+                      },
                     ),
-                  );
-                },
-              )
-            ],
+                    BlocBuilder<CountrySearchBloc, AbstractCountrySearchState>(
+                      builder: (BuildContext context,
+                          AbstractCountrySearchState state) {
+                        List<Country> sortedCountries = countries;
+                        sortedCountries.sort((Country a, Country b) {
+                          switch (sortingType) {
+                            case SortingType.NAME:
+                              return a.country.compareTo(b.country);
+                            case SortingType.CASES:
+                              return b.cases.compareTo(a.cases);
+                            case SortingType.DEATHS:
+                              return b.deaths.compareTo(a.deaths);
+                            case SortingType.ACTIVE:
+                              return b.active.compareTo(a.active);
+                            case SortingType.RECOVERED:
+                              return b.recovered.compareTo(a.recovered);
+                            default:
+                              return 0;
+                          }
+                        });
+                        if (enabled) {
+                          if (state is FilterChangedState) {
+                            filter = state.filter;
+                          }
+                        }
+
+                        return SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                            (BuildContext context, int index) {
+                              Country country = countries[index];
+                              if (filter.isEmpty) {
+                                return CountryTile(
+                                  country: country,
+                                  sortingType: sortingType,
+                                  index: index,
+                                );
+                              } else if (country.country
+                                  .toLowerCase()
+                                  .contains(filter)) {
+                                return CountryTile(
+                                  country: country,
+                                  sortingType: sortingType,
+                                );
+                              } else {
+                                return Container();
+                              }
+                            },
+                            childCount: countryCount,
+                          ),
+                        );
+                      },
+                    )
+                  ],
           ),
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:coronatracker/widgets/tile_demo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 
 class ContinentsPage extends StatefulWidget {
@@ -38,7 +39,10 @@ class _ContinentsPageState extends State<ContinentsPage>
     });
 
     if (continents == null) {
-      refreshIndicatorKey.currentState?.show();
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        refreshIndicatorKey.currentState?.show();
+      });
+
       demoContinents = List<Widget>.generate(
           contientsCount,
           (index) => TileDemo(

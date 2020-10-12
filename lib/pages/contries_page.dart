@@ -10,6 +10,7 @@ import 'package:coronatracker/widgets/tile_demo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
@@ -41,7 +42,10 @@ class _CountriesPageState extends State<CountriesPage>
     List<Widget> demoSlivers = [];
 
     if (countries == null) {
-      refreshIndicatorKey.currentState?.show();
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        refreshIndicatorKey.currentState?.show();
+      });
+
       demoCountries = List<Widget>.generate(
         countryCount,
         (index) => TileDemo(

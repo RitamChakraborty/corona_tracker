@@ -41,7 +41,12 @@ class CountryAppBar extends StatelessWidget {
           ),
           title: Padding(
             padding: const EdgeInsets.only(bottom: 64.0),
-            child: Text("${_country.country}"),
+            child: Text(
+              "${_country.country}",
+              style: TextStyle(
+                color: Colors.white,
+              ),
+            ),
           ),
         ),
       ),

@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/constants.dart';
 import 'package:flutter/material.dart';
 
 class DataTile extends StatelessWidget {
@@ -16,9 +17,7 @@ class DataTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
       child: Card(
         elevation: 10.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
+        shape: SHAPE,
         color: Theme.of(context).brightness == Brightness.light
             ? Colors.grey[50]
             : Colors.grey[800],

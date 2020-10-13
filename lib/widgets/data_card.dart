@@ -35,9 +35,7 @@ class DataCard extends StatelessWidget {
             );
           },
           color: _color,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
+          shape: SHAPE,
           elevation: 10,
           child: Container(
             width: double.infinity,

@@ -18,22 +18,42 @@ class DataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    final Widget text = Text(
+      NumberFormat("###,###,###,###").format(int.parse(_value)),
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: Theme.of(context).textTheme.headline3.fontSize,
+      ),
+    );
+
     return Material(
       color: _color,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(_heading),
+          title: Text(
+            _heading,
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: BackButton(
+            color: Colors.white,
+          ),
           elevation: 0.0,
           backgroundColor: _color,
           centerTitle: true,
         ),
         body: Container(
-          padding: const EdgeInsets.all(16),
-          alignment: Alignment.center,
-          child: Text(
-            NumberFormat("###,###,###,###").format(int.parse(_value)),
-            style: Theme.of(context).textTheme.headline3,
+          padding: EdgeInsets.only(top: 80),
+          height: size.height / 2,
+          alignment: Alignment.topCenter,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [_color, Theme.of(context).canvasColor],
+            ),
           ),
+          child: text,
         ),
       ),
     );

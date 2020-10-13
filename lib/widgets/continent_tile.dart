@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/pages/continent_page.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,9 @@ class ContinentTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: Card(
         elevation: 10.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: SHAPE,
         child: MaterialButton(
+          shape: SHAPE,
           onPressed: () {
             Navigator.push(
               context,

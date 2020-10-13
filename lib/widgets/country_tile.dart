@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/data/sorting.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/pages/country_page.dart';
@@ -42,10 +43,9 @@ class CountryTile extends StatelessWidget {
       margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
       child: Card(
         elevation: 10.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: SHAPE,
         child: MaterialButton(
+          shape: SHAPE,
           onPressed: () {
             Navigator.push(
               context,
@@ -58,16 +58,6 @@ class CountryTile extends StatelessWidget {
             );
           },
           child: ListTile(
-            trailing: SizedBox(
-              height: 50,
-              width: 50,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: HeroFlag(
-                  country: _country,
-                ),
-              ),
-            ),
             title: Text(
               _country.country,
               style: TextStyle(fontSize: 20.0),
@@ -78,6 +68,16 @@ class CountryTile extends StatelessWidget {
                 children: <Widget>[
                   typeChip(),
                 ],
+              ),
+            ),
+            trailing: SizedBox(
+              height: 50,
+              width: 50,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(50),
+                child: HeroFlag(
+                  country: _country,
+                ),
               ),
             ),
             leading: _index == null

@@ -11,29 +11,29 @@ class ServiceProvider extends ChangeNotifier {
   List<Country> _countries;
 
   Global get global {
-    _global = Global.fromMap(map: {
-      "updated": 1601909792858,
-      "cases": 35483998,
-      "todayCases": 93887,
-      "deaths": 1043087,
-      "todayDeaths": 1538,
-      "recovered": 26694334,
-      "todayRecovered": 79500,
-      "active": 7746577,
-      "critical": 66550,
-      "casesPerOneMillion": 4552,
-      "deathsPerOneMillion": 133.8,
-      "tests": 671031644,
-      "testsPerOneMillion": 86266.67,
-      "population": 7778573974,
-      "oneCasePerPeople": 0,
-      "oneDeathPerPeople": 0,
-      "oneTestPerPeople": 0,
-      "activePerOneMillion": 995.89,
-      "recoveredPerOneMillion": 3431.78,
-      "criticalPerOneMillion": 8.56,
-      "affectedCountries": 216
-    });
+    // _global = Global.fromMap(map: {
+    //   "updated": 1601909792858,
+    //   "cases": 35483998,
+    //   "todayCases": 93887,
+    //   "deaths": 1043087,
+    //   "todayDeaths": 1538,
+    //   "recovered": 26694334,
+    //   "todayRecovered": 79500,
+    //   "active": 7746577,
+    //   "critical": 66550,
+    //   "casesPerOneMillion": 4552,
+    //   "deathsPerOneMillion": 133.8,
+    //   "tests": 671031644,
+    //   "testsPerOneMillion": 86266.67,
+    //   "population": 7778573974,
+    //   "oneCasePerPeople": 0,
+    //   "oneDeathPerPeople": 0,
+    //   "oneTestPerPeople": 0,
+    //   "activePerOneMillion": 995.89,
+    //   "recoveredPerOneMillion": 3431.78,
+    //   "criticalPerOneMillion": 8.56,
+    //   "affectedCountries": 216
+    // });
 
     if (_global == null) {
       _httpService.fetchGlobalData().then((Global global) {

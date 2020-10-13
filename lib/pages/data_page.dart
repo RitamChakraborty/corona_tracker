@@ -1,3 +1,4 @@
+import 'package:coronatracker/data/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -42,18 +43,38 @@ class DataPage extends StatelessWidget {
           backgroundColor: _color,
           centerTitle: true,
         ),
-        body: Container(
-          padding: EdgeInsets.only(top: 80),
-          height: size.height / 2,
-          alignment: Alignment.topCenter,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [_color, Theme.of(context).canvasColor],
+        body: Stack(
+          fit: StackFit.expand,
+          children: [
+            Container(
+              padding: EdgeInsets.only(top: size.height / 10),
+              height: size.height / 2,
+              alignment: Alignment.topCenter,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [_color, Theme.of(context).canvasColor],
+                ),
+              ),
+              child: text,
             ),
-          ),
-          child: text,
+            Container(
+              margin: EdgeInsets.only(top: size.height / 3),
+              alignment: Alignment.topCenter,
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: Card(
+                shape: SHAPE,
+                child: ListTile(
+                  title: Text(
+                    "Loading past records",
+                    textAlign: TextAlign.center,
+                  ),
+                  subtitle: LinearProgressIndicator(),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );

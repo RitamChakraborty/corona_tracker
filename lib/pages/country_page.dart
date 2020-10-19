@@ -23,14 +23,18 @@ class CountryPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             DataCard(
-              label: "Total Cases",
+              label: "Cases",
               value: _country.cases.toString(),
               color: Colors.purple,
+              showHistory: true,
+              country: _country,
             ),
             DataCard(
               label: "Recovered",
               value: _country.recovered.toString(),
               color: Colors.green,
+              showHistory: true,
+              country: _country,
             ),
           ],
         ),
@@ -54,6 +58,8 @@ class CountryPage extends StatelessWidget {
               label: "Deaths",
               value: _country.deaths.toString(),
               color: Colors.pink,
+              showHistory: true,
+              country: _country,
             ),
           ],
         ),

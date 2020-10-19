@@ -1,5 +1,5 @@
 import 'package:coronatracker/pages/continents_page.dart';
-import 'package:coronatracker/pages/contries_page.dart';
+import 'package:coronatracker/pages/countries_page.dart';
 import 'package:coronatracker/pages/global_page.dart';
 import 'package:coronatracker/pages/safety_page.dart';
 import 'package:flutter/cupertino.dart';

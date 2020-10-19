@@ -35,5 +35,14 @@ void main() {
         print("date: ${element.date}, value: ${element.value}");
       });
     });
+
+    test('fetch country history test', () async {
+      Country country = (await HttpService().fetchCountryData())[0];
+      History history = await HttpService()
+          .fetchCountryHistory(type: 'recovered', country: country);
+      history.records.forEach((element) {
+        print("date: ${element.date}, value: ${element.value}");
+      });
+    });
   });
 }

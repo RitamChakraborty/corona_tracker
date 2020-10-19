@@ -23,7 +23,7 @@ class ContinentPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             DataCard(
-              label: "Total Cases",
+              label: "Cases",
               value: _continent.cases.toString(),
               color: Colors.purple,
             ),

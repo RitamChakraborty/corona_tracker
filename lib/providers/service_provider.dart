@@ -197,7 +197,10 @@ class ServiceProvider extends ChangeNotifier {
           return null;
         }
     }
+  }
 
-    return null;
+  Future<History> getCountryHistory(
+      {@required Country country, @required String type}) async {
+    return await _httpService.fetchCountryHistory(type: type, country: country);
   }
 }

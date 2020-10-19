@@ -1,4 +1,5 @@
 import 'package:coronatracker/data/constants.dart';
+import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/models/history.dart';
 import 'package:coronatracker/models/single_record.dart';
 import 'package:coronatracker/providers/service_provider.dart';
@@ -12,16 +13,19 @@ class DataPage extends StatelessWidget {
   final String _value;
   final Color _color;
   final bool _showHistory;
+  final Country _country;
 
-  const DataPage(
-      {@required String heading,
-      @required String value,
-      @required Color color,
-      bool showHistory})
-      : this._heading = heading,
+  const DataPage({
+    @required String heading,
+    @required String value,
+    @required Color color,
+    @required bool showHistory,
+    Country country,
+  })  : this._heading = heading,
         this._value = value,
         this._color = color,
         this._showHistory = showHistory,
+        this._country = country,
         assert(heading != null),
         assert(value != null),
         assert(color != null),
@@ -70,6 +74,10 @@ class DataPage extends StatelessWidget {
         );
 
     Widget body() {
+      final future = _country == null
+          ? serviceProvider.getHistory(type: type)
+          : serviceProvider.getCountryHistory(country: _country, type: type);
+
       if (_showHistory) {
         return Stack(
           fit: StackFit.expand,
@@ -85,8 +93,8 @@ class DataPage extends StatelessWidget {
               margin: EdgeInsets.only(top: size.height / 3),
               alignment: Alignment.topCenter,
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: FutureBuilder(
-                future: serviceProvider.getHistory(type: type),
+              child: FutureBuilder<History>(
+                future: future,
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
                     return loadingWidget;

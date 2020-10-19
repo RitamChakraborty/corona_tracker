@@ -1,4 +1,5 @@
 import 'package:coronatracker/data/constants.dart';
+import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/pages/data_page.dart';
 import 'package:flutter/material.dart';
 
@@ -7,16 +8,19 @@ class DataCard extends StatelessWidget {
   final String _value;
   final Color _color;
   final bool _showHistory;
+  final Country _country;
 
   const DataCard({
     @required String label,
     @required String value,
     @required Color color,
     bool showHistory,
+    Country country,
   })  : this._label = label,
         this._value = value,
         this._color = color,
         this._showHistory = showHistory ?? false,
+        this._country = country,
         assert(label != null),
         assert(value != null),
         assert(color != null);
@@ -36,6 +40,7 @@ class DataCard extends StatelessWidget {
                   value: _value,
                   color: _color,
                   showHistory: _showHistory,
+                  country: _country,
                 ),
               ),
             );

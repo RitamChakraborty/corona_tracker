@@ -52,6 +52,29 @@ class HttpService {
           .entries
           .map((mapEntry) => SingleRecord.fromMapEntry(mapEntry: mapEntry))
           .toList();
+
+      return History(records: records);
+    } else {
+      throw Exception("Failed to fetch global history data");
+    }
+  }
+
+  Future<History> fetchCountryHistory({
+    @required String type,
+    @required Country country,
+  }) async {
+    String api = COUNTRY_HISTORY_API + country.countryInfo.iso2;
+    http.Response response = await http.get(api);
+
+    if (response.statusCode == 200) {
+      String body = response.body;
+      Map<String, dynamic> map = jsonDecode(body);
+      List<SingleRecord> records =
+          (map['timeline'][type] as Map<dynamic, dynamic>)
+              .entries
+              .map((mapEntry) => SingleRecord.fromMapEntry(mapEntry: mapEntry))
+              .toList();
+
       return History(records: records);
     } else {
       throw Exception("Failed to fetch global history data");

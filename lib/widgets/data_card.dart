@@ -6,12 +6,17 @@ class DataCard extends StatelessWidget {
   final String _label;
   final String _value;
   final Color _color;
+  final bool _showHistory;
 
-  const DataCard(
-      {@required String label, @required String value, @required Color color})
-      : this._label = label,
+  const DataCard({
+    @required String label,
+    @required String value,
+    @required Color color,
+    bool showHistory,
+  })  : this._label = label,
         this._value = value,
         this._color = color,
+        this._showHistory = showHistory ?? false,
         assert(label != null),
         assert(value != null),
         assert(color != null);
@@ -30,6 +35,7 @@ class DataCard extends StatelessWidget {
                   heading: _label,
                   value: _value,
                   color: _color,
+                  showHistory: _showHistory,
                 ),
               ),
             );

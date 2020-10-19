@@ -11,15 +11,21 @@ class DataPage extends StatelessWidget {
   final String _heading;
   final String _value;
   final Color _color;
+  final bool _showHistory;
 
   const DataPage(
-      {@required String heading, @required String value, @required Color color})
+      {@required String heading,
+      @required String value,
+      @required Color color,
+      bool showHistory})
       : this._heading = heading,
         this._value = value,
         this._color = color,
+        this._showHistory = showHistory,
         assert(heading != null),
         assert(value != null),
-        assert(color != null);
+        assert(color != null),
+        assert(showHistory != null);
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +38,7 @@ class DataPage extends StatelessWidget {
       style: TextStyle(
         color: Colors.white,
         fontSize: Theme.of(context).textTheme.headline3.fontSize,
+        fontWeight: FontWeight.bold,
       ),
     );
 
@@ -46,6 +53,14 @@ class DataPage extends StatelessWidget {
       ),
     );
 
+    final boxDecoration = BoxDecoration(
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [_color, Theme.of(context).canvasColor],
+      ),
+    );
+
     Widget recordWidget({@required SingleRecord record}) => Card(
           shape: SHAPE,
           child: ListTile(
@@ -54,35 +69,16 @@ class DataPage extends StatelessWidget {
           ),
         );
 
-    return Material(
-      color: _color,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            _heading,
-            style: TextStyle(color: Colors.white),
-          ),
-          leading: BackButton(
-            color: Colors.white,
-          ),
-          elevation: 0.0,
-          backgroundColor: _color,
-          centerTitle: true,
-        ),
-        body: Stack(
+    Widget body() {
+      if (_showHistory) {
+        return Stack(
           fit: StackFit.expand,
           children: [
             Container(
               padding: EdgeInsets.only(top: size.height / 10),
               height: size.height / 2,
               alignment: Alignment.topCenter,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [_color, Theme.of(context).canvasColor],
-                ),
-              ),
+              decoration: boxDecoration,
               child: text,
             ),
             Container(
@@ -109,7 +105,33 @@ class DataPage extends StatelessWidget {
               ),
             )
           ],
+        );
+      }
+
+      return Container(
+        padding: EdgeInsets.only(bottom: 100.0),
+        alignment: Alignment.center,
+        decoration: boxDecoration,
+        child: text,
+      );
+    }
+
+    return Material(
+      color: _color,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            _heading,
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: BackButton(
+            color: Colors.white,
+          ),
+          elevation: 0.0,
+          backgroundColor: _color,
+          centerTitle: true,
         ),
+        body: body(),
       ),
     );
   }

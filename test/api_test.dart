@@ -3,6 +3,7 @@ import 'package:coronatracker/models/continet_info.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/models/country_info.dart';
 import 'package:coronatracker/models/global.dart';
+import 'package:coronatracker/models/history.dart';
 import 'package:coronatracker/services/http_services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -26,6 +27,13 @@ void main() {
       expect(countries[0], isA<Country>());
       expect(countries[0].countryInfo, isA<CountryInfo>());
       expect(countries[0].continent, 'Asia');
+    });
+
+    test('fetch global history test', () async {
+      History history = await HttpService().fetchHistory(type: 'recovered');
+      history.records.forEach((element) {
+        print("date: ${element.date}, value: ${element.value}");
+      });
     });
   });
 }

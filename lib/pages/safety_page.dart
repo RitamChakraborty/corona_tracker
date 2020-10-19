@@ -1,8 +1,8 @@
-import 'package:coronatracker/services/symptoms_card.dart';
 import 'package:coronatracker/widgets/emergency.dart';
 import 'package:coronatracker/widgets/header.dart';
 import 'package:coronatracker/widgets/prevention_card.dart';
 import 'package:coronatracker/widgets/prevention_card_1.dart';
+import 'package:coronatracker/widgets/symptoms_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';

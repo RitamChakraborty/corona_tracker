@@ -4,7 +4,10 @@ import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/models/global.dart';
+import 'package:coronatracker/models/history.dart';
+import 'package:coronatracker/models/single_record.dart';
 import 'package:http/http.dart' as http;
+import 'package:meta/meta.dart';
 
 class HttpService {
   Future<Global> fetchGlobalData() async {
@@ -36,6 +39,22 @@ class HttpService {
       return list.map((dynamic map) => Country.fromMap(map: map)).toList();
     } else {
       throw Exception('Failed to fetch country data');
+    }
+  }
+
+  Future<History> fetchHistory({@required String type}) async {
+    http.Response response = await http.get(GLOBAL_HISTORY_API);
+
+    if (response.statusCode == 200) {
+      String body = response.body;
+      Map<String, dynamic> map = jsonDecode(body);
+      List<SingleRecord> records = (map[type] as Map<dynamic, dynamic>)
+          .entries
+          .map((mapEntry) => SingleRecord.fromMapEntry(mapEntry: mapEntry))
+          .toList();
+      return History(records: records);
+    } else {
+      throw Exception("Failed to fetch global history data");
     }
   }
 }

@@ -25,6 +25,8 @@ class DataPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     Size size = MediaQuery.of(context).size;
+    String type = _heading.toLowerCase();
+
     final Widget text = Text(
       NumberFormat("###,###,###,###").format(int.parse(_value)),
       style: TextStyle(
@@ -88,7 +90,7 @@ class DataPage extends StatelessWidget {
               alignment: Alignment.topCenter,
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               child: FutureBuilder(
-                future: serviceProvider.caseHistory,
+                future: serviceProvider.getHistory(type: type),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
                   if (!snapshot.hasData) {
                     return loadingWidget;

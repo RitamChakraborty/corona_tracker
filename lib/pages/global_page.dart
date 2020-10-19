@@ -39,7 +39,7 @@ class _GlobalPageState extends State<GlobalPage>
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             DataCard(
-              label: "Total Cases",
+              label: "Cases",
               value: global.cases.toString(),
               color: Colors.purple,
             ),

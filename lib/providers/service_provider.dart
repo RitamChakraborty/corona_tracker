@@ -168,4 +168,27 @@ class ServiceProvider extends ChangeNotifier {
     _recoveredHistory = await _httpService.fetchHistory(type: 'recovered');
     return _recoveredHistory;
   }
+
+  Future<History> getHistory({@required String type}) {
+    switch (type) {
+      case "cases":
+        {
+          return caseHistory;
+        }
+      case "deaths":
+        {
+          return deathHistory;
+        }
+      case "recovered":
+        {
+          return recoveredHistory;
+        }
+      default:
+        {
+          return null;
+        }
+    }
+
+    return null;
+  }
 }

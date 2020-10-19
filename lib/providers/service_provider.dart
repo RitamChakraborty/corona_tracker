@@ -155,17 +155,26 @@ class ServiceProvider extends ChangeNotifier {
   }
 
   Future<History> get caseHistory async {
-    _caseHistory = await _httpService.fetchHistory(type: 'cases');
+    if (_caseHistory == null) {
+      _caseHistory = await _httpService.fetchHistory(type: 'cases');
+    }
+
     return _caseHistory;
   }
 
   Future<History> get deathHistory async {
-    _deathHistory = await _httpService.fetchHistory(type: 'deaths');
+    if (_deathHistory == null) {
+      _deathHistory = await _httpService.fetchHistory(type: 'deaths');
+    }
+
     return _deathHistory;
   }
 
   Future<History> get recoveredHistory async {
-    _recoveredHistory = await _httpService.fetchHistory(type: 'recovered');
+    if (_recoveredHistory == null) {
+      _recoveredHistory = await _httpService.fetchHistory(type: 'recovered');
+    }
+
     return _recoveredHistory;
   }
 

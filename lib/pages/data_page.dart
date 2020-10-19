@@ -93,7 +93,8 @@ class DataPage extends StatelessWidget {
                   }
 
                   History history = snapshot.data;
-                  List<SingleRecord> records = history.records;
+                  List<SingleRecord> records =
+                      history.records.reversed.toList();
 
                   return ListView.builder(
                     itemCount: history.records.length,

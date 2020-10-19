@@ -1,4 +1,3 @@
-import 'package:coronatracker/data/constants.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/models/history.dart';
 import 'package:coronatracker/models/single_record.dart';
@@ -37,6 +36,11 @@ class DataPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     String type = _heading.toLowerCase();
 
+    final textStyle = TextStyle(
+      color: Colors.white,
+      fontSize: Theme.of(context).textTheme.headline5.fontSize,
+    );
+
     final Widget text = Text(
       NumberFormat("###,###,###,###").format(int.parse(_value)),
       style: TextStyle(
@@ -46,15 +50,13 @@ class DataPage extends StatelessWidget {
       ),
     );
 
-    final loadingWidget = Card(
-      shape: SHAPE,
-      child: ListTile(
-        title: Text(
-          "Loading past records",
-          textAlign: TextAlign.center,
-        ),
-        subtitle: LinearProgressIndicator(),
+    final loadingWidget = ListTile(
+      title: Text(
+        "Loading past records",
+        textAlign: TextAlign.center,
+        style: textStyle,
       ),
+      subtitle: LinearProgressIndicator(),
     );
 
     final boxDecoration = BoxDecoration(
@@ -65,12 +67,9 @@ class DataPage extends StatelessWidget {
       ),
     );
 
-    Widget recordWidget({@required SingleRecord record}) => Card(
-          shape: SHAPE,
-          child: ListTile(
-            title: Text("Date: ${record.date}"),
-            trailing: Text("${record.value.toString()}"),
-          ),
+    Widget recordWidget({@required SingleRecord record}) => ListTile(
+          title: Text("Date: ${record.date}"),
+          trailing: Text("${record.value.toString()}"),
         );
 
     Widget body() {
@@ -104,11 +103,38 @@ class DataPage extends StatelessWidget {
                   List<SingleRecord> records =
                       history.records.reversed.toList();
 
-                  return ListView.builder(
-                    itemCount: history.records.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return recordWidget(record: records[index]);
-                    },
+                  double averageDailyIncrement =
+                      getAverageDailyIncrement(records);
+
+                  return Column(
+                    children: [
+                      ListTile(
+                        title: Text(
+                          "Past Records",
+                          textAlign: TextAlign.center,
+                          style: textStyle,
+                        ),
+                        subtitle: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Average daily increment: ${averageDailyIncrement.round()}",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 16),
+                      Expanded(
+                        child: ListView.separated(
+                          itemCount: history.records.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return recordWidget(record: records[index]);
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider();
+                          },
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -143,5 +169,15 @@ class DataPage extends StatelessWidget {
         body: body(),
       ),
     );
+  }
+
+  double getAverageDailyIncrement(List<SingleRecord> records) {
+    double sum = 0.0;
+
+    for (int i = 1; i < records.length; ++i) {
+      sum += records[i - 1].value - records[i].value;
+    }
+
+    return sum / records.length;
   }
 }

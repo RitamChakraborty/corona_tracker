@@ -1,6 +1,7 @@
 import 'package:coronatracker/models/continent.dart';
 import 'package:coronatracker/models/country.dart';
 import 'package:coronatracker/models/global.dart';
+import 'package:coronatracker/models/history.dart';
 import 'package:coronatracker/services/http_services.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -9,6 +10,9 @@ class ServiceProvider extends ChangeNotifier {
   Global _global;
   List<Continent> _continents;
   List<Country> _countries;
+  History _caseHistory;
+  History _deathHistory;
+  History _recoveredHistory;
 
   Global get global {
     // _global = Global.fromMap(map: {
@@ -148,5 +152,20 @@ class ServiceProvider extends ChangeNotifier {
 
   Future<void> fetchCountries() async {
     _countries = await _httpService.fetchCountryData();
+  }
+
+  Future<History> get caseHistory async {
+    _caseHistory = await _httpService.fetchHistory(type: 'cases');
+    return _caseHistory;
+  }
+
+  Future<History> get deathHistory async {
+    _deathHistory = await _httpService.fetchHistory(type: 'deaths');
+    return _deathHistory;
+  }
+
+  Future<History> get recoveredHistory async {
+    _recoveredHistory = await _httpService.fetchHistory(type: 'recovered');
+    return _recoveredHistory;
   }
 }

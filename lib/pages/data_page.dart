@@ -1,7 +1,11 @@
 import 'package:coronatracker/data/constants.dart';
+import 'package:coronatracker/models/history.dart';
+import 'package:coronatracker/models/single_record.dart';
+import 'package:coronatracker/providers/service_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class DataPage extends StatelessWidget {
   final String _heading;
@@ -19,6 +23,7 @@ class DataPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ServiceProvider serviceProvider = Provider.of<ServiceProvider>(context);
     Size size = MediaQuery.of(context).size;
     final Widget text = Text(
       NumberFormat("###,###,###,###").format(int.parse(_value)),
@@ -27,6 +32,25 @@ class DataPage extends StatelessWidget {
         fontSize: Theme.of(context).textTheme.headline3.fontSize,
       ),
     );
+
+    final loadingWidget = Card(
+      shape: SHAPE,
+      child: ListTile(
+        title: Text(
+          "Loading past records",
+          textAlign: TextAlign.center,
+        ),
+        subtitle: LinearProgressIndicator(),
+      ),
+    );
+
+    Widget recordWidget({@required SingleRecord record}) => Card(
+          shape: SHAPE,
+          child: ListTile(
+            title: Text("Date: ${record.date}"),
+            trailing: Text("${record.value.toString()}"),
+          ),
+        );
 
     return Material(
       color: _color,
@@ -63,15 +87,23 @@ class DataPage extends StatelessWidget {
               margin: EdgeInsets.only(top: size.height / 3),
               alignment: Alignment.topCenter,
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: Card(
-                shape: SHAPE,
-                child: ListTile(
-                  title: Text(
-                    "Loading past records",
-                    textAlign: TextAlign.center,
-                  ),
-                  subtitle: LinearProgressIndicator(),
-                ),
+              child: FutureBuilder(
+                future: serviceProvider.caseHistory,
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  if (!snapshot.hasData) {
+                    return loadingWidget;
+                  }
+
+                  History history = snapshot.data;
+                  List<SingleRecord> records = history.records;
+
+                  return ListView.builder(
+                    itemCount: history.records.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return recordWidget(record: records[index]);
+                    },
+                  );
+                },
               ),
             )
           ],

@@ -89,7 +89,7 @@ class Emergency extends StatelessWidget {
                             ),
                             chip(
                               label: "ncov2019@gov.in",
-                              url: "mailto:mcov2019@gov.in",
+                              url: "mailto:ncov2019@gov.in",
                               icon: Icons.email,
                               color: Colors.deepOrangeAccent,
                             ),
